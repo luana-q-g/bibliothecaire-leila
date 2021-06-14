@@ -5,6 +5,10 @@ Bibliotech é um jogo no qual o jogador deve ajudar uma bibliotecária a organiz
 Por enquanto não há uma distribuição de pacotes do jogo, a única forma de instalar é através do código fonte.
 
 1. Clone o repositório em sua máquina local
+```bash
+$ git clone https://github.com/luissimas/biliotech.git
+```
+
 2. Entre na pasta do jogo
 ```bash
 $ cd bibliotech
@@ -19,4 +23,3 @@ $ make
 ```bash
 $ ./bibliotech
 ```
-
