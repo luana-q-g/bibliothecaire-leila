@@ -20,7 +20,9 @@ Objetivos: Arquivo de cabeçalho da classe BaseList
 
 using namespace std;
 
-template <class elementType> class BaseList {
+template <class elementType>
+class BaseList
+{
 private:
   Node<elementType> *header;
   Node<elementType> *current;

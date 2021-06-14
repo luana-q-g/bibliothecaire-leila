@@ -20,7 +20,9 @@ duplamente encadeada.
 
 using namespace std;
 
-template <class elementType> class Node {
+template <class elementType>
+class Node
+{
 private:
   elementType data;
   Node<elementType> *next;

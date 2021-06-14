@@ -8,6 +8,10 @@ Objetivos: Implementar os métodos da classe Node
 
 */
 
+
+#ifndef NODE_CPP
+#define NODE_CPP
+
 // Arquivo de cabeçalho
 #include "node.h"
 
@@ -36,3 +40,5 @@ template <class elementType> void Node<elementType>::setPrev(Node<elementType> *
 template <class elementType> void Node<elementType>::setNext(Node<elementType> *node) {
   next = node;
 }
+
+#endif
