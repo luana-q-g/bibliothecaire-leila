@@ -8,7 +8,6 @@ Objetivos: Implementar os métodos da classe pilha
 
 */
 
-
 #ifndef PILHA_CPP
 #define PILHA_CPP
 
@@ -20,19 +19,20 @@ using namespace std;
 template <class elementType>
 void Pilha<elementType>::inserir(elementType &element)
 {
-  BaseList<elementType>::insertNode(BaseList<elementType>::getHeader(), element);
+  BaseList<elementType>::insertNode(BaseList<elementType>::getHeader(), &element);
 }
 
 template <class elementType>
 elementType Pilha<elementType>::remover()
 {
   Node<elementType> noRemovido;
+  elementType dataRemovido = BaseList<elementType>::getHeader()->getNext()->getData();
 
-  noRemovido.setData(BaseList<elementType>::getHeader()->getNext()->getData());
+  noRemovido.setData(&dataRemovido);
 
   BaseList<elementType>::removeNode(BaseList<elementType>::getHeader()->getNext());
 
-  return noRemovido;
+  return noRemovido.getData();
 }
 
 #endif

@@ -14,11 +14,15 @@ Objetivos: Arquivo de cabeçalho da classe livro
 // Bibliotecas
 #include <iostream>
 #include <string>
+#include <algorithm>
+#include <iomanip>
 
 using namespace std;
 
 class Livro
 {
+  friend ostream &operator<<(ostream &output, const Livro &);
+
 private:
   string nome;
   string autor;

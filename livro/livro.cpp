@@ -85,4 +85,12 @@ bool Livro::operator==(const Livro &livro)
   return (ano_lancamento == livro.ano_lancamento) && (autor == livro.autor) && (categoria == livro.categoria) && (editora == livro.editora);
 }
 
+ostream &operator<<(ostream &output, const Livro &l1)
+{
+  output << "Nome: " << l1.nome << ", Autor: " << l1.autor << endl
+         << "Categoria: " << l1.categoria << endl
+         << "Ano de lançamento: " << l1.ano_lancamento << ", Editora: " << l1.editora << endl;
+
+  return output;
+}
 #endif

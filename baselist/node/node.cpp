@@ -8,7 +8,6 @@ Objetivos: Implementar os métodos da classe Node
 
 */
 
-
 #ifndef NODE_CPP
 #define NODE_CPP
 
@@ -17,27 +16,39 @@ Objetivos: Implementar os métodos da classe Node
 
 using namespace std;
 
-template <class elementType> elementType Node<elementType>::getData() {
+template <class elementType>
+elementType Node<elementType>::getData()
+{
   return data;
 }
 
-template <class elementType> Node<elementType> *Node<elementType>::getNext() {
+template <class elementType>
+Node<elementType> *Node<elementType>::getNext()
+{
   return next;
 }
 
-template <class elementType> Node<elementType> *Node<elementType>::getPrev() {
+template <class elementType>
+Node<elementType> *Node<elementType>::getPrev()
+{
   return prev;
 }
 
-template <class elementType> void Node<elementType>::setData(const elementType *dataRecieved) {
-  data = *dataRecieved;
+template <class elementType>
+void Node<elementType>::setData(const elementType *dataReceived)
+{
+  data = *dataReceived;
 }
 
-template <class elementType> void Node<elementType>::setPrev(Node<elementType> *node) {
+template <class elementType>
+void Node<elementType>::setPrev(Node<elementType> *node)
+{
   prev = node;
 }
 
-template <class elementType> void Node<elementType>::setNext(Node<elementType> *node) {
+template <class elementType>
+void Node<elementType>::setNext(Node<elementType> *node)
+{
   next = node;
 }
 
