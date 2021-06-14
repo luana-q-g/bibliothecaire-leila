@@ -2,7 +2,7 @@ CXX=g++
 CXXFLAGS=-Wall
 
 LIBRARIES=
-EXECUTABLE=output
+EXECUTABLE=bibliotech
 
 SOURCES := ${wildcard *.cpp} ${wildcard **/*.cpp}
 
