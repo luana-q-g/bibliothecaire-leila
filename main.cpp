@@ -133,97 +133,64 @@ int main(int argc, char *argv[])
     pilha.inserir(lista_fixa[indices[i]]);
   }
 
-  int op = 0;
   int categoria;
 
   // TODO: resolver como a gente vai colocar as posições
   int posicao = 0;
 
-  while (op != 3)
+  while (!pilha.empty())
   {
-    cout << "Opções: " << endl;
-    cout << "[1] Inserir livro." << endl;
-    cout << "[2] Listar livros." << endl;
-    cout << "[3] Sair." << endl;
-    cout << "Opção: ";
-    cin >> op;
+    Livro livro = pilha.remover();
 
-    switch (op)
+    cout << endl
+         << endl
+         << "Livro no topo da pilha: " << endl;
+
+    cout << livro << endl;
+
+    cout << "Categorias: " << endl;
+    cout << "[0] Letras" << endl;
+    cout << "[1] Filosofia" << endl;
+    cout << "[2] Geografia" << endl;
+    cout << "[3] Historia" << endl;
+    cout << "[4] Matematica" << endl;
+    cout << "[5] Psicologia" << endl;
+    cout << "[6] Informatica" << endl;
+    cout << "[7] Quimica" << endl;
+    cout << "[8] Arte" << endl;
+
+    cout << "Em qual categoria? ";
+    cin >> categoria;
+
+    if (categoria > 8 || categoria < 0)
     {
-    case 1:
+      cout << "Categoria inválida!" << endl;
+    }
+    else
     {
-      cout << "Categorias: " << endl;
-      cout << "[0] Letras" << endl;
-      cout << "[1] Filosofia" << endl;
-      cout << "[2] Geografia" << endl;
-      cout << "[3] Historia" << endl;
-      cout << "[4] Matematica" << endl;
-      cout << "[5] Psicologia" << endl;
-      cout << "[6] Informatica" << endl;
-      cout << "[7] Quimica" << endl;
-      cout << "[8] Arte" << endl;
-
-      cout << "Em qual categoria? ";
-      cin >> categoria;
-
-      if (categoria > 8 || categoria < 0)
-      {
-        cout << "Categoria inválida!" << endl;
-      }
-      else
+      if (!listas[categoria].empty())
       {
         listas[categoria].imprimir();
 
         cout << "Inserir logo após qual livro? ";
         cin >> posicao;
-
-        Livro livro = pilha.remover();
-
-        if (listas[categoria].inserir(livro, posicao))
-        {
-          cout << "Livro inserido com sucesso!" << endl;
-        }
-        else
-        {
-          // Caso não seja possível inserir o livro, retornamos ele para a pilha
-          pilha.inserir(livro);
-          cout << "Não é possível inserir o livro nessa posição!" << endl;
-        }
       }
-      break;
-    }
-    //Listar todos os livros
-    case 2:
-    {
-      cout << "Livros na pilha:" << endl;
-
-      Pilha<Livro> pilhaAux;
-      Livro livroAux;
-
-      while (!pilha.empty())
+      else
       {
-        livroAux = pilha.remover();
-        cout << livroAux << endl;
-        pilhaAux.inserir(livroAux);
+        posicao = 0;
       }
 
-      // Devolvendo os elementos para a stack principal
-      while (!pilhaAux.empty())
+      if (listas[categoria].inserir(livro, posicao))
       {
-        livroAux = pilhaAux.remover();
-        pilha.inserir(livroAux);
+        cout << "Livro inserido com sucesso!" << endl;
       }
-      break;
+      else
+      {
+        // Caso não seja possível inserir o livro, retornamos ele para a pilha
+        pilha.inserir(livro);
+        cout << "Não é possível inserir o livro nessa posição!" << endl;
+      }
     }
-    case 3:
-    {
-      cout << "Saindo..." << endl;
-      break;
-    }
-    default:
-      cout << "Opção inválida" << endl;
-    }
-    cout << endl;
   }
 
   return 0;

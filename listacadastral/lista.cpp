@@ -27,7 +27,6 @@ bool Lista<elementType>::podeInserir(elementType &element, Node<elementType> *no
     });*/
   if (element.getCategoria() == categoria)
   {
-    cout << "Teste";
     // TODO: Lógica de ordenação da lista
     return true;
   }
@@ -74,18 +73,19 @@ void Lista<elementType>::imprimir()
   // Elemento auxiliar
   elementType *elementAux = new elementType;
 
+  // Contador para mostrar o índice dos elementos na lista
+  int count = 0;
+
   BaseList<elementType>::getFirst(elementAux);
 
-  Node<elementType> *current = new Node<elementType>;
   Node<elementType> *header = BaseList<elementType>::getHeader();
-
   // Exibindo todos os elementos
   do
   {
-    current = BaseList<elementType>::getCurrent();
-    cout << *elementAux << endl;
+    cout << "[" << count << "] " << *elementAux << endl;
+    count++;
   } while (BaseList<elementType>::getNext(elementAux) &&
-           (current != header));
+           (BaseList<elementType>::getCurrent() != header));
 
   cout << endl;
 }

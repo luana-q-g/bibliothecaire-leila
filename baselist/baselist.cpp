@@ -66,8 +66,7 @@ void BaseList<elementType>::setCurrent(Node<elementType> *node)
 
 // Retorna por referência o ponteiro para o elemento com o dado valor na lista
 template <class elementType>
-bool BaseList<elementType>::isInList(elementType *element,
-                                     Node<elementType> **nodeRef)
+bool BaseList<elementType>::isInList(elementType *element, Node<elementType> **nodeRef)
 {
   // Caso a lista esteja vazia certamente o elemento não está nela
   if (empty())
