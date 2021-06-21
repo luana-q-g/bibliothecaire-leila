@@ -17,6 +17,44 @@ Objetivos: Implementar os métodos da classe pilha
 using namespace std;
 
 template <class elementType>
+Pilha<elementType>::Pilha(): tam_pilha(0){}
+
+template <class elementType>
+Pilha<elementType>::Pilha(int _tam_pilha, elementType *lista_fixa){
+  srand(time(NULL)); // randomize seed
+  int tam_pilha = 10;
+  int indices[tam_pilha];
+
+  for (int i = 0; i < tam_pilha; i++)
+  {
+    bool tem_num = true;
+    int num_aleatorio;
+
+    while (tem_num)
+    {
+      num_aleatorio = rand() % 36;
+
+      tem_num = false;
+
+      for (int i = 0; i < tam_pilha; i++)
+      {
+        if (indices[i] == num_aleatorio)
+        {
+          tem_num = true;
+        }
+      }
+    }
+
+    indices[i] = num_aleatorio;
+  }
+
+  for (int i = 0; i < tam_pilha; i++)
+  {
+    this->inserir(lista_fixa[indices[i]]);
+  }
+}
+
+template <class elementType>
 void Pilha<elementType>::inserir(elementType &element)
 {
   BaseList<elementType>::insertNode(BaseList<elementType>::getHeader(), &element);

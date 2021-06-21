@@ -15,15 +15,19 @@ Objetivos: Arquivo de cabeçalho da classe pilha
 #include <iostream>
 #include <string>
 
-#include "../baselist/baselist.h"
 #include "../baselist/baselist.cpp"
+#include "../baselist/baselist.h"
 
 using namespace std;
 
-template <class elementType>
-class Pilha : public BaseList<elementType>
-{
+template <class elementType> class Pilha : public BaseList<elementType> {
+private:
+  int tam_pilha;
+
 public:
+  Pilha();
+  Pilha(int _tam_pilha, elementType *lista_fixa);
+
   void inserir(elementType &element);
   elementType remover();
 };

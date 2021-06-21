@@ -12,6 +12,9 @@ Objetivos: Trabalho de AED1
 */
 
 // Bibliotecas
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/Window/VideoMode.hpp>
 #include <iostream>
 #include <string>
 #include <stdlib.h>
@@ -99,98 +102,71 @@ int main(int argc, char *argv[])
       psicologia_l23, psicologia_l24, informatica_l25, informatica_l26, informatica_l27, informatica_l28,
       quimica_l29, quimica_l30, quimica_l31, quimica_l32, arte_l33, arte_l34, arte_l35, arte_l36}; // Pilha com os livros
 
-  srand(time(NULL)); // randomize seed
-  // TODO: preencher ela aleatoriamente
-  Pilha<Livro> pilha;
-  int tam_pilha = 10;
-  int indices[tam_pilha];
+  Pilha<Livro> pilha(10, lista_fixa);
 
-  for (int i = 0; i < tam_pilha; i++)
-  {
-    bool tem_num = true;
-    int num_aleatorio;
+  sf::RenderWindow window(sf::VideoMode(200,200), "Bibliotecária Leila");
 
-    while (tem_num)
-    {
-      num_aleatorio = rand() % 36;
+  while (window.isOpen()) {
+    sf::Event event;
+    bool isClicked;
 
-      tem_num = false;
+    // While there are pending events
+    while (window.pollEvent(event)) {
 
-      for (int i = 0; i < tam_pilha; i++)
-      {
-        if (indices[i] == num_aleatorio)
-        {
-          tem_num = true;
+      // Check the element type
+      switch (event.type) {
+      // sf::Event::Closed is triggered whenever the user wants to close
+      // the window via any method provided by the window manager
+      case sf::Event::Closed:
+        window.close();
+        break;
+      case sf::Event::KeyPressed:
+        cout << "Key pressed was: " << event.key.code << endl;
+        break;
+      case sf::Event::MouseMoved:
+        if (isClicked) {
+          // Simple set position
+          // circle.setPosition(event.mouseMove.x, event.mouseMove.y);
+
+          // Set position centering the object
+          // circle.setPosition(
+          //     (event.mouseMove.x - (circle.getGlobalBounds().width / 2)),
+          //     (event.mouseMove.y - (circle.getGlobalBounds().height / 2)));
+
+          // Checking colision with rectangle
+          // if(circle.getGlobalBounds().intersects(rectangleBounding)){
+          //   cout << "Inside the rectangle!" << endl;
+          // }else{
+          //   cout << "Outside the rectangle!" << endl;
+          // }
         }
+        break;
+      case sf::Event::MouseButtonPressed:
+        if (event.mouseButton.button == 0)
+          isClicked = true;
+        break;
+      case sf::Event::MouseButtonReleased:
+        // Checking if the object was "droped" on a specifc spot
+        // if (circle.getGlobalBounds().intersects(rectangleBounding)) {
+        //   //cout << "Inside the rectangle!" << endl;
+        //   circle.setPosition(rectangle.getPosition().x,
+        //                      rectangle.getPosition().y);
+        // } else {
+        //   centerShape(circle, window);
+        //   //cout << "Outside the rectangle!" << endl;
+        // }
+
+        isClicked = false;
+        break;
+      default:
+        break;
       }
     }
 
-    indices[i] = num_aleatorio;
-  }
-
-  for (int i = 0; i < tam_pilha; i++)
-  {
-    pilha.inserir(lista_fixa[indices[i]]);
-  }
-
-  int categoria;
-
-  // TODO: resolver como a gente vai colocar as posições
-  int posicao = 0;
-
-  while (!pilha.empty())
-  {
-    Livro livro = pilha.remover();
-
-    cout << endl
-         << endl
-         << "Livro no topo da pilha: " << endl;
-
-    cout << livro << endl;
-
-    cout << "Categorias: " << endl;
-    cout << "[0] Letras" << endl;
-    cout << "[1] Filosofia" << endl;
-    cout << "[2] Geografia" << endl;
-    cout << "[3] Historia" << endl;
-    cout << "[4] Matematica" << endl;
-    cout << "[5] Psicologia" << endl;
-    cout << "[6] Informatica" << endl;
-    cout << "[7] Quimica" << endl;
-    cout << "[8] Arte" << endl;
-
-    cout << "Em qual categoria? ";
-    cin >> categoria;
-
-    if (categoria > 8 || categoria < 0)
-    {
-      cout << "Categoria inválida!" << endl;
-    }
-    else
-    {
-      if (!listas[categoria].empty())
-      {
-        listas[categoria].imprimir();
-
-        cout << "Inserir logo após qual livro? ";
-        cin >> posicao;
-      }
-      else
-      {
-        posicao = 0;
-      }
-
-      if (listas[categoria].inserir(livro, posicao))
-      {
-        cout << "Livro inserido com sucesso!" << endl;
-      }
-      else
-      {
-        // Caso não seja possível inserir o livro, retornamos ele para a pilha
-        pilha.inserir(livro);
-        cout << "Não é possível inserir o livro nessa posição!" << endl;
-      }
-    }
+    window.clear();
+    // window.draw(rectangle);
+    // window.draw(circle);
+    window.display();
   }
 
   return 0;
