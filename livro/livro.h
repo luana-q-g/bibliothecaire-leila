@@ -12,32 +12,41 @@ Objetivos: Arquivo de cabeçalho da classe livro
 #define LIVRO_H
 
 // Bibliotecas
-#include <iostream>
-#include <string>
+#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/Image.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RenderStates.hpp>
+#include <SFML/System/Vector2.hpp>
 #include <algorithm>
 #include <iomanip>
+#include <iostream>
+#include <string>
+
+#include <SFML/Main.hpp>
 
 using namespace std;
 
-class Livro
-{
-  friend ostream &operator<<(ostream &output, const Livro &);
-
+class Livro {
 private:
   string nome;
   string autor;
   string categoria;
   int ano_lancamento;
   string editora;
+  sf::RectangleShape shape;
 
 public:
-  Livro(string _nome = "", string _autor = "", string _categoria = "", int _ano_lancamento = 0, string _editora = "");
+  Livro(string _nome = "", string _autor = "", string _categoria = "",
+        int _ano_lancamento = 0, string _editora = "");
 
   string getNome() const;
   string getAutor() const;
   string getCategoria() const;
   int getAnoLancamento() const;
   string getEditora() const;
+  sf::RectangleShape getShape() const;
 
   void setNome(string _nome = "");
   void setAutor(string _autor = "");
@@ -49,6 +58,8 @@ public:
   bool operator>(const Livro &livro);
   bool operator<(const Livro &livro);
   bool operator==(const Livro &livro);
+
+  friend ostream &operator<<(ostream &output, const Livro &);
 };
 
 #endif

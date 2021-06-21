@@ -32,7 +32,6 @@ using namespace std;
 // Função principal
 int main(int argc, char *argv[])
 {
-
   setlocale(LC_ALL, "Portuguese");
 
   // Lista pra cada categoria
@@ -105,6 +104,14 @@ int main(int argc, char *argv[])
   Pilha<Livro> pilha(10, lista_fixa);
 
   sf::RenderWindow window(sf::VideoMode(200,200), "Bibliotecária Leila");
+  sf::Texture bgTexture;
+  sf::Sprite background;
+
+  if(!bgTexture.loadFromFile("background.jpg")){
+    cout << "Erro: não foi possível carregar a imagem de background" << endl;
+  }else{
+    background.setTexture(bgTexture, true);
+  }
 
   while (window.isOpen()) {
     sf::Event event;
@@ -164,8 +171,8 @@ int main(int argc, char *argv[])
     }
 
     window.clear();
-    // window.draw(rectangle);
-    // window.draw(circle);
+    window.draw(background);
+    window.draw(letras_l1.getShape());
     window.display();
   }
 
