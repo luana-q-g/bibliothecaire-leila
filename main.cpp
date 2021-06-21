@@ -103,13 +103,20 @@ int main(int argc, char *argv[])
 
   Pilha<Livro> pilha(10, lista_fixa);
 
-  sf::RenderWindow window(sf::VideoMode(200,200), "Bibliotecária Leila");
+  sf::RenderWindow window(sf::VideoMode(626*2,375*2), "Bibliotecária Leila");
   sf::Texture bgTexture;
   sf::Sprite background;
 
   if(!bgTexture.loadFromFile("background.jpg")){
     cout << "Erro: não foi possível carregar a imagem de background" << endl;
   }else{
+    sf::Vector2u TextureSize = bgTexture.getSize(); //Get size of texture.
+    sf::Vector2u WindowSize = window.getSize();             //Get size of window.
+
+    float ScaleX = (float) WindowSize.x / TextureSize.x;
+    float ScaleY = (float) WindowSize.y / TextureSize.y;     //Calculate scale.
+
+    background.setScale(ScaleX, ScaleY);      //Set scale.
     background.setTexture(bgTexture, true);
   }
 
@@ -172,7 +179,7 @@ int main(int argc, char *argv[])
 
     window.clear();
     window.draw(background);
-    window.draw(letras_l1.getShape());
+    //window.draw(letras_l1.getShape());
     window.display();
   }
 
