@@ -106,8 +106,10 @@ int main(int argc, char *argv[])
   sf::RenderWindow window(sf::VideoMode(626*2,375*2), "Bibliotecária Leila");
   sf::Texture bgTexture;
   sf::Texture girlTexture;
+  sf::Texture dialogoTexture;
   sf::Sprite background;
   sf::Sprite girl;
+  sf::Sprite dialogo;
 
   if(!bgTexture.loadFromFile("background.jpg")){
     cout << "Erro: não foi possível carregar a imagem de background" << endl;
@@ -128,6 +130,13 @@ int main(int argc, char *argv[])
   }else{
     girl.setTexture(girlTexture);
     girl.setPosition(0, window.getSize().y - girl.getGlobalBounds().height);
+  }
+
+  if(!dialogoTexture.loadFromFile("dialogo.png")){
+    cout << "Erro: não foi possível carregar a imagem da bela moça" << endl;
+  }else{
+    dialogo.setTexture(dialogoTexture);
+    dialogo.setPosition(girl.getGlobalBounds().width - 150, girl.getGlobalBounds().height - 350);
   }
 
   while (window.isOpen()) {
@@ -190,6 +199,7 @@ int main(int argc, char *argv[])
     window.clear();
     window.draw(background);
     window.draw(girl);
+    window.draw(dialogo);
     //window.draw(letras_l1.getShape());
     window.display();
   }
