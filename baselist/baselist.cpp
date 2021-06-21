@@ -17,9 +17,7 @@ Objetivos: Implementar os métodos da classe BaseList
 
 using namespace std;
 
-template <class elementType>
-BaseList<elementType>::BaseList()
-{
+template <class elementType> BaseList<elementType>::BaseList() {
   header = new Node<elementType>;
 
   header->setNext(header);
@@ -28,14 +26,11 @@ BaseList<elementType>::BaseList()
   setCurrent(header);
 };
 
-template <class elementType>
-BaseList<elementType>::~BaseList()
-{
+template <class elementType> BaseList<elementType>::~BaseList() {
   getFirst(NULL);
 
   // Delete all nodes (except header)
-  while (getNext(NULL) && current != header)
-  {
+  while (getNext(NULL) && current != header) {
     delete current->getPrev();
   }
 
@@ -44,33 +39,28 @@ BaseList<elementType>::~BaseList()
 };
 
 template <class elementType>
-Node<elementType> *BaseList<elementType>::getHeader()
-{
+Node<elementType> *BaseList<elementType>::getHeader() {
   return header;
 }
 
 template <class elementType>
-Node<elementType> *BaseList<elementType>::getCurrent()
-{
+Node<elementType> *BaseList<elementType>::getCurrent() {
   return current;
 }
 
 template <class elementType>
-void BaseList<elementType>::setCurrent(Node<elementType> *node)
-{
-  if (node != NULL)
-  {
+void BaseList<elementType>::setCurrent(Node<elementType> *node) {
+  if (node != NULL) {
     current = node;
   }
 }
 
 // Retorna por referência o ponteiro para o elemento com o dado valor na lista
 template <class elementType>
-bool BaseList<elementType>::isInList(elementType *element, Node<elementType> **nodeRef)
-{
+bool BaseList<elementType>::isInList(elementType *element,
+                                     Node<elementType> **nodeRef) {
   // Caso a lista esteja vazia certamente o elemento não está nela
-  if (empty())
-  {
+  if (empty()) {
     return false;
   }
 
@@ -88,26 +78,20 @@ bool BaseList<elementType>::isInList(elementType *element, Node<elementType> **n
   // current para a primeira posicao da lista
   getFirst(elementAux);
 
-  do
-  {
+  do {
     // Caso o elemento seja encontrado pelo valor
-    if (*elementAux == *element)
-    {
+    if (*elementAux == *element) {
       found = true;
     }
   } while (!found && getNext(elementAux));
 
   // Caso tenha sido encontrado apenas no nó header o
   // elemento não está de fato na lista
-  if (current == header)
-  {
+  if (current == header) {
     found = false;
-  }
-  else
-  {
+  } else {
     // Retornando o ponteiro para o nó atual por referência
-    if (nodeRef != NULL)
-    {
+    if (nodeRef != NULL) {
       // Atribuindo ao valor do ponteiro passado por referência
       // o endereço do elemento encontrado
       *nodeRef = current;
@@ -120,10 +104,8 @@ bool BaseList<elementType>::isInList(elementType *element, Node<elementType> **n
 // Insere o elemento dado no próximo elemento a partir do dado nó
 template <class elementType>
 bool BaseList<elementType>::insertNode(Node<elementType> *nodeRef,
-                                       elementType *element)
-{
-  if (full() || nodeRef == NULL)
-  {
+                                       elementType *element) {
+  if (full() || nodeRef == NULL) {
     return false;
   }
 
@@ -143,16 +125,13 @@ bool BaseList<elementType>::insertNode(Node<elementType> *nodeRef,
 
 // Remove o elemento apontado pelo dado ponteiro
 template <class elementType>
-bool BaseList<elementType>::removeNode(Node<elementType> *nodeRef)
-{
-  if (empty() || nodeRef == NULL || nodeRef == header)
-  {
+bool BaseList<elementType>::removeNode(Node<elementType> *nodeRef) {
+  if (empty() || nodeRef == NULL || nodeRef == header) {
     return false;
   }
 
   // Caso o ponteiro a ser removido seja o current da lista
-  if (nodeRef == current)
-  {
+  if (nodeRef == current) {
     setCurrent(current->getNext());
   }
 
@@ -168,39 +147,29 @@ bool BaseList<elementType>::removeNode(Node<elementType> *nodeRef)
 // Retorna o por referência valor armazenado no dado nó
 template <class elementType>
 bool BaseList<elementType>::getData(Node<elementType> *node,
-                                    elementType *element)
-{
-  if (node != NULL)
-  {
+                                    elementType *element) {
+  if (node != NULL) {
     *element = node->getData();
     return true;
-  }
-  else
-  {
+  } else {
     return false;
   }
 }
 
 // Retorna se a lista está vazia ou não
-template <class elementType>
-bool BaseList<elementType>::empty()
-{
+template <class elementType> bool BaseList<elementType>::empty() {
   return (header->getNext() == header);
 }
 
 // Retorna se a lista está cheia ou não
-template <class elementType>
-bool BaseList<elementType>::full()
-{
+template <class elementType> bool BaseList<elementType>::full() {
   return false;
 }
 
 // Retorna o valor do primeiro elemento da lista
 template <class elementType>
-bool BaseList<elementType>::getFirst(elementType *element)
-{
-  if (empty())
-  {
+bool BaseList<elementType>::getFirst(elementType *element) {
+  if (empty()) {
     return false;
   }
 
@@ -208,8 +177,7 @@ bool BaseList<elementType>::getFirst(elementType *element)
   setCurrent(header->getNext());
 
   // Retornando o valor do elemento por referência
-  if (element != NULL)
-  {
+  if (element != NULL) {
     *element = current->getData();
   }
 
@@ -218,11 +186,9 @@ bool BaseList<elementType>::getFirst(elementType *element)
 
 // Retorna o valor do próximo elemento da lista
 template <class elementType>
-bool BaseList<elementType>::getNext(elementType *element)
-{
+bool BaseList<elementType>::getNext(elementType *element) {
   // Caso a lista esteja vazia ou tenha chego ao final da lista
-  if (empty())
-  {
+  if (empty()) {
     return false;
   }
 
@@ -230,8 +196,7 @@ bool BaseList<elementType>::getNext(elementType *element)
   setCurrent(current->getNext());
 
   // Retornando o valor do elemento por referência
-  if (element != NULL)
-  {
+  if (element != NULL) {
     *element = current->getData();
   }
 
