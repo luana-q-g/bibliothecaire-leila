@@ -29,7 +29,7 @@ private:
 
 public:
   BaseList();
-  ~BaseList();
+  //~BaseList();
 
   // Getters
   Node<elementType> *getHeader();

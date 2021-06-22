@@ -26,17 +26,17 @@ template <class elementType> BaseList<elementType>::BaseList() {
   setCurrent(header);
 };
 
-template <class elementType> BaseList<elementType>::~BaseList() {
-  getFirst(NULL);
+// template <class elementType> BaseList<elementType>::~BaseList() {
+//   getFirst(NULL);
 
-  // Delete all nodes (except header)
-  while (getNext(NULL) && current != header) {
-    delete current->getPrev();
-  }
+//   // Delete all nodes (except header)
+//   while (getNext(NULL) && current != header) {
+//     delete current->getPrev();
+//   }
 
-  // Delete header node
-  delete header;
-};
+//   // Delete header node
+//   delete header;
+// };
 
 template <class elementType>
 Node<elementType> *BaseList<elementType>::getHeader() {
