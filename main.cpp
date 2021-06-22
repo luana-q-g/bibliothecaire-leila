@@ -107,11 +107,15 @@ int main(int argc, char *argv[])
   sf::Texture bgTexture;
   sf::Texture girlTexture;
   sf::Texture dialogoTexture;
+  sf::Texture botaoHistoriaTexture;
+  sf::Texture botaoHistoriaClicadoTexture;
   sf::Sprite background;
   sf::Sprite girl;
   sf::Sprite dialogo;
+  sf::Sprite botao_historia;
+  sf::Sprite botao_historia_clicado;
 
-  if(!bgTexture.loadFromFile("background.jpg")){
+  if(!bgTexture.loadFromFile("./imagens/background.jpg")){
     cout << "Erro: não foi possível carregar a imagem de background" << endl;
   }else{
     //resized background
@@ -125,18 +129,25 @@ int main(int argc, char *argv[])
     background.setTexture(bgTexture, true);
   }
 
-  if(!girlTexture.loadFromFile("bibliotecaria.png")){
+  if(!girlTexture.loadFromFile("./imagens/bibliotecaria.png")){
     cout << "Erro: não foi possível carregar a imagem da bela moça" << endl;
   }else{
     girl.setTexture(girlTexture);
     girl.setPosition(0, window.getSize().y - girl.getGlobalBounds().height);
   }
 
-  if(!dialogoTexture.loadFromFile("dialogo.png")){
+  if(!dialogoTexture.loadFromFile("./imagens/dialogo.png")){
     cout << "Erro: não foi possível carregar a imagem da bela moça" << endl;
   }else{
     dialogo.setTexture(dialogoTexture);
     dialogo.setPosition(girl.getGlobalBounds().width - 150, girl.getGlobalBounds().height - 350);
+  }
+
+  if(!botaoHistoriaTexture.loadFromFile("./imagens/botoes/botoes_historia.png")){
+    cout << "Erro: não foi possível carregar a imagem da bela moça" << endl;
+  }else{
+    botao_historia.setTexture(botaoHistoriaTexture);
+    botao_historia.setPosition(400, 600);
   }
 
   while (window.isOpen()) {
@@ -200,6 +211,7 @@ int main(int argc, char *argv[])
     window.draw(background);
     window.draw(girl);
     window.draw(dialogo);
+    window.draw(botao_historia);
     //window.draw(letras_l1.getShape());
     window.display();
   }
