@@ -12,26 +12,29 @@ Objetivos: Trabalho de AED1
 */
 
 // Bibliotecas
+#include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/Texture.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Window/VideoMode.hpp>
 #include <iostream>
-#include <string>
-#include <stdlib.h>
-#include <time.h>
 #include <locale.h>
+#include <stdlib.h>
+#include <string>
+#include <time.h>
 
-#include "livro/livro.h"
-#include "listacadastral/lista.h"
 #include "listacadastral/lista.cpp"
-#include "pilha/pilha.h"
+#include "listacadastral/lista.h"
+#include "livro/livro.h"
 #include "pilha/pilha.cpp"
+#include "pilha/pilha.h"
+#include "utils/utils.h"
 
 using namespace std;
 
 // Função principal
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
   setlocale(LC_ALL, "Portuguese");
 
   // Lista pra cada categoria
@@ -45,17 +48,11 @@ int main(int argc, char *argv[])
   Lista<Livro> lista_quimica("Química");
   Lista<Livro> lista_arte("Arte");
 
-  //Vetor que armazena todas as listas(estantes)
+  // Vetor que armazena todas as listas(estantes)
   Lista<Livro> listas[9] = {
-      lista_letras,
-      lista_filosofia,
-      lista_geografia,
-      lista_historia,
-      lista_matematica,
-      lista_psicologia,
-      lista_informatica,
-      lista_quimica,
-      lista_arte};
+      lista_letras,      lista_filosofia,  lista_geografia,
+      lista_historia,    lista_matematica, lista_psicologia,
+      lista_informatica, lista_quimica,    lista_arte};
 
   Livro letras_l1("Libras: conhecimento além dos sinais", "Maria Cristina da Cunha", "Letras", 2011, "Pearson");
   Livro letras_l2("Comunicação e linguagem", "Thelma de Carvalho Guimarães", "Letras", 2012, "Pearson");
@@ -95,15 +92,23 @@ int main(int argc, char *argv[])
   Livro arte_l36("O cinema de Quentin Tarantino", "Mauro Baptista", "Arte", 2018, "Papirus");
 
   Livro lista_fixa[] = {
-      letras_l1, letras_l2, letras_l3, letras_l4, filosofia_l5, filosofia_l6, filosofia_l7, filosofia_l8,
-      geografia_l9, geografia_l10, geografia_l11, geografia_l12, historia_l13, historia_l14, historia_l15,
-      historia_l16, matematica_l17, matematica_l18, matematica_l19, matematica_l20, psicologia_l21, psicologia_l22,
-      psicologia_l23, psicologia_l24, informatica_l25, informatica_l26, informatica_l27, informatica_l28,
-      quimica_l29, quimica_l30, quimica_l31, quimica_l32, arte_l33, arte_l34, arte_l35, arte_l36}; // Pilha com os livros
+      letras_l1,       letras_l2,       letras_l3,
+      letras_l4,       filosofia_l5,    filosofia_l6,
+      filosofia_l7,    filosofia_l8,    geografia_l9,
+      geografia_l10,   geografia_l11,   geografia_l12,
+      historia_l13,    historia_l14,    historia_l15,
+      historia_l16,    matematica_l17,  matematica_l18,
+      matematica_l19,  matematica_l20,  psicologia_l21,
+      psicologia_l22,  psicologia_l23,  psicologia_l24,
+      informatica_l25, informatica_l26, informatica_l27,
+      informatica_l28, quimica_l29,     quimica_l30,
+      quimica_l31,     quimica_l32,     arte_l33,
+      arte_l34,        arte_l35,        arte_l36}; // Pilha com os livros
 
   Pilha<Livro> pilha(10, lista_fixa);
 
-  sf::RenderWindow window(sf::VideoMode(626*2,375*2), "Bibliotecária Leila");
+  sf::RenderWindow window(sf::VideoMode(626 * 2, 375 * 2),
+                          "Bibliotecária Leila");
   sf::Texture bgTexture;
   sf::Texture girlTexture;
   sf::Texture dialogoTexture;
@@ -111,32 +116,48 @@ int main(int argc, char *argv[])
   sf::Sprite girl;
   sf::Sprite dialogo;
 
-  if(!bgTexture.loadFromFile("background.jpg")){
+  if (!bgTexture.loadFromFile("./interface/assets/background.jpg")) {
     cout << "Erro: não foi possível carregar a imagem de background" << endl;
-  }else{
-    //resized background
-    sf::Vector2u TextureSize = bgTexture.getSize(); //Get size of texture.
-    sf::Vector2u WindowSize = window.getSize();             //Get size of window.
+  } else {
+    // resized background
+    sf::Vector2u TextureSize = bgTexture.getSize(); // Get size of texture.
+    sf::Vector2u WindowSize = window.getSize();     // Get size of window.
 
-    float ScaleX = (float) WindowSize.x / TextureSize.x;
-    float ScaleY = (float) WindowSize.y / TextureSize.y;     //Calculate scale.
+    float ScaleX = (float)WindowSize.x / TextureSize.x;
+    float ScaleY = (float)WindowSize.y / TextureSize.y; // Calculate scale.
 
-    background.setScale(ScaleX, ScaleY);      //Set scale.
+    background.setScale(ScaleX, ScaleY); // Set scale.
     background.setTexture(bgTexture, true);
   }
 
-  if(!girlTexture.loadFromFile("bibliotecaria.png")){
+  if (!girlTexture.loadFromFile("./interface/assets/bibliotecaria.png")) {
     cout << "Erro: não foi possível carregar a imagem da bela moça" << endl;
-  }else{
+  } else {
     girl.setTexture(girlTexture);
     girl.setPosition(0, window.getSize().y - girl.getGlobalBounds().height);
   }
 
-  if(!dialogoTexture.loadFromFile("dialogo.png")){
-    cout << "Erro: não foi possível carregar a imagem da bela moça" << endl;
-  }else{
+  if (!dialogoTexture.loadFromFile("./interface/assets/dialogo.png")) {
+    cout << "Erro: não foi possível carregar a imagem do dialogo" << endl;
+  } else {
     dialogo.setTexture(dialogoTexture);
-    dialogo.setPosition(girl.getGlobalBounds().width - 150, girl.getGlobalBounds().height - 350);
+    dialogo.setPosition(girl.getGlobalBounds().width - 150,
+                        girl.getGlobalBounds().height - 350);
+  }
+
+  sf::Font font;
+  sf::Text text;
+
+  if (!font.loadFromFile("./interface/assets/Roboto-Bold.ttf")) {
+    cout << "Erro: não foi possível carregar a fonte";
+  } else {
+    text.setFont(font);
+    text.setString("Bem-vindo!");
+    text.setCharacterSize(24);
+    text.setFillColor(sf::Color::Black);
+    text.setStyle(sf::Text::Bold);
+    text.setPosition(dialogo.getPosition().x + 200, dialogo.getPosition().y +
+    100);
   }
 
   while (window.isOpen()) {
@@ -200,7 +221,8 @@ int main(int argc, char *argv[])
     window.draw(background);
     window.draw(girl);
     window.draw(dialogo);
-    //window.draw(letras_l1.getShape());
+    window.draw(text);
+    // window.draw(letras_l1.getShape());
     window.display();
   }
 
