@@ -112,11 +112,15 @@ int main(int argc, char *argv[]) {
   sf::Texture bgTexture;
   sf::Texture girlTexture;
   sf::Texture dialogoTexture;
+  sf::Texture botaoHistoriaTexture;
+  sf::Texture botaoHistoriaClicadoTexture;
   sf::Sprite background;
   sf::Sprite girl;
   sf::Sprite dialogo;
+  sf::Sprite botao_historia;
+  sf::Sprite botao_historia_clicado;
 
-  if (!bgTexture.loadFromFile("./interface/assets/background.jpg")) {
+  if (!bgTexture.loadFromFile("./interface/assets/imagens/background.jpg")) {
     cout << "Erro: não foi possível carregar a imagem de background" << endl;
   } else {
     // resized background
@@ -130,14 +134,14 @@ int main(int argc, char *argv[]) {
     background.setTexture(bgTexture, true);
   }
 
-  if (!girlTexture.loadFromFile("./interface/assets/bibliotecaria.png")) {
+  if (!girlTexture.loadFromFile("./interface/assets/imagens/bibliotecaria.png")) {
     cout << "Erro: não foi possível carregar a imagem da bela moça" << endl;
   } else {
     girl.setTexture(girlTexture);
     girl.setPosition(0, window.getSize().y - girl.getGlobalBounds().height);
   }
 
-  if (!dialogoTexture.loadFromFile("./interface/assets/dialogo.png")) {
+  if (!dialogoTexture.loadFromFile("./interface/assets/imagens/dialogo.png")) {
     cout << "Erro: não foi possível carregar a imagem do dialogo" << endl;
   } else {
     dialogo.setTexture(dialogoTexture);
@@ -158,6 +162,13 @@ int main(int argc, char *argv[]) {
     text.setStyle(sf::Text::Bold);
     text.setPosition(dialogo.getPosition().x + 200, dialogo.getPosition().y +
     100);
+  }
+
+  if(!botaoHistoriaTexture.loadFromFile("./interface/assets/imagens/botoes/botoes_historia.png")){
+    cout << "Erro: não foi possível carregar a imagem da bela moça" << endl;
+  }else{
+    botao_historia.setTexture(botaoHistoriaTexture);
+    botao_historia.setPosition(400, 600);
   }
 
   while (window.isOpen()) {
@@ -222,7 +233,8 @@ int main(int argc, char *argv[]) {
     window.draw(girl);
     window.draw(dialogo);
     window.draw(text);
-    // window.draw(letras_l1.getShape());
+    window.draw(botao_historia);
+    //window.draw(letras_l1.getShape());
     window.display();
   }
 
