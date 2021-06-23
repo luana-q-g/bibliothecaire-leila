@@ -332,38 +332,16 @@ int main(int argc, char *argv[]) {
 
   while (window.isOpen()) {
     sf::Event event;
-    bool isClicked;
+    Button buttonPressed;
 
     // While there are pending events
     while (window.pollEvent(event)) {
-
       // Check the element type
       switch (event.type) {
       // sf::Event::Closed is triggered whenever the user wants to close
       // the window via any method provided by the window manager
       case sf::Event::Closed:
         window.close();
-        break;
-      case sf::Event::KeyPressed:
-        cout << "Key pressed was: " << event.key.code << endl;
-        break;
-      case sf::Event::MouseMoved:
-        if (isClicked) {
-          // Simple set position
-          // circle.setPosition(event.mouseMove.x, event.mouseMove.y);
-
-          // Set position centering the object
-          // circle.setPosition(
-          //     (event.mouseMove.x - (circle.getGlobalBounds().width / 2)),
-          //     (event.mouseMove.y - (circle.getGlobalBounds().height / 2)));
-
-          // Checking colision with rectangle
-          // if(circle.getGlobalBounds().intersects(rectangleBounding)){
-          //   cout << "Inside the rectangle!" << endl;
-          // }else{
-          //   cout << "Outside the rectangle!" << endl;
-          // }
-        }
         break;
       case sf::Event::MouseButtonPressed:
         if (event.mouseButton.button == 0){
@@ -377,20 +355,17 @@ int main(int argc, char *argv[]) {
           botao_quimica.click(sf::Mouse::getPosition(window));
           botao_arte.click(sf::Mouse::getPosition(window));
         }
-
         break;
       case sf::Event::MouseButtonReleased:
-        // Checking if the object was "droped" on a specifc spot
-        // if (circle.getGlobalBounds().intersects(rectangleBounding)) {
-        //   //cout << "Inside the rectangle!" << endl;
-        //   circle.setPosition(rectangle.getPosition().x,
-        //                      rectangle.getPosition().y);
-        // } else {
-        //   centerShape(circle, window);
-        //   //cout << "Outside the rectangle!" << endl;
-        // }
-
-        isClicked = false;
+          botao_historia.release(sf::Mouse::getPosition(window));
+          botao_psicologia.release(sf::Mouse::getPosition(window));
+          botao_letras.release(sf::Mouse::getPosition(window));
+          botao_filosofia.release(sf::Mouse::getPosition(window));
+          botao_geografia.release(sf::Mouse::getPosition(window));
+          botao_matematica.release(sf::Mouse::getPosition(window));
+          botao_informatica.release(sf::Mouse::getPosition(window));
+          botao_quimica.release(sf::Mouse::getPosition(window));
+          botao_arte.release(sf::Mouse::getPosition(window));
         break;
       default:
         break;

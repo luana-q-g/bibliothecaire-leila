@@ -14,18 +14,33 @@
 
 using namespace std;
 
+Button::Button() : sf::RectangleShape(sf::Vector2f(112,56)){
+  clicked = false;
+}
+
 Button::Button(string tipo) : sf::RectangleShape(sf::Vector2f(112,56)){
   if(!textureIdle.loadFromFile("./interface/assets/imagens/botoes/botoes_" + tipo + ".png")
   || !textureClicked.loadFromFile("./interface/assets/imagens/botoes_clicados/botoes_clicados_" + tipo + ".png")){
     cout << "Erro: não foi possível carregar a imagem do botão " + tipo << endl;
   }else{
     nome = tipo;
+    clicked = false;
     setTexture(&textureIdle);
   }
 }
 
 void Button::click(const sf::Vector2i point){
   if(sf::RectangleShape::getGlobalBounds().contains((float) point.x, (float) point.y)){
-    cout << "Clicou em " << nome << "!" <<endl;
+    if(!clicked){
+      setTexture(&textureClicked);
+      clicked = true;
+    }
+  }
+}
+
+void Button::release(const sf::Vector2i point){
+  if(clicked){
+    clicked = false;
+    setTexture(&textureIdle);
   }
 }

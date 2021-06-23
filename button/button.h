@@ -28,8 +28,10 @@ private:
   sf::Texture textureIdle;
 
 public:
+  Button();
   Button(string tipo);
   void click(const sf::Vector2i point);
+  void release(const sf::Vector2i point);
 };
 
 #endif
