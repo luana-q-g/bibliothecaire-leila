@@ -182,7 +182,8 @@ int main(int argc, char *argv[]) {
   } else {
     dialogo.setTexture(dialogoTexture);
     dialogo.setPosition(girl.getGlobalBounds().width - 150,
-                        girl.getGlobalBounds().height - 350);
+                        (window.getSize().y - dialogo.getGlobalBounds().height -
+                         girl.getGlobalBounds().height));
   }
 
   sf::Font font;
