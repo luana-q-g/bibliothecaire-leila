@@ -17,6 +17,7 @@ Objetivos: Trabalho de AED1
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include <SFML/System/String.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Window/VideoMode.hpp>
@@ -192,12 +193,18 @@ int main(int argc, char *argv[]) {
   } else {
     Livro livro = pilha.remover();
     text.setFont(font);
-    text.setString(livro.getNome());
+    text.setString(
+      L"Hmmm, temos aqui o\n" +
+      livro.getNome() +
+      L"\n escrito por " +
+      livro.getAutor() +
+      L"\n em " +
+      to_wstring(livro.getAnoLancamento())
+    );
     text.setCharacterSize(24);
     text.setFillColor(sf::Color::Black);
     text.setStyle(sf::Text::Bold);
-    text.setPosition(dialogo.getPosition().x + 150, dialogo.getPosition().y +
-    70);
+    text.setPosition(dialogo.getPosition().x + 150, dialogo.getPosition().y + 70);
   }
 
   // Loading interface buttons
