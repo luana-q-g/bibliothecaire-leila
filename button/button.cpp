@@ -19,11 +19,13 @@ Button::Button(string tipo) : sf::RectangleShape(sf::Vector2f(112,56)){
   || !textureClicked.loadFromFile("./interface/assets/imagens/botoes_clicados/botoes_clicados_" + tipo + ".png")){
     cout << "Erro: não foi possível carregar a imagem do botão " + tipo << endl;
   }else{
+    nome = tipo;
     setTexture(&textureIdle);
   }
 }
 
-bool Button::isInside(const sf::Vector2i){
-  // TODO
-  return true;
+void Button::click(const sf::Vector2i point){
+  if(sf::RectangleShape::getGlobalBounds().contains((float) point.x, (float) point.y)){
+    cout << "Clicou em " << nome << "!" <<endl;
+  }
 }

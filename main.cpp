@@ -18,6 +18,7 @@ Objetivos: Trabalho de AED1
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Window.hpp>
+#include <SFML/Window/Mouse.hpp>
 #include <SFML/Window/VideoMode.hpp>
 #include <iostream>
 #include <locale.h>
@@ -365,8 +366,18 @@ int main(int argc, char *argv[]) {
         }
         break;
       case sf::Event::MouseButtonPressed:
-        if (event.mouseButton.button == 0)
-          isClicked = true;
+        if (event.mouseButton.button == 0){
+          botao_historia.click(sf::Mouse::getPosition(window));
+          botao_psicologia.click(sf::Mouse::getPosition(window));
+          botao_letras.click(sf::Mouse::getPosition(window));
+          botao_filosofia.click(sf::Mouse::getPosition(window));
+          botao_geografia.click(sf::Mouse::getPosition(window));
+          botao_matematica.click(sf::Mouse::getPosition(window));
+          botao_informatica.click(sf::Mouse::getPosition(window));
+          botao_quimica.click(sf::Mouse::getPosition(window));
+          botao_arte.click(sf::Mouse::getPosition(window));
+        }
+
         break;
       case sf::Event::MouseButtonReleased:
         // Checking if the object was "droped" on a specifc spot

@@ -21,6 +21,7 @@ using namespace std;
 
 class Button : public sf::RectangleShape {
 private:
+    string nome;
   bool clicked;
   bool active;
   sf::Texture textureClicked;
@@ -28,7 +29,7 @@ private:
 
 public:
   Button(string tipo);
-  bool isInside(const sf::Vector2i);
+  void click(const sf::Vector2i point);
 };
 
 #endif
