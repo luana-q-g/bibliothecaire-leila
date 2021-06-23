@@ -38,7 +38,7 @@ void Button::click(const sf::Vector2i point){
   }
 }
 
-void Button::release(const sf::Vector2i point){
+void Button::release(){
   if(clicked){
     clicked = false;
     setTexture(&textureIdle);

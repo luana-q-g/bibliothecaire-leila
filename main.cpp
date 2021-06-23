@@ -365,15 +365,15 @@ int main(int argc, char *argv[]) {
         }
         break;
       case sf::Event::MouseButtonReleased:
-          botao_historia.release(sf::Mouse::getPosition(window));
-          botao_psicologia.release(sf::Mouse::getPosition(window));
-          botao_letras.release(sf::Mouse::getPosition(window));
-          botao_filosofia.release(sf::Mouse::getPosition(window));
-          botao_geografia.release(sf::Mouse::getPosition(window));
-          botao_matematica.release(sf::Mouse::getPosition(window));
-          botao_informatica.release(sf::Mouse::getPosition(window));
-          botao_quimica.release(sf::Mouse::getPosition(window));
-          botao_arte.release(sf::Mouse::getPosition(window));
+          botao_historia.release();
+          botao_psicologia.release();
+          botao_letras.release();
+          botao_filosofia.release();
+          botao_geografia.release();
+          botao_matematica.release();
+          botao_informatica.release();
+          botao_quimica.release();
+          botao_arte.release();
         break;
       default:
         break;
