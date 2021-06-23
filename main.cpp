@@ -187,7 +187,7 @@ int main(int argc, char *argv[]) {
   sf::Font font;
   sf::Text text;
 
-  if (!font.loadFromFile("./interface/assets/Roboto-Bold.ttf")) {
+  if (!font.loadFromFile("./interface/assets/fonts/Roboto-Bold.ttf")) {
     cout << "Erro: não foi possível carregar a fonte";
   } else {
     Livro livro = pilha.remover();
