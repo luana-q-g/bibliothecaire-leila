@@ -58,42 +58,42 @@ int main(int argc, char *argv[]) {
       lista_historia,    lista_matematica, lista_psicologia,
       lista_informatica, lista_quimica,    lista_arte};
 
-  Livro letras_l1("Libras: conhecimento além dos sinais", "Maria Cristina da Cunha", "Letras", 2011, "Pearson");
-  Livro letras_l2("Comunicação e linguagem", "Thelma de Carvalho Guimarães", "Letras", 2012, "Pearson");
-  Livro letras_l3("Teoria da Literatura I", "Pedro Paulo da Silva", "Letras", 2009, "Pearson");
-  Livro letras_l4("Língua latina", "Charlene Martins Miotti", "Letras", 2010, "Pearson");
-  Livro filosofia_l5("Introdução à Filosofia", "João Mattar", "Filosofia", 2010, "Pearson");
-  Livro filosofia_l6("Ética", "Maria Thereza Pompa Antunes", "Filosofia", 2012, "Pearson");
-  Livro filosofia_l7("Correntes modernas de filosofia", "José Ferraz Neto", "Filosofia", 2013, "Pearson");
-  Livro filosofia_l8("Genealogia da Moral", "Friedrich Nietzsche", "Filosofia", 1887, "Vozes");
-  Livro geografia_l9("Hidrologia", "Diego Barreto de Oliveira", "Geografia", 2015, "Pearson");
-  Livro geografia_l10("Espaço Geográfico: ensino e representação", "Rosangela Doin de Almeida", "Geografia", 1989, "Contexto");
-  Livro geografia_l11("Pensamento geográfico brasileiro", "Ruy Moreira", "Geografia", 2008, "Contexto");
-  Livro geografia_l12("Globalização e espaço geográfico", "Eustáquio de Sene", "Geografia", 2004, "Contexto");
-  Livro historia_l13("No Tempo das Especiarias: o império da pimenta e do açúcar", "Fábio Pestana", "História", 2006, "Contexto");
-  Livro historia_l14("Dicionário de Datas da História do Brasil", "Circe Bittencour", "História", 2007, "Contexto");
-  Livro historia_l15("História do Café", "Ana Luiza Martins", "História", 2008, "Contexto");
-  Livro historia_l16("As Primeiras Civilizações", "Jaime Pinsky", "História", 2011, "Contexto");
-  Livro matematica_l17("Geometria Analítica: Um Tratamento Vetorial", "Ivan de Camargo", "Matemática", 2005, "Pearson");
-  Livro matematica_l18("Matemática financeira", "André Wakamatsu", "Matemática", 2018, "Pearson");
-  Livro matematica_l19("Métodos numéricos em equações diferenciais", "Marina Vargas", "Matemática", 2021, "Intersaberes");
-  Livro matematica_l20("Geometrias Não Euclidianas", "Nelson Pereira", "Matemática", 2020, "Intersaberes");
-  Livro psicologia_l21("Teorias da Personalidade: da teoria clássica à pesquisa moderna", "Howard S. Friedman", "Psicologia", 2003, "Pearson");
-  Livro psicologia_l22("Introdução à Psicologia", "Charles G. Morris", "Psicologia", 2004, "Pearson");
-  Livro psicologia_l23("A Psicanálise nas Tramas da Cidade", "Bernardo Tanis", "Psicologia", 2009, "Pearson");
-  Livro psicologia_l24("Burnout: quando o trabalho ameaça o bem-estar do trabalhador", "Ana Maria Benevides Pereira", "Psicologia", 2014, "Pearson");
-  Livro informatica_l25("Aprenda Programação Orientada a Objetos em 21 dias", "Anthony Sintes", "Informática", 2002, "Pearson");
-  Livro informatica_l26("Treinamento em Linguagem C++: módulo 1", "Victorine Viviane Mizrahi", "Informática", 1996, "Pearson");
-  Livro informatica_l27("Manual Completo do Linux: guia do administrador", "Evi Nemeth", "Informática", 2004, "Pearson");
-  Livro informatica_l28("Compiladores: princípios, técnicas e ferramentas", "Alfred V. Alho", "Informática", 2007, "Pearson");
-  Livro quimica_l29("Química Orgânica", "Bianca Sandrino", "Química", 2020, "Intersaberes");
-  Livro quimica_l30("Química Quântica: Origens e Aplicações", "Liziane Barbara Bugalski", "Química", 2019, "Intersaberes");
-  Livro quimica_l31("Manual de Ar Comprimido e Gases", "John P. Rollins", "Química", 2003, "Pearson");
-  Livro quimica_l32("Estudos de eletroquímica: reações químicas e energia", "Ana Luiza Lorenzen", "Química", 2017, "Intersaberes");
-  Livro arte_l33("Estética e história da arte", "Humberta Gomes Machado Porto", "Arte", 2016, "Pearson");
-  Livro arte_l34("História do cinema mundial", "Fernando Mascarello", "Arte", 2014, "Papirus");
-  Livro arte_l35("Beethoven: as muitas faces de um gênio", "João Mauricio Galindo", "Arte", 2019, "Contexto");
-  Livro arte_l36("O cinema de Quentin Tarantino", "Mauro Baptista", "Arte", 2018, "Papirus");
+  Livro letras_l1(L"Libras: conhecimento além dos sinais", L"Maria Cristina da Cunha", L"Letras", 2011, L"Pearson");
+  Livro letras_l2(L"Comunicação e linguagem", L"Thelma de Carvalho Guimarães", L"Letras", 2012, L"Pearson");
+  Livro letras_l3(L"Teoria da Literatura I", L"Pedro Paulo da Silva", L"Letras", 2009, L"Pearson");
+  Livro letras_l4(L"Língua latina", L"Charlene Martins Miotti", L"Letras", 2010, L"Pearson");
+  Livro filosofia_l5(L"Introdução à Filosofia", L"João Mattar", L"Filosofia", 2010, L"Pearson");
+  Livro filosofia_l6(L"Ética", L"Maria Thereza Pompa Antunes", L"Filosofia", 2012, L"Pearson");
+  Livro filosofia_l7(L"Correntes modernas de filosofia", L"José Ferraz Neto", L"Filosofia", 2013, L"Pearson");
+  Livro filosofia_l8(L"Genealogia da Moral", L"Friedrich Nietzsche", L"Filosofia", 1887, L"Vozes");
+  Livro geografia_l9(L"Hidrologia", L"Diego Barreto de Oliveira", L"Geografia", 2015, L"Pearson");
+  Livro geografia_l10(L"Espaço Geográfico: ensino e representação", L"Rosangela Doin de Almeida", L"Geografia", 1989, L"Contexto");
+  Livro geografia_l11(L"Pensamento geográfico brasileiro", L"Ruy Moreira", L"Geografia", 2008, L"Contexto");
+  Livro geografia_l12(L"Globalização e espaço geográfico", L"Eustáquio de Sene", L"Geografia", 2004, L"Contexto");
+  Livro historia_l13(L"No Tempo das Especiarias: o império da pimenta e do açúcar", L"Fábio Pestana", L"História", 2006, L"Contexto");
+  Livro historia_l14(L"Dicionário de Datas da História do Brasil", L"Circe Bittencour", L"História", 2007, L"Contexto");
+  Livro historia_l15(L"História do Café", L"Ana Luiza Martins", L"História", 2008, L"Contexto");
+  Livro historia_l16(L"As Primeiras Civilizações", L"Jaime Pinsky", L"História", 2011, L"Contexto");
+  Livro matematica_l17(L"Geometria Analítica: Um Tratamento Vetorial", L"Ivan de Camargo", L"Matemática", 2005, L"Pearson");
+  Livro matematica_l18(L"Matemática financeira", L"André Wakamatsu", L"Matemática", 2018, L"Pearson");
+  Livro matematica_l19(L"Métodos numéricos em equações diferenciais", L"Marina Vargas", L"Matemática", 2021, L"Intersaberes");
+  Livro matematica_l20(L"Geometrias Não Euclidianas", L"Nelson Pereira", L"Matemática", 2020, L"Intersaberes");
+  Livro psicologia_l21(L"Teorias da Personalidade: da teoria clássica à pesquisa moderna", L"Howard S. Friedman", L"Psicologia", 2003, L"Pearson");
+  Livro psicologia_l22(L"Introdução à Psicologia", L"Charles G. Morris", L"Psicologia", 2004, L"Pearson");
+  Livro psicologia_l23(L"A Psicanálise nas Tramas da Cidade", L"Bernardo Tanis", L"Psicologia", 2009, L"Pearson");
+  Livro psicologia_l24(L"Burnout: quando o trabalho ameaça o bem-estar do trabalhador", L"Ana Maria Benevides Pereira", L"Psicologia", 2014, L"Pearson");
+  Livro informatica_l25(L"Aprenda Programação Orientada a Objetos em 21 dias", L"Anthony Sintes", L"Informática", 2002, L"Pearson");
+  Livro informatica_l26(L"Treinamento em Linguagem C++: módulo 1", L"Victorine Viviane Mizrahi", L"Informática", 1996, L"Pearson");
+  Livro informatica_l27(L"Manual Completo do Linux: guia do administrador", L"Evi Nemeth", L"Informática", 2004, L"Pearson");
+  Livro informatica_l28(L"Compiladores: princípios, técnicas e ferramentas", L"Alfred V. Alho", L"Informática", 2007, L"Pearson");
+  Livro quimica_l29(L"Química Orgânica", L"Bianca Sandrino", L"Química", 2020, L"Intersaberes");
+  Livro quimica_l30(L"Química Quântica: Origens e Aplicações", L"Liziane Barbara Bugalski", L"Química", 2019, L"Intersaberes");
+  Livro quimica_l31(L"Manual de Ar Comprimido e Gases", L"John P. Rollins", L"Química", 2003, L"Pearson");
+  Livro quimica_l32(L"Estudos de eletroquímica: reações químicas e energia", L"Ana Luiza Lorenzen", L"Química", 2017, L"Intersaberes");
+  Livro arte_l33(L"Estética e história da arte", L"Humberta Gomes Machado Porto", L"Arte", 2016, L"Pearson");
+  Livro arte_l34(L"História do cinema mundial", L"Fernando Mascarello", L"Arte", 2014, L"Papirus");
+  Livro arte_l35(L"Beethoven: as muitas faces de um gênio", L"João Mauricio Galindo", L"Arte", 2019, L"Contexto");
+  Livro arte_l36(L"O cinema de Quentin Tarantino", L"Mauro Baptista", L"Arte", 2018, L"Papirus");
 
   Livro lista_fixa[] = {
       letras_l1,       letras_l2,       letras_l3,
@@ -191,13 +191,14 @@ int main(int argc, char *argv[]) {
   if (!font.loadFromFile("./interface/assets/Roboto-Bold.ttf")) {
     cout << "Erro: não foi possível carregar a fonte";
   } else {
+    Livro livro = pilha.remover();
     text.setFont(font);
-    text.setString("Bem-vindo!");
+    text.setString(livro.getNome());
     text.setCharacterSize(24);
     text.setFillColor(sf::Color::Black);
     text.setStyle(sf::Text::Bold);
-    text.setPosition(dialogo.getPosition().x + 200, dialogo.getPosition().y +
-    100);
+    text.setPosition(dialogo.getPosition().x + 150, dialogo.getPosition().y +
+    70);
   }
 
   // Loading interface buttons

@@ -16,8 +16,8 @@ Objetivos: Implementar os métodos da classe livro
 
 using namespace std;
 
-Livro::Livro(string _nome, string _autor, string _categoria,
-             int _ano_lancamento, string _editora)
+Livro::Livro(wstring _nome, wstring _autor, wstring _categoria,
+             int _ano_lancamento, wstring _editora)
     : shape(sf::Vector2f(200.f, 400.f)) {
   nome = _nome;
   autor = _autor;
@@ -38,29 +38,29 @@ Livro::Livro(string _nome, string _autor, string _categoria,
   // shape.setFillColor(sf::Color::Red);
 }
 
-string Livro::getNome() const { return nome; }
+wstring Livro::getNome() const { return nome; }
 
-string Livro::getAutor() const { return autor; }
+wstring Livro::getAutor() const { return autor; }
 
-string Livro::getCategoria() const { return categoria; }
+wstring Livro::getCategoria() const { return categoria; }
 
 int Livro::getAnoLancamento() const { return ano_lancamento; }
 
-string Livro::getEditora() const { return editora; }
+wstring Livro::getEditora() const { return editora; }
 
 sf::RectangleShape Livro::getShape() const { return shape; }
 
-void Livro::setNome(string _nome) { nome = _nome; }
+void Livro::setNome(wstring _nome) { nome = _nome; }
 
-void Livro::setAutor(string _autor) { autor = _autor; }
+void Livro::setAutor(wstring _autor) { autor = _autor; }
 
-void Livro::setCategoria(string _categoria) { categoria = _categoria; }
+void Livro::setCategoria(wstring _categoria) { categoria = _categoria; }
 
 void Livro::setAnoLancamento(int _ano_lancamento) {
   ano_lancamento = _ano_lancamento;
 }
 
-void Livro::setEditora(string _editora) { editora = _editora; }
+void Livro::setEditora(wstring _editora) { editora = _editora; }
 
 // Operator overloading
 bool Livro::operator>(const Livro &livro) {

@@ -30,29 +30,29 @@ using namespace std;
 
 class Livro {
 private:
-  string nome;
-  string autor;
-  string categoria;
+  wstring nome;
+  wstring autor;
+  wstring categoria;
   int ano_lancamento;
-  string editora;
+  wstring editora;
   sf::RectangleShape shape;
 
 public:
-  Livro(string _nome = "", string _autor = "", string _categoria = "",
-        int _ano_lancamento = 0, string _editora = "");
+  Livro(wstring _nome = L"", wstring _autor = L"", wstring _categoria = L"",
+        int _ano_lancamento = 0, wstring _editora = L"");
 
-  string getNome() const;
-  string getAutor() const;
-  string getCategoria() const;
+  wstring getNome() const;
+  wstring getAutor() const;
+  wstring getCategoria() const;
   int getAnoLancamento() const;
-  string getEditora() const;
+  wstring getEditora() const;
   sf::RectangleShape getShape() const;
 
-  void setNome(string _nome = "");
-  void setAutor(string _autor = "");
-  void setCategoria(string _categoria = "");
+  void setNome(wstring _nome = L"");
+  void setAutor(wstring _autor = L"");
+  void setCategoria(wstring _categoria = L"");
   void setAnoLancamento(int _ano_lancamento = 0);
-  void setEditora(string _editora = "");
+  void setEditora(wstring _editora = L"");
 
   // Operator overloading
   bool operator>(const Livro &livro);
