@@ -116,45 +116,9 @@ int main(int argc, char *argv[]) {
   sf::Texture bgTexture;
   sf::Texture girlTexture;
   sf::Texture dialogoTexture;
-  // sf::Texture botaoHistoriaTexture;
-  // sf::Texture botaoPsicologiaTexture;
-  // sf::Texture botaoLetrasTexture;
-  // sf::Texture botaoFilosofiaTexture;
-  // sf::Texture botaoGeografiaTexture;
-  // sf::Texture botaoMatematicaTexture;
-  // sf::Texture botaoInformaticaTexture;
-  // sf::Texture botaoQuimicaTexture;
-  // sf::Texture botaoArteTexture;
-  // sf::Texture botaoHistoriaClicadoTexture;
-  // sf::Texture botaoPsicologiaClicadoTexture;
-  // sf::Texture botaoLetrasClicadoTexture;
-  // sf::Texture botaoFilosofiaClicadoTexture;
-  // sf::Texture botaoGeografiaClicadoTexture;
-  // sf::Texture botaoMatematicaClicadoTexture;
-  // sf::Texture botaoInformaticaClicadoTexture;
-  // sf::Texture botaoQuimicaClicadoTexture;
-  // sf::Texture botaoArteClicadoTexture;
   sf::Sprite background;
   sf::Sprite girl;
   sf::Sprite dialogo;
-  // sf::Sprite botao_historia;
-  // sf::Sprite botao_psicologia;
-  // sf::Sprite botao_letras;
-  // sf::Sprite botao_filosofia;
-  // sf::Sprite botao_geografia;
-  // sf::Sprite botao_matematica;
-  // sf::Sprite botao_informatica;
-  // sf::Sprite botao_quimica;
-  // sf::Sprite botao_arte;
-  // sf::Sprite botao_historia_clicado;
-  // sf::Sprite botao_psicologia_clicado;
-  // sf::Sprite botao_letras_clicado;
-  // sf::Sprite botao_filosofia_clicado;
-  // sf::Sprite botao_geografia_clicado;
-  // sf::Sprite botao_matematica_clicado;
-  // sf::Sprite botao_informatica_clicado;
-  // sf::Sprite botao_quimica_clicado;
-  // sf::Sprite botao_arte_clicado;
 
   if (!bgTexture.loadFromFile("./interface/assets/imagens/background.jpg")) {
     cout << "Erro: não foi possível carregar a imagem de background" << endl;
@@ -229,114 +193,6 @@ int main(int argc, char *argv[]) {
   botao_informatica.setPosition(685, botao_historia.getPosition().y + 65);
   botao_quimica.setPosition(840, botao_historia.getPosition().y + 65);
   botao_arte.setPosition(1010, botao_historia.getPosition().y + 65);
-
-  // //botao historia
-  // if(!botaoHistoriaTexture.loadFromFile("./interface/assets/imagens/botoes/botoes_historia.png")
-  // || !botaoHistoriaClicadoTexture.loadFromFile("./interface/assets/imagens/botoes_clicados/botoes_clicados_historia.png")){
-  //   cout << "Erro: não foi possível carregar a imagem do botão história" << endl;
-  // }else{
-  //   botao_historia.setTexture(botaoHistoriaTexture);
-  //   botao_historia.setPosition(440, 600);
-
-  //   botao_historia_clicado.setTexture(botaoHistoriaClicadoTexture);
-  //   botao_historia_clicado.setPosition(440, 600);
-  // }
-
-  // //botao psicologia
-  // if(!botaoPsicologiaTexture.loadFromFile("./interface/assets/imagens/botoes/botoes_psicologia.png")
-  // || !botaoPsicologiaClicadoTexture.loadFromFile("./interface/assets/imagens/botoes_clicados/botoes_clicados_psicologia.png")){
-  //   cout << "Erro: não foi possível carregar a imagem do botão psicologia" << endl;
-  // }else{
-  //   botao_psicologia.setTexture(botaoPsicologiaTexture);
-  //   botao_psicologia.setPosition(600, 600);
-
-  //   botao_psicologia_clicado.setTexture(botaoPsicologiaClicadoTexture);
-  //   botao_psicologia_clicado.setPosition(600, 600);
-  // }
-
-  // //botao letras
-  // if(!botaoLetrasTexture.loadFromFile("./interface/assets/imagens/botoes/botoes_letras.png")
-  // || !botaoLetrasClicadoTexture.loadFromFile("./interface/assets/imagens/botoes_clicados/botoes_clicados_letras.png")){
-  //   cout << "Erro: não foi possível carregar a imagem do botão letras" << endl;
-  // }else{
-  //   botao_letras.setTexture(botaoLetrasTexture);
-  //   botao_letras.setPosition(770, 600);
-
-  //   botao_letras_clicado.setTexture(botaoLetrasClicadoTexture);
-  //   botao_letras_clicado.setPosition(770, 600);
-  // }
-
-  // //botao filosofia
-  // if(!botaoFilosofiaTexture.loadFromFile("./interface/assets/imagens/botoes/botoes_filosofia.png")
-  // || !botaoFilosofiaClicadoTexture.loadFromFile("./interface/assets/imagens/botoes_clicados/botoes_clicados_filosofia.png")){
-  //   cout << "Erro: não foi possível carregar a imagem do botão filosofia" << endl;
-  // }else{
-  //   botao_filosofia.setTexture(botaoFilosofiaTexture);
-  //   botao_filosofia.setPosition(920, 600);
-
-  //   botao_filosofia_clicado.setTexture(botaoFilosofiaClicadoTexture);
-  //   botao_filosofia_clicado.setPosition(920, 600);
-  // }
-
-  // //botao geografia
-  // if(!botaoGeografiaTexture.loadFromFile("./interface/assets/imagens/botoes/botoes_geografia.png")
-  // || !botaoGeografiaClicadoTexture.loadFromFile("./interface/assets/imagens/botoes_clicados/botoes_clicados_geografia.png")){
-  //   cout << "Erro: não foi possível carregar a imagem do botão geografia" << endl;
-  // }else{
-  //   botao_geografia.setTexture(botaoGeografiaTexture);
-  //   botao_geografia.setPosition(350, botao_historia.getPosition().y + 65);
-
-  //   botao_geografia_clicado.setTexture(botaoGeografiaClicadoTexture);
-  //   botao_geografia_clicado.setPosition(350, botao_historia.getPosition().y + 65);
-  // }
-
-  // //botao matematica
-  // if(!botaoMatematicaTexture.loadFromFile("./interface/assets/imagens/botoes/botoes_matematica.png")
-  // || !botaoMatematicaClicadoTexture.loadFromFile("./interface/assets/imagens/botoes_clicados/botoes_clicados_matematica.png")){
-  //   cout << "Erro: não foi possível carregar a imagem do botão matematica" << endl;
-  // }else{
-  //   botao_matematica.setTexture(botaoMatematicaTexture);
-  //   botao_matematica.setPosition(510, botao_historia.getPosition().y + 65);
-
-  //   botao_matematica_clicado.setTexture(botaoMatematicaClicadoTexture);
-  //   botao_matematica_clicado.setPosition(510, botao_historia.getPosition().y + 65);
-  // }
-
-  // //botao quimica
-  // if(!botaoQuimicaTexture.loadFromFile("./interface/assets/imagens/botoes/botoes_quimica.png")
-  // || !botaoQuimicaClicadoTexture.loadFromFile("./interface/assets/imagens/botoes_clicados/botoes_clicados_quimica.png")){
-  //   cout << "Erro: não foi possível carregar a imagem do botão quimica" << endl;
-  // }else{
-  //   botao_quimica.setTexture(botaoQuimicaTexture);
-  //   botao_quimica.setPosition(685, botao_historia.getPosition().y + 65);
-
-  //   botao_quimica_clicado.setTexture(botaoQuimicaClicadoTexture);
-  //   botao_quimica_clicado.setPosition(685, botao_historia.getPosition().y + 65);
-  // }
-
-  // //botao informatica
-  // if(!botaoInformaticaTexture.loadFromFile("./interface/assets/imagens/botoes/botoes_informatica.png")
-  // || !botaoInformaticaClicadoTexture.loadFromFile("./interface/assets/imagens/botoes_clicados/botoes_clicados_informatica.png")){
-  //   cout << "Erro: não foi possível carregar a imagem do botão informatica" << endl;
-  // }else{
-  //   botao_informatica.setTexture(botaoInformaticaTexture);
-  //   botao_informatica.setPosition(840, botao_historia.getPosition().y + 65);
-
-  //   botao_informatica_clicado.setTexture(botaoInformaticaClicadoTexture);
-  //   botao_informatica_clicado.setPosition(840, botao_historia.getPosition().y + 65);
-  // }
-
-  // //botao arte
-  // if(!botaoArteTexture.loadFromFile("./interface/assets/imagens/botoes/botoes_artes.png")
-  // || !botaoArteClicadoTexture.loadFromFile("./interface/assets/imagens/botoes_clicados/botoes_clicados_artes.png")){
-  //   cout << "Erro: não foi possível carregar a imagem do botão arte" << endl;
-  // }else{
-  //   botao_arte.setTexture(botaoArteTexture);
-  //   botao_arte.setPosition(1010, botao_historia.getPosition().y + 65);
-
-  //   botao_arte_clicado.setTexture(botaoArteClicadoTexture);
-  //   botao_arte_clicado.setPosition(1010, botao_historia.getPosition().y + 65);
-  // }
 
   while (window.isOpen()) {
     sf::Event event;
