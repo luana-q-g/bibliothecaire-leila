@@ -4,7 +4,7 @@ CXXFLAGS=-Wall
 LIBRARIES=-lsfml-graphics -lsfml-window -lsfml-system
 EXECUTABLE=bibliotech
 
-SOURCES := ${wildcard *.cpp} ${wildcard **/*.cpp}
+SOURCES := $(wildcard *.cpp) $(wildcard **/*.cpp)
 
 all: $(SOURCES)
 	$(CXX) $(CXXFLAGS) $^ -o $(EXECUTABLE) $(LIBRARIES)

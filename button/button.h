@@ -19,18 +19,6 @@
 
 using namespace std;
 
-enum botoes {
-  historia,
-  psicologia,
-  letras,
-  filosofia,
-  geografia,
-  matematica,
-  informatica,
-  quimica,
-  arte
-};
-
 class Button : public sf::RectangleShape {
 private:
   bool clicked;

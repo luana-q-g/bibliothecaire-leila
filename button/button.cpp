@@ -14,17 +14,16 @@
 
 using namespace std;
 
-
 Button::Button(string tipo) : sf::RectangleShape(sf::Vector2f(112,56)){
   if(!textureIdle.loadFromFile("./interface/assets/imagens/botoes/botoes_" + tipo + ".png")
   || !textureClicked.loadFromFile("./interface/assets/imagens/botoes_clicados/botoes_clicados_" + tipo + ".png")){
     cout << "Erro: não foi possível carregar a imagem do botão " + tipo << endl;
   }else{
     setTexture(&textureIdle);
-    //setPosition(440, 600);
   }
 }
 
 bool Button::isInside(const sf::Vector2i){
+  // TODO
   return true;
 }
