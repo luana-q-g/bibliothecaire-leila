@@ -31,7 +31,6 @@ Objetivos: Trabalho de AED1
 #include "livro/livro.h"
 #include "pilha/pilha.cpp"
 #include "pilha/pilha.h"
-#include "utils/utils.h"
 
 #include "button/button.h"
 
