@@ -30,14 +30,16 @@ Button::Button(string tipo, Lista<Livro> _lista) : sf::RectangleShape(sf::Vector
   }
 }
 
-void Button::click(const sf::Vector2i point, Livro livro){
+bool Button::click(const sf::Vector2i point, Livro livro){
   if(sf::RectangleShape::getGlobalBounds().contains((float) point.x, (float) point.y)){
     if(!clicked){
       setTexture(&textureClicked);
       clicked = true;
-      lista.inserir(livro, 0);
+      return lista.inserir(livro, 0);
     }
   }
+
+  return false;
 }
 
 void Button::release(){

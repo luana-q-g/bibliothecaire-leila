@@ -209,15 +209,19 @@ int main(int argc, char *argv[]) {
         break;
       case sf::Event::MouseButtonPressed:
         if (event.mouseButton.button == 0){
-          botao_historia.click(sf::Mouse::getPosition(window), livroAtual);
-          botao_psicologia.click(sf::Mouse::getPosition(window), livroAtual);
-          botao_letras.click(sf::Mouse::getPosition(window), livroAtual);
-          botao_filosofia.click(sf::Mouse::getPosition(window), livroAtual);
-          botao_geografia.click(sf::Mouse::getPosition(window), livroAtual);
-          botao_matematica.click(sf::Mouse::getPosition(window), livroAtual);
-          botao_informatica.click(sf::Mouse::getPosition(window), livroAtual);
-          botao_quimica.click(sf::Mouse::getPosition(window), livroAtual);
-          botao_arte.click(sf::Mouse::getPosition(window), livroAtual);
+          if(botao_historia.click(sf::Mouse::getPosition(window), livroAtual)
+          || botao_psicologia.click(sf::Mouse::getPosition(window), livroAtual)
+          || botao_letras.click(sf::Mouse::getPosition(window), livroAtual)
+          || botao_filosofia.click(sf::Mouse::getPosition(window), livroAtual)
+          || botao_geografia.click(sf::Mouse::getPosition(window), livroAtual)
+          || botao_matematica.click(sf::Mouse::getPosition(window), livroAtual)
+          || botao_informatica.click(sf::Mouse::getPosition(window), livroAtual)
+          || botao_quimica.click(sf::Mouse::getPosition(window), livroAtual)
+             || botao_arte.click(sf::Mouse::getPosition(window), livroAtual)){
+            cout << "Inseriu em alguma lista" << endl;
+          }else{
+            cout << "Não inseriu em nenhuma, tente novamente!" << endl;
+          }
         }
         break;
       case sf::Event::MouseButtonReleased:

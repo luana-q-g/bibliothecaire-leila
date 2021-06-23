@@ -40,11 +40,9 @@ bool Lista<elementType>::inserir(elementType &element, int posicao)
   Node<elementType> *nodeRef = getElemento(posicao);
 
   if (podeInserir(element, nodeRef)){
-    cout << "Inserido com sucesso!" << endl;
     return (BaseList<elementType>::insertNode(nodeRef, &element));
   }
 
-  cout << "Não foi possível inserir na lista!" << endl;
   return false;
 }
 
