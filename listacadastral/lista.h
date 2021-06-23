@@ -24,7 +24,7 @@ template <class elementType>
 class Lista : public BaseList<elementType>
 {
 private:
-  string categoria;
+  wstring categoria;
 
   // Retorna se o dado elemento pode ou não ser inserido na dada posição da lista
   bool podeInserir(elementType &element, Node<elementType> *nodeRef);
@@ -33,7 +33,7 @@ private:
   Node<elementType> *getElemento(int posicao);
 
 public:
-  Lista(string categoria = "");
+  Lista(wstring categoria = L"");
   bool inserir(elementType &element, int posicao);
   bool remover(elementType &element);
   void imprimir();

@@ -16,6 +16,9 @@
 #include <SFML/System/Vector2.hpp>
 #include <iostream>
 #include <string>
+#include "../listacadastral/lista.h"
+#include "../listacadastral/lista.cpp"
+#include "../livro/livro.h"
 
 using namespace std;
 
@@ -26,11 +29,12 @@ private:
   bool active;
   sf::Texture textureClicked;
   sf::Texture textureIdle;
+  Lista<Livro> lista;
 
 public:
   Button();
-  Button(string tipo);
-  void click(const sf::Vector2i point);
+  Button(string tipo, Lista<Livro> _lista);
+  void click(const sf::Vector2i point, Livro livro);
   void release();
 };
 

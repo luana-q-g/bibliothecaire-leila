@@ -42,15 +42,15 @@ int main(int argc, char *argv[]) {
   setlocale(LC_ALL, "Portuguese");
 
   // Lista pra cada categoria
-  Lista<Livro> lista_letras("Letras");
-  Lista<Livro> lista_filosofia("Filosofia");
-  Lista<Livro> lista_geografia("Geografia");
-  Lista<Livro> lista_historia("História");
-  Lista<Livro> lista_matematica("Matemática");
-  Lista<Livro> lista_psicologia("Psicologia");
-  Lista<Livro> lista_informatica("Informática");
-  Lista<Livro> lista_quimica("Química");
-  Lista<Livro> lista_arte("Arte");
+  Lista<Livro> lista_letras(L"Letras");
+  Lista<Livro> lista_filosofia(L"Filosofia");
+  Lista<Livro> lista_geografia(L"Geografia");
+  Lista<Livro> lista_historia(L"História");
+  Lista<Livro> lista_matematica(L"Matemática");
+  Lista<Livro> lista_psicologia(L"Psicologia");
+  Lista<Livro> lista_informatica(L"Informática");
+  Lista<Livro> lista_quimica(L"Química");
+  Lista<Livro> lista_arte(L"Arte");
 
   // Vetor que armazena todas as listas(estantes)
   Lista<Livro> listas[9] = {
@@ -152,19 +152,19 @@ int main(int argc, char *argv[]) {
 
   sf::Font font;
   sf::Text text;
+  Livro livroAtual = pilha.remover();
 
   if (!font.loadFromFile("./interface/assets/fonts/Roboto-Bold.ttf")) {
     cout << "Erro: não foi possível carregar a fonte";
   } else {
-    Livro livro = pilha.remover();
     text.setFont(font);
     text.setString(
       L"Hmmm, temos aqui o\n" +
-      livro.getNome() +
+      livroAtual.getNome() +
       L"\n escrito por " +
-      livro.getAutor() +
+      livroAtual.getAutor() +
       L"\n em " +
-      to_wstring(livro.getAnoLancamento())
+      to_wstring(livroAtual.getAnoLancamento())
     );
     text.setCharacterSize(24);
     text.setFillColor(sf::Color::Black);
@@ -173,15 +173,15 @@ int main(int argc, char *argv[]) {
   }
 
   // Loading interface buttons
-  Button botao_historia("historia");
-  Button botao_psicologia("psicologia");
-  Button botao_letras("letras");
-  Button botao_filosofia("filosofia");
-  Button botao_geografia("geografia");
-  Button botao_matematica("matematica");
-  Button botao_informatica("informatica");
-  Button botao_quimica("quimica");
-  Button botao_arte("artes");
+  Button botao_historia("historia", lista_historia);
+  Button botao_psicologia("psicologia", lista_psicologia);
+  Button botao_letras("letras", lista_letras);
+  Button botao_filosofia("filosofia", lista_filosofia);
+  Button botao_geografia("geografia", lista_geografia);
+  Button botao_matematica("matematica", lista_matematica);
+  Button botao_informatica("informatica", lista_informatica);
+  Button botao_quimica("quimica", lista_quimica);
+  Button botao_arte("artes", lista_arte);
 
   // Posicionando os botoes
   botao_historia.setPosition(440, 600);
@@ -209,15 +209,15 @@ int main(int argc, char *argv[]) {
         break;
       case sf::Event::MouseButtonPressed:
         if (event.mouseButton.button == 0){
-          botao_historia.click(sf::Mouse::getPosition(window));
-          botao_psicologia.click(sf::Mouse::getPosition(window));
-          botao_letras.click(sf::Mouse::getPosition(window));
-          botao_filosofia.click(sf::Mouse::getPosition(window));
-          botao_geografia.click(sf::Mouse::getPosition(window));
-          botao_matematica.click(sf::Mouse::getPosition(window));
-          botao_informatica.click(sf::Mouse::getPosition(window));
-          botao_quimica.click(sf::Mouse::getPosition(window));
-          botao_arte.click(sf::Mouse::getPosition(window));
+          botao_historia.click(sf::Mouse::getPosition(window), livroAtual);
+          botao_psicologia.click(sf::Mouse::getPosition(window), livroAtual);
+          botao_letras.click(sf::Mouse::getPosition(window), livroAtual);
+          botao_filosofia.click(sf::Mouse::getPosition(window), livroAtual);
+          botao_geografia.click(sf::Mouse::getPosition(window), livroAtual);
+          botao_matematica.click(sf::Mouse::getPosition(window), livroAtual);
+          botao_informatica.click(sf::Mouse::getPosition(window), livroAtual);
+          botao_quimica.click(sf::Mouse::getPosition(window), livroAtual);
+          botao_arte.click(sf::Mouse::getPosition(window), livroAtual);
         }
         break;
       case sf::Event::MouseButtonReleased:

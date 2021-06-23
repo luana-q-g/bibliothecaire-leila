@@ -17,7 +17,7 @@ Objetivos: Implementar os métodos da classe lista
 using namespace std;
 
 template <class elementType>
-Lista<elementType>::Lista(string _categoria) : categoria(_categoria) {}
+Lista<elementType>::Lista(wstring _categoria) : categoria(_categoria) {}
 
 template <class elementType>
 bool Lista<elementType>::podeInserir(elementType &element, Node<elementType> *nodeRef)
@@ -39,9 +39,12 @@ bool Lista<elementType>::inserir(elementType &element, int posicao)
 {
   Node<elementType> *nodeRef = getElemento(posicao);
 
-  if (podeInserir(element, nodeRef))
+  if (podeInserir(element, nodeRef)){
+    cout << "Inserido com sucesso!" << endl;
     return (BaseList<elementType>::insertNode(nodeRef, &element));
+  }
 
+  cout << "Não foi possível inserir na lista!" << endl;
   return false;
 }
 
