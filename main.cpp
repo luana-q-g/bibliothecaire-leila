@@ -147,7 +147,7 @@ int main(int argc, char *argv[]) {
     dialogo.setTexture(dialogoTexture);
     dialogo.setPosition(girl.getGlobalBounds().width - 150,
                         (window.getSize().y - dialogo.getGlobalBounds().height -
-                         girl.getGlobalBounds().height));
+                         girl.getGlobalBounds().height) + 50);
   }
 
   sf::Font font;
@@ -159,17 +159,17 @@ int main(int argc, char *argv[]) {
   } else {
     text.setFont(font);
     text.setString(
-      L"Hmmm, temos aqui o\n" +
+      L"Hmmm, temos aqui o livro\n" +
       livroAtual.getNome() +
       L"\n escrito por " +
       livroAtual.getAutor() +
-      L"\n em " +
+      L" em " +
       to_wstring(livroAtual.getAnoLancamento())
     );
     text.setCharacterSize(24);
     text.setFillColor(sf::Color::Black);
     text.setStyle(sf::Text::Bold);
-    text.setPosition(dialogo.getPosition().x + 150, dialogo.getPosition().y + 70);
+    text.setPosition(dialogo.getPosition().x + 40, dialogo.getPosition().y + 100);
   }
 
   // Loading interface buttons
@@ -184,15 +184,15 @@ int main(int argc, char *argv[]) {
   Button botao_arte("artes", lista_arte);
 
   // Posicionando os botoes
-  botao_historia.setPosition(440, 600);
-  botao_psicologia.setPosition(600, 600);
-  botao_letras.setPosition(770, 600);
-  botao_filosofia.setPosition(920, 600);
-  botao_geografia.setPosition(320, botao_historia.getPosition().y + 65);
-  botao_matematica.setPosition(510, botao_historia.getPosition().y + 65);
-  botao_informatica.setPosition(685, botao_historia.getPosition().y + 65);
-  botao_quimica.setPosition(840, botao_historia.getPosition().y + 65);
-  botao_arte.setPosition(1010, botao_historia.getPosition().y + 65);
+  botao_historia.setPosition(girl.getPosition().x + girl.getGlobalBounds().width + 100, window.getSize().y - 130);
+  botao_psicologia.setPosition(botao_historia.getPosition().x + botao_historia.getGlobalBounds().width + 50, botao_historia.getPosition().y);
+  botao_letras.setPosition(botao_psicologia.getPosition().x + botao_psicologia.getGlobalBounds().width + 50, botao_historia.getPosition().y);
+  botao_filosofia.setPosition(botao_letras.getPosition().x + botao_letras.getGlobalBounds().width + 50, botao_historia.getPosition().y);
+  botao_geografia.setPosition(botao_historia.getPosition().x - 80, botao_historia.getPosition().y + 65);
+  botao_matematica.setPosition(botao_geografia.getPosition().x + botao_geografia.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
+  botao_informatica.setPosition(botao_matematica.getPosition().x + botao_matematica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
+  botao_quimica.setPosition(botao_informatica.getPosition().x + botao_informatica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
+  botao_arte.setPosition(botao_quimica.getPosition().x + botao_quimica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
 
   while (window.isOpen()) {
     sf::Event event;
