@@ -184,7 +184,7 @@ int main(int argc, char *argv[]) {
   Button botao_arte("artes", lista_arte);
 
   // Posicionando os botoes
-  botao_historia.setPosition(girl.getPosition().x + girl.getGlobalBounds().width + 100, window.getSize().y - 130);
+  botao_historia.setPosition(girl.getPosition().x + girl.getGlobalBounds().width + (window.getSize().x / 6), window.getSize().y - 140);
   botao_psicologia.setPosition(botao_historia.getPosition().x + botao_historia.getGlobalBounds().width + 50, botao_historia.getPosition().y);
   botao_letras.setPosition(botao_psicologia.getPosition().x + botao_psicologia.getGlobalBounds().width + 50, botao_historia.getPosition().y);
   botao_filosofia.setPosition(botao_letras.getPosition().x + botao_letras.getGlobalBounds().width + 50, botao_historia.getPosition().y);
