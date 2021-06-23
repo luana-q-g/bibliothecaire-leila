@@ -17,7 +17,9 @@ Objetivos: Trabalho de AED1
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include <SFML/System/Sleep.hpp>
 #include <SFML/System/String.hpp>
+#include <SFML/System/Time.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Window/VideoMode.hpp>
@@ -219,8 +221,35 @@ int main(int argc, char *argv[]) {
           || botao_quimica.click(sf::Mouse::getPosition(window), livroAtual)
              || botao_arte.click(sf::Mouse::getPosition(window), livroAtual)){
             cout << "Inseriu em alguma lista" << endl;
+            if(!pilha.empty()){
+              livroAtual = pilha.remover();
+              text.setString(
+                L"Hmmm, temos aqui o livro\n" +
+                livroAtual.getNome() +
+                L"\n escrito por " +
+                livroAtual.getAutor() +
+                L" em " +
+                to_wstring(livroAtual.getAnoLancamento())
+              );
+            } else{
+              // TODO: Como terminar o jogo
+            }
           }else{
-            cout << "Não inseriu em nenhuma, tente novamente!" << endl;
+            // TODO Falar que não da pra colocar na lista
+            text.setString(L"Opa, essa não é a categoria certa para o livro!\n Tente novamente!");
+
+            // WARNING: Isso tá quebrando tudo
+            // sf::sleep(sf::milliseconds(100));
+
+            // Mostrando novamente as informações do livro
+            text.setString(
+              L"Hmmm, temos aqui o livro\n" +
+              livroAtual.getNome() +
+              L"\n escrito por " +
+              livroAtual.getAutor() +
+              L" em " +
+              to_wstring(livroAtual.getAnoLancamento())
+            );
           }
         }
         break;
