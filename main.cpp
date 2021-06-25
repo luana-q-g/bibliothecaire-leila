@@ -154,6 +154,7 @@ int main(int argc, char *argv[]) {
 
   sf::Font font;
   sf::Text text;
+  sf::Text errorText;
   Livro livroAtual = pilha.remover();
 
   if (!font.loadFromFile("./interface/assets/fonts/Roboto-Bold.ttf")) {
@@ -172,6 +173,13 @@ int main(int argc, char *argv[]) {
     text.setFillColor(sf::Color::Black);
     text.setStyle(sf::Text::Bold);
     text.setPosition(dialogo.getPosition().x + 40, dialogo.getPosition().y + 100);
+
+    errorText.setFont(font);
+    errorText.setString(L" ");
+    errorText.setCharacterSize(24);
+    errorText.setFillColor(sf::Color::Black);
+    errorText.setStyle(sf::Text::Bold);
+    errorText.setPosition(dialogo.getPosition().x + 180, dialogo.getPosition().y + 200);
   }
 
   // Loading interface buttons
@@ -196,9 +204,24 @@ int main(int argc, char *argv[]) {
   botao_quimica.setPosition(botao_informatica.getPosition().x + botao_informatica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
   botao_arte.setPosition(botao_quimica.getPosition().x + botao_quimica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
 
+  srand(time(0));
+
+  sf::Clock clock;
+  float timer = 0, delay = 1.5;
+
   while (window.isOpen()) {
     sf::Event event;
     Button buttonPressed;
+
+    //timer mensagem de erro
+    float time = clock.getElapsedTime().asSeconds();
+    clock.restart();
+    timer+=time;
+
+    if(timer > delay){
+      timer = 0;
+      errorText.setString(L" ");
+    }
 
     // While there are pending events
     while (window.pollEvent(event)) {
@@ -211,14 +234,16 @@ int main(int argc, char *argv[]) {
         break;
       case sf::Event::MouseButtonPressed:
         if (event.mouseButton.button == 0){
+          errorText.setString(L" ");
+
           if(botao_historia.click(sf::Mouse::getPosition(window), livroAtual)
-          || botao_psicologia.click(sf::Mouse::getPosition(window), livroAtual)
-          || botao_letras.click(sf::Mouse::getPosition(window), livroAtual)
-          || botao_filosofia.click(sf::Mouse::getPosition(window), livroAtual)
-          || botao_geografia.click(sf::Mouse::getPosition(window), livroAtual)
-          || botao_matematica.click(sf::Mouse::getPosition(window), livroAtual)
-          || botao_informatica.click(sf::Mouse::getPosition(window), livroAtual)
-          || botao_quimica.click(sf::Mouse::getPosition(window), livroAtual)
+              || botao_psicologia.click(sf::Mouse::getPosition(window), livroAtual)
+              || botao_letras.click(sf::Mouse::getPosition(window), livroAtual)
+              || botao_filosofia.click(sf::Mouse::getPosition(window), livroAtual)
+              || botao_geografia.click(sf::Mouse::getPosition(window), livroAtual)
+              || botao_matematica.click(sf::Mouse::getPosition(window), livroAtual)
+              || botao_informatica.click(sf::Mouse::getPosition(window), livroAtual)
+              || botao_quimica.click(sf::Mouse::getPosition(window), livroAtual)
              || botao_arte.click(sf::Mouse::getPosition(window), livroAtual)){
             cout << "Inseriu em alguma lista" << endl;
             if(!pilha.empty()){
@@ -236,10 +261,7 @@ int main(int argc, char *argv[]) {
             }
           }else{
             // TODO Falar que não da pra colocar na lista
-            text.setString(L"Opa, essa não é a categoria certa para o livro!\n Tente novamente!");
-
-            // WARNING: Isso tá quebrando tudo
-            // sf::sleep(sf::milliseconds(100));
+            errorText.setString(L"Essa não é a categoria certa para o livro!\n Tente novamente!");
 
             // Mostrando novamente as informações do livro
             text.setString(
@@ -250,6 +272,8 @@ int main(int argc, char *argv[]) {
               L" em " +
               to_wstring(livroAtual.getAnoLancamento())
             );
+
+            timer = 0;
           }
         }
         break;
@@ -274,6 +298,7 @@ int main(int argc, char *argv[]) {
     window.draw(girl);
     window.draw(dialogo);
     window.draw(text);
+    window.draw(errorText);
     window.draw(botao_historia);
     window.draw(botao_psicologia);
     window.draw(botao_letras);
