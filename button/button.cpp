@@ -59,8 +59,10 @@ bool Button::click_saida(const sf::Vector2i point){
     if(!clicked){
       setTexture(&textureClicked);
       clicked = true;
+      return true;
     }
   }
+  return false;
 }
 
 bool Button::click_jogarNovamente(const sf::Vector2i point){
@@ -68,8 +70,10 @@ if(sf::RectangleShape::getGlobalBounds().contains((float) point.x, (float) point
     if(!clicked){
       setTexture(&textureClicked);
       clicked = true;
+      return true;
     }
   }
+  return false;
 }
 
 

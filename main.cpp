@@ -218,7 +218,7 @@ int main(int argc, char *argv[]) {
   botao_jogarNovamente.setPosition(botao_jogarNovamente.getPosition().x + botao_quimica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
   botao_sair.setPosition(botao_sair.getPosition().x + botao_quimica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
 
-  bool comecoDoJogo = true;
+  bool comecoDoJogo = false;
   bool finalDoJogo = false; // Condição para entrar no final do jogo
 
   int contadorScore = 0;
