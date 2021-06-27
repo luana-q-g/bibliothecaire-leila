@@ -259,6 +259,8 @@ int main(int argc, char *argv[]) {
         //JOGAR NOVAMENTE
         while(jogarNovamente == true){
 
+          //
+
           if(botao_historia.click(sf::Mouse::getPosition(window), livroAtual)
               || botao_psicologia.click(sf::Mouse::getPosition(window), livroAtual)
               || botao_letras.click(sf::Mouse::getPosition(window), livroAtual)
@@ -358,6 +360,8 @@ int main(int argc, char *argv[]) {
           botao_informatica.release();
           botao_quimica.release();
           botao_arte.release();
+          botao_sair.release();
+          botao_jogarNovamente.release();
         break;
       default:
         break;
