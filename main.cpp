@@ -217,6 +217,7 @@ int main(int argc, char *argv[]) {
   botao_jogarNovamente.setPosition(botao_jogarNovamente.getPosition().x + botao_quimica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
   botao_sair.setPosition(botao_sair.getPosition().x + botao_quimica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
 
+  bool comecoDoJogo = true;
   bool finalDoJogo = false; // Condição para entrar no final do jogo
 
   int contadorScore = 0;
@@ -367,7 +368,11 @@ int main(int argc, char *argv[]) {
       }
     }
 
-    if (finalDoJogo) {
+    if (comecoDoJogo){
+
+    }
+
+    else if (finalDoJogo) {
       window.draw(background);
       window.draw(girl);
       window.draw(dialogo);
@@ -396,6 +401,7 @@ int main(int argc, char *argv[]) {
     window.draw(botao_arte);
     window.display();
     }
+
   }
 
   return 0;
