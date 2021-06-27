@@ -230,6 +230,8 @@ int main(int argc, char *argv[]) {
   sf::Clock clock;
   float timer = 0, delay = 1.5;
 
+  while(jogarNovamente == true){
+
   while (window.isOpen()) {
     sf::Event event;
     Button buttonPressed;
@@ -258,7 +260,7 @@ int main(int argc, char *argv[]) {
           errorText.setString(L" ");
 
         //JOGAR NOVAMENTE
-        while(jogarNovamente == true){
+        
 
           //
 
@@ -348,7 +350,7 @@ int main(int argc, char *argv[]) {
 
             timer = 0;
           }
-        }
+        
         }
         break;
       case sf::Event::MouseButtonReleased:
@@ -404,6 +406,7 @@ int main(int argc, char *argv[]) {
     }
 
   }
+}
 
   return 0;
 }
