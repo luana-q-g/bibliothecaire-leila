@@ -201,6 +201,8 @@ int main(int argc, char *argv[]) {
   Button botao_informatica("informatica", lista_informatica);
   Button botao_quimica("quimica", lista_quimica);
   Button botao_arte("artes", lista_arte);
+  Button botao_jogarNovamente("sair");
+  Button botao_sair("jogar-novamente");
 
   // Posicionando os botoes
   botao_historia.setPosition(girl.getPosition().x + girl.getGlobalBounds().width + (window.getSize().x / 6), window.getSize().y - 140);
@@ -212,10 +214,14 @@ int main(int argc, char *argv[]) {
   botao_informatica.setPosition(botao_matematica.getPosition().x + botao_matematica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
   botao_quimica.setPosition(botao_informatica.getPosition().x + botao_informatica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
   botao_arte.setPosition(botao_quimica.getPosition().x + botao_quimica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
+  botao_jogarNovamente.setPosition(botao_jogarNovamente.getPosition().x + botao_quimica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
+  botao_sair.setPosition(botao_sair.getPosition().x + botao_quimica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
 
   bool finalDoJogo = false; // Condição para entrar no final do jogo
 
   int contadorScore = 0;
+  int errouMais; 
+  bool jogarNovamente = true;
 
   srand(time(0));
 
@@ -249,6 +255,9 @@ int main(int argc, char *argv[]) {
         if (event.mouseButton.button == 0){
           errorText.setString(L" ");
 
+        //JOGAR NOVAMENTE
+        while(jogarNovamente == true){
+
           if(botao_historia.click(sf::Mouse::getPosition(window), livroAtual)
               || botao_psicologia.click(sf::Mouse::getPosition(window), livroAtual)
               || botao_letras.click(sf::Mouse::getPosition(window), livroAtual)
@@ -258,6 +267,8 @@ int main(int argc, char *argv[]) {
               || botao_informatica.click(sf::Mouse::getPosition(window), livroAtual)
               || botao_quimica.click(sf::Mouse::getPosition(window), livroAtual)
              || botao_arte.click(sf::Mouse::getPosition(window), livroAtual)){
+              
+            errouMais = 0;
 
             cout << "Inseriu em alguma lista" << endl;
             contadorScore++;
@@ -301,13 +312,24 @@ int main(int argc, char *argv[]) {
                   textScore.setString(L"Você acertou: " + to_wstring(contadorScore));
 
                   //FAZER BOTÃO DE SAÍDA DO JOGO
+
+                  if(botao_sair.click_saida(sf::Mouse::getPosition(window))){
+                    window.close();
+                  }
+
+                  if(botao_jogarNovamente.click_jogarNovamente(sf::Mouse::getPosition(window))){}
+                    jogarNovamente = true;
                 }
               }
               cout << "Acabou!\n" << endl;
             }
           }else{
             // TODO Falar que não da pra colocar na lista
-            contadorScore--;
+            if (!(errouMais > 0))
+              contadorScore--;
+            
+            errouMais++;
+
             errorText.setString(L"Essa não é a categoria certa para o livro!\n Tente novamente!");
 
             // Mostrando novamente as informações do livro
@@ -322,6 +344,7 @@ int main(int argc, char *argv[]) {
 
             timer = 0;
           }
+        }
         }
         break;
       case sf::Event::MouseButtonReleased:
@@ -346,6 +369,8 @@ int main(int argc, char *argv[]) {
       window.draw(dialogo);
       window.draw(text);
       window.draw(textScore);
+      window.draw(botao_sair);
+      window.draw(botao_jogarNovamente);
       window.display();
     }
 
