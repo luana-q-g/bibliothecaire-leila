@@ -360,7 +360,7 @@ int main(int argc, char *argv[]) {
           botao_quimica.release();
           botao_arte.release();
           botao_sair.release();
-          botao_jogarNovamete.release();
+          botao_jogarNovamente.release();
         break;
       default:
         break;
