@@ -2,7 +2,7 @@ CXX=g++
 CXXFLAGS=-Wall
 
 LIBRARIES=-lsfml-graphics -lsfml-window -lsfml-system
-EXECUTABLE=bibliotech
+EXECUTABLE=bibliotecaria-leila
 
 SOURCES := $(wildcard *.cpp) $(wildcard **/*.cpp)
 
