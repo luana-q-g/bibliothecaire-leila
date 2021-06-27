@@ -20,9 +20,8 @@ template <class elementType>
 Pilha<elementType>::Pilha(): tam_pilha(0){}
 
 template <class elementType>
-Pilha<elementType>::Pilha(int _tam_pilha, elementType *lista_fixa){
+Pilha<elementType>::Pilha(int tam_pilha, elementType *lista_fixa){
   srand(time(NULL)); // randomize seed
-  int tam_pilha = 10;
   int indices[tam_pilha];
 
   for (int i = 0; i < tam_pilha; i++)

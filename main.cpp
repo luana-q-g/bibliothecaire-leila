@@ -111,7 +111,8 @@ int main(int argc, char *argv[]) {
       quimica_l31,     quimica_l32,     arte_l33,
       arte_l34,        arte_l35,        arte_l36}; // Pilha com os livros
 
-  Pilha<Livro> pilha(10, lista_fixa);
+  int tamanho = 5;
+  Pilha<Livro> pilha(tamanho, lista_fixa);
 
   sf::RenderWindow window(sf::VideoMode(626 * 2, 375 * 2),
                           "Bibliotecária Leila");
@@ -154,6 +155,7 @@ int main(int argc, char *argv[]) {
 
   sf::Font font;
   sf::Text text;
+  sf::Text textScore;
   sf::Text errorText;
   Livro livroAtual = pilha.remover();
 
@@ -169,10 +171,17 @@ int main(int argc, char *argv[]) {
       L" em " +
       to_wstring(livroAtual.getAnoLancamento())
     );
+
     text.setCharacterSize(24);
     text.setFillColor(sf::Color::Black);
     text.setStyle(sf::Text::Bold);
     text.setPosition(dialogo.getPosition().x + 40, dialogo.getPosition().y + 100);
+
+    textScore.setCharacterSize(24);
+    textScore.setFillColor(sf::Color::Black);
+    textScore.setStyle(sf::Text::Bold);
+    textScore.setPosition(dialogo.getPosition().x + 40, dialogo.getPosition().y + 200);
+
 
     errorText.setFont(font);
     errorText.setString(L" ");
@@ -203,6 +212,10 @@ int main(int argc, char *argv[]) {
   botao_informatica.setPosition(botao_matematica.getPosition().x + botao_matematica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
   botao_quimica.setPosition(botao_informatica.getPosition().x + botao_informatica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
   botao_arte.setPosition(botao_quimica.getPosition().x + botao_quimica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
+
+  bool finalDoJogo = false; // Condição para entrar no final do jogo
+
+  int contadorScore = 0;
 
   srand(time(0));
 
@@ -245,7 +258,10 @@ int main(int argc, char *argv[]) {
               || botao_informatica.click(sf::Mouse::getPosition(window), livroAtual)
               || botao_quimica.click(sf::Mouse::getPosition(window), livroAtual)
              || botao_arte.click(sf::Mouse::getPosition(window), livroAtual)){
+
             cout << "Inseriu em alguma lista" << endl;
+            contadorScore++;
+
             if(!pilha.empty()){
               livroAtual = pilha.remover();
               text.setString(
@@ -256,11 +272,42 @@ int main(int argc, char *argv[]) {
                 L" em " +
                 to_wstring(livroAtual.getAnoLancamento())
               );
-            } else{
-              // TODO: Como terminar o jogo
+            } else{ //SE O JOGO ACABAR
+              if (!girlTexture.loadFromFile("./interface/assets/imagens/bibliotecaria-fim.png")) {
+                  cout << "Erro: não foi possível carregar as imagens do fim" << endl;
+              } else {
+                if(!dialogoTexture.loadFromFile("./interface/assets/imagens/dialogo-fim.png")){
+                  cout << "Erro: não foi possível carregar as imagens do fim" << endl;
+                }
+                else{
+                  finalDoJogo = true;
+
+                  //Mudar lado da bibliotecária
+                  //dialogo.move(sf::Vector2f(50, 0));
+
+                  girl.setPosition(window.getSize().x/2 - girl.getGlobalBounds().width/2, window.getSize().y - girl.getGlobalBounds().height);
+                  dialogo.setPosition(girl.getPosition().x - girl.getGlobalBounds().width - 100, 0);
+
+                  //Texto do final
+                  if (contadorScore <= 0 ){
+                    contadorScore = 0;
+                  }
+
+                  text.setPosition(dialogo.getPosition().x + 50, dialogo.getPosition().y + 100);
+                  text.setString(L"Parabéns, Mané! Você conseguiu!\n Você alcançou " + to_wstring(contadorScore) + L"/" + to_wstring(tamanho) + L" pontos");
+
+                  //Apresentação final do score com texto a parte
+
+                  textScore.setString(L"Você acertou: " + to_wstring(contadorScore));
+
+                  //FAZER BOTÃO DE SAÍDA DO JOGO
+                }
+              }
+              cout << "Acabou!\n" << endl;
             }
           }else{
             // TODO Falar que não da pra colocar na lista
+            contadorScore--;
             errorText.setString(L"Essa não é a categoria certa para o livro!\n Tente novamente!");
 
             // Mostrando novamente as informações do livro
@@ -293,6 +340,16 @@ int main(int argc, char *argv[]) {
       }
     }
 
+    if (finalDoJogo) {
+      window.draw(background);
+      window.draw(girl);
+      window.draw(dialogo);
+      window.draw(text);
+      window.draw(textScore);
+      window.display();
+    }
+
+    else{
     window.clear();
     window.draw(background);
     window.draw(girl);
@@ -309,6 +366,7 @@ int main(int argc, char *argv[]) {
     window.draw(botao_quimica);
     window.draw(botao_arte);
     window.display();
+    }
   }
 
   return 0;
