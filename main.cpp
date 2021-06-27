@@ -202,7 +202,8 @@ int main(int argc, char *argv[]) {
   Button botao_quimica("quimica", lista_quimica);
   Button botao_arte("artes", lista_arte);
   Button botao_jogarNovamente("sair");
-  Button botao_sair("jogar-novamente");
+  Button botao_sair("jogar_novamente");
+  Button botao_sair("iniciar");
 
   // Posicionando os botoes
   botao_historia.setPosition(girl.getPosition().x + girl.getGlobalBounds().width + (window.getSize().x / 6), window.getSize().y - 140);
