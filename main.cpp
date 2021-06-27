@@ -142,7 +142,6 @@ int main(int argc, char *argv[]) {
 
   int contadorScore = 0;
   int errouMais;
-  bool jogarNovamente = true;
 
   srand(time(0));
 
@@ -227,9 +226,9 @@ int main(int argc, char *argv[]) {
   botao_informatica.setPosition(botao_matematica.getPosition().x + botao_matematica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
   botao_quimica.setPosition(botao_informatica.getPosition().x + botao_informatica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
   botao_arte.setPosition(botao_quimica.getPosition().x + botao_quimica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
-  botao_jogarNovamente.setPosition(botao_jogarNovamente.getPosition().x - botao_jogarNovamente.getGlobalBounds().width + 50, window.getSize().y - 140);
-  botao_sair.setPosition(girl.getPosition().x + girl.getGlobalBounds().width + (window.getSize().x / 6), window.getSize().y - 140);
-
+  botao_jogarNovamente.setPosition((window.getSize().x / 2) - (botao_jogarNovamente.getGlobalBounds().width), window.getSize().y - 140);
+  botao_sair.setPosition((window.getSize().x / 2) - (botao_sair.getGlobalBounds().width) + 200, window.getSize().y - 140);
+  botao_iniciar.setPosition((window.getSize().x / 2) - (botao_iniciar.getGlobalBounds().width / 2), (window.getSize().y / 2) + (botao_iniciar.getGlobalBounds().height / 2));
 
   // Posicionando menina e dialogo
   girl.setPosition(0, window.getSize().y - girl.getGlobalBounds().height);
@@ -246,7 +245,7 @@ int main(int argc, char *argv[]) {
       clock.restart();
       timer+=time;
 
-      if(timer > delay){
+      if(timer > delay) {
         timer = 0;
         errorText.setString(L" ");
       }
@@ -272,13 +271,15 @@ int main(int argc, char *argv[]) {
             else if(finalDoJogo){
               //JOGAR NOVAMENTE
               if(botao_jogarNovamente.click_outros(sf::Mouse::getPosition(window))){
-                jogarNovamente = true;
                 comecoDoJogo = false;
                 finalDoJogo = false;
 
                 // Resetando os elementos da pilha
                 delete pilha;
                 pilha = new Pilha<Livro>(tamanho, lista_fixa);
+
+                // Resetando a pontuacao do jogador
+                contadorScore = 0;
 
 
                 // Reposicionando tudo na tela. Que deus tenha piedade da minha alma
@@ -358,8 +359,8 @@ int main(int argc, char *argv[]) {
                 botao_informatica.setPosition(botao_matematica.getPosition().x + botao_matematica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
                 botao_quimica.setPosition(botao_informatica.getPosition().x + botao_informatica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
                 botao_arte.setPosition(botao_quimica.getPosition().x + botao_quimica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
-                botao_jogarNovamente.setPosition(botao_jogarNovamente.getPosition().x - botao_jogarNovamente.getGlobalBounds().width + 50, window.getSize().y - 140);
-                botao_sair.setPosition(girl.getPosition().x + girl.getGlobalBounds().width + (window.getSize().x / 6), window.getSize().y - 140);
+                botao_jogarNovamente.setPosition((window.getSize().x / 2) - (botao_jogarNovamente.getGlobalBounds().width), window.getSize().y - 140);
+                botao_sair.setPosition((window.getSize().x / 2) - (botao_sair.getGlobalBounds().width) + 200, window.getSize().y - 140);
 
 
                 // Posicionando menina e dialogo
@@ -370,7 +371,6 @@ int main(int argc, char *argv[]) {
               }
               //FIM
               else if(botao_sair.click_outros(sf::Mouse::getPosition(window))){
-                jogarNovamente = false;
                 window.close();
               }
             }
