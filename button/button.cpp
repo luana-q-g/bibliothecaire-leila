@@ -18,7 +18,7 @@ Button::Button() : sf::RectangleShape(sf::Vector2f(112,56)){
   clicked = false;
 }
 
-Button::Button(string tipo) : sf::RectangleShape(sf::Vector2f(112,56)){
+Button::Button(string tipo, int w, int h) : sf::RectangleShape(sf::Vector2f(w, h)){
   if(!textureIdle.loadFromFile("./interface/assets/imagens/botoes/botoes_" + tipo + ".png")
   || !textureClicked.loadFromFile("./interface/assets/imagens/botoes_clicados/botoes_clicados_" + tipo + ".png")){
     cout << "Erro: não foi possível carregar a imagem do botão " + tipo << endl;
@@ -54,7 +54,7 @@ bool Button::click(const sf::Vector2i point, Livro livro){
   return false;
 }
 
-bool Button::click_saida(const sf::Vector2i point){
+bool Button::click_outros(const sf::Vector2i point){
   if(sf::RectangleShape::getGlobalBounds().contains((float) point.x, (float) point.y)){
     if(!clicked){
       setTexture(&textureClicked);
@@ -64,19 +64,6 @@ bool Button::click_saida(const sf::Vector2i point){
   }
   return false;
 }
-
-bool Button::click_jogarNovamente(const sf::Vector2i point){
-if(sf::RectangleShape::getGlobalBounds().contains((float) point.x, (float) point.y)){
-    if(!clicked){
-      setTexture(&textureClicked);
-      clicked = true;
-      return true;
-    }
-  }
-  return false;
-}
-
-
 
 void Button::release(){
   if(clicked){

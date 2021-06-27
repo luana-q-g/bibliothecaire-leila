@@ -34,10 +34,9 @@ private:
 public:
   Button();
   Button(string tipo, Lista<Livro> _lista);
-  Button(string tipo);
+  Button(string tipo, int = 112, int = 56);
   bool click(const sf::Vector2i point, Livro livro);
-  bool click_saida(const sf::Vector2i point);
-  bool click_jogarNovamente(const sf::Vector2i point);
+  bool click_outros(const sf::Vector2i point);
   void release();
 };
 
