@@ -374,15 +374,15 @@ int main(int argc, char *argv[]) {
                 window.close();
               }
             }
-            else if(botao_historia.click(sf::Mouse::getPosition(window), livroAtual)
-                || botao_psicologia.click(sf::Mouse::getPosition(window), livroAtual)
-                || botao_letras.click(sf::Mouse::getPosition(window), livroAtual)
-                || botao_filosofia.click(sf::Mouse::getPosition(window), livroAtual)
-                || botao_geografia.click(sf::Mouse::getPosition(window), livroAtual)
-                || botao_matematica.click(sf::Mouse::getPosition(window), livroAtual)
-                || botao_informatica.click(sf::Mouse::getPosition(window), livroAtual)
-                || botao_quimica.click(sf::Mouse::getPosition(window), livroAtual)
-                || botao_arte.click(sf::Mouse::getPosition(window), livroAtual)){
+            else if((botao_historia.click(sf::Mouse::getPosition(window), livroAtual) == 1)
+                || (botao_psicologia.click(sf::Mouse::getPosition(window), livroAtual) == 1)
+                || (botao_letras.click(sf::Mouse::getPosition(window), livroAtual) == 1)
+                || (botao_filosofia.click(sf::Mouse::getPosition(window), livroAtual) == 1)
+                || (botao_geografia.click(sf::Mouse::getPosition(window), livroAtual) == 1)
+                || (botao_matematica.click(sf::Mouse::getPosition(window), livroAtual) == 1)
+                || (botao_informatica.click(sf::Mouse::getPosition(window), livroAtual) == 1)
+                || (botao_quimica.click(sf::Mouse::getPosition(window), livroAtual) == 1)
+                || (botao_arte.click(sf::Mouse::getPosition(window), livroAtual) == 1)){
 
               errouMais = 0;
               contadorScore++;
@@ -426,7 +426,16 @@ int main(int argc, char *argv[]) {
                   }
                 }
               }
-            }else{
+            } else if((botao_historia.click(sf::Mouse::getPosition(window), livroAtual) == 0)
+                || (botao_psicologia.click(sf::Mouse::getPosition(window), livroAtual) == 0)
+                || (botao_letras.click(sf::Mouse::getPosition(window), livroAtual) == 0)
+                || (botao_filosofia.click(sf::Mouse::getPosition(window), livroAtual) == 0)
+                || (botao_geografia.click(sf::Mouse::getPosition(window), livroAtual) == 0)
+                || (botao_matematica.click(sf::Mouse::getPosition(window), livroAtual) == 0)
+                || (botao_informatica.click(sf::Mouse::getPosition(window), livroAtual) == 0)
+                || (botao_quimica.click(sf::Mouse::getPosition(window), livroAtual) == 0)
+                || (botao_arte.click(sf::Mouse::getPosition(window), livroAtual) == 0)){
+
               if (!(errouMais > 0))
                 contadorScore--;
 
