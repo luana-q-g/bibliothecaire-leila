@@ -155,20 +155,22 @@ int main(int argc, char *argv[]) {
   sf::Text errorText;
   Livro livroAtual = pilha->remover();
 
-  if (!bgTexture.loadFromFile("./interface/assets/imagens/background.jpg")) {
-    cout << "Erro: não foi possível carregar a imagem de background" << endl;
-  } else {
-    // resized background
-    sf::Vector2u TextureSize = bgTexture.getSize(); // Get size of texture.
-    sf::Vector2u WindowSize = window.getSize();     // Get size of window.
+  /* if (!bgTexture.loadFromFile("./interface/assets/imagens/background.jpg")) { */
+  /*   cout << "Erro: não foi possível carregar a imagem de background" << endl; */
+  /* } else { */
+  /*   // resized background */
+  /*   sf::Vector2u TextureSize = bgTexture.getSize(); // Get size of texture. */
+  /*   sf::Vector2u WindowSize = window.getSize();     // Get size of window. */
 
-    float ScaleX = (float)WindowSize.x / TextureSize.x;
-    float ScaleY = (float)WindowSize.y / TextureSize.y; // Calculate scale.
+  /*   float ScaleX = (float)WindowSize.x / TextureSize.x; */
+  /*   float ScaleY = (float)WindowSize.y / TextureSize.y; // Calculate scale. */
 
-    background.setScale(ScaleX, ScaleY); // Set scale.
-    background.setTexture(bgTexture, true);
-  }
+  /*   background.setScale(ScaleX, ScaleY); // Set scale. */
+  /*   background.setTexture(bgTexture, true); */
+  /* } */
 
+  // Iniciando o background com a cor preta
+  background.setColor(sf::Color::Black);
 
   if (!girlTexture.loadFromFile("./interface/assets/imagens/bibliotecaria.png")) {
     cout << "Erro: não foi possível carregar a imagem da bela moça" << endl;
@@ -188,11 +190,10 @@ int main(int argc, char *argv[]) {
 
   if (!logoTexture.loadFromFile("./interface/assets/imagens/logo.png")){
                 cout << "Não carregou a imagem\n" << endl;
-               } else {
-                    logo.setTexture(logoTexture);
-                    //logo.setPosition(-30,-100);
-                    logo.setPosition((window.getSize().x)/2, (window.getSize().y)/2 );
-
+  } else {
+    logo.setTexture(logoTexture);
+    //logo.setPosition(-30,-100);
+    logo.setPosition(((window.getSize().x) / 2) - (logo.getGlobalBounds().width / 2), ((window.getSize().y) / 2) - (logo.getGlobalBounds().height / 2));
   }
 
   if (!font.loadFromFile("./interface/assets/fonts/Roboto-Bold.ttf")) {
@@ -233,7 +234,7 @@ int main(int argc, char *argv[]) {
   botao_arte.setPosition(botao_quimica.getPosition().x + botao_quimica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
   botao_jogarNovamente.setPosition((window.getSize().x / 2) - (botao_jogarNovamente.getGlobalBounds().width), window.getSize().y - 140);
   botao_sair.setPosition((window.getSize().x / 2) - (botao_sair.getGlobalBounds().width) + 200, window.getSize().y - 140);
-  botao_iniciar.setPosition((window.getSize().x / 2) - (botao_iniciar.getGlobalBounds().width / 2), (window.getSize().y / 2) + (botao_iniciar.getGlobalBounds().height / 2));
+  botao_iniciar.setPosition((window.getSize().x / 2) - (botao_iniciar.getGlobalBounds().width / 2), (logo.getPosition().y + (logo.getGlobalBounds().height * 1)));
 
   // Posicionando menina e dialogo
   girl.setPosition(0, window.getSize().y - girl.getGlobalBounds().height);
@@ -271,6 +272,22 @@ int main(int argc, char *argv[]) {
           if(comecoDoJogo){
 
             if(botao_iniciar.click_outros(sf::Mouse::getPosition(window))){
+              // Carregando a imagem do background
+              if (!bgTexture.loadFromFile("./interface/assets/imagens/background.jpg")) {
+                cout << "Erro: não foi possível carregar a imagem de background" << endl;
+              } else {
+                // resized background
+                sf::Vector2u TextureSize = bgTexture.getSize(); // Get size of texture.
+                sf::Vector2u WindowSize = window.getSize();     // Get size of window.
+
+                float ScaleX = (float)WindowSize.x / TextureSize.x;
+                float ScaleY = (float)WindowSize.y / TextureSize.y; // Calculate scale.
+
+                background.setColor(sf::Color::White); // Removing old color (must be white, not transparent)
+                background.setScale(ScaleX, ScaleY); // Set scale.
+                background.setTexture(bgTexture, true);
+              }
+
               comecoDoJogo = false;
             }
           }
