@@ -187,6 +187,13 @@ int main(int argc, char *argv[]) {
                          girl.getGlobalBounds().height) + 50);
   }
 
+  if (!logoTexture.loadFromFile("./interface/assets/imagens/logo.png")){
+                cout << "Não carregou a imagem\n" << endl;
+               } else {
+                    logo.setTexture(logoTexture);
+                    logo.setPosition(-30,-100);
+  }
+
   if (!font.loadFromFile("./interface/assets/fonts/Roboto-Bold.ttf")) {
     cout << "Erro: não foi possível carregar a fonte";
   } else {
@@ -267,14 +274,7 @@ int main(int argc, char *argv[]) {
             errorText.setString(L" ");
 
             if(comecoDoJogo){
-
-              if (!logoTexture.loadFromFile("./interface/assets/imagens/logo.png")){
-                cout << "Não carregou a imagem\n" << endl;
-               } else {
-                    logo.setTexture(logoTexture);
-                    logo.setPosition((window.getSize().x / 2) - (logo.getGlobalBounds().width / 2), (window.getSize().y / 2) + (logo.getGlobalBounds().height / 2));
-                }
-              
+   
               if(botao_iniciar.click_outros(sf::Mouse::getPosition(window))){
                 comecoDoJogo = false;
               }
@@ -490,8 +490,8 @@ int main(int argc, char *argv[]) {
 
       if (comecoDoJogo){
         window.clear();
-        window.draw(logo);
         window.draw(background);
+        window.draw(logo);
         window.draw(botao_iniciar);
         window.display();
       }
