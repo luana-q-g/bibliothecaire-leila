@@ -152,7 +152,6 @@ int main(int argc, char *argv[]) {
 
   sf::Font font;
   sf::Text text;
-  sf::Text textScore;
   sf::Text errorText;
   Livro livroAtual = pilha->remover();
 
@@ -191,7 +190,9 @@ int main(int argc, char *argv[]) {
                 cout << "Não carregou a imagem\n" << endl;
                } else {
                     logo.setTexture(logoTexture);
-                    logo.setPosition(-30,-100);
+                    //logo.setPosition(-30,-100);
+                    logo.setPosition((window.getSize().x)/2, (window.getSize().y)/2 );
+                    
   }
 
   if (!font.loadFromFile("./interface/assets/fonts/Roboto-Bold.ttf")) {
@@ -211,12 +212,6 @@ int main(int argc, char *argv[]) {
     text.setFillColor(sf::Color::Black);
     text.setStyle(sf::Text::Bold);
     text.setPosition(dialogo.getPosition().x + 40, dialogo.getPosition().y + 100);
-
-    textScore.setCharacterSize(24);
-    textScore.setFillColor(sf::Color::Black);
-    textScore.setStyle(sf::Text::Bold);
-    textScore.setPosition(dialogo.getPosition().x + 40, dialogo.getPosition().y + 200);
-
 
     errorText.setFont(font);
     errorText.setString(L" ");
@@ -346,12 +341,6 @@ int main(int argc, char *argv[]) {
                   text.setStyle(sf::Text::Bold);
                   text.setPosition(dialogo.getPosition().x + 40, dialogo.getPosition().y + 100);
 
-                  textScore.setCharacterSize(24);
-                  textScore.setFillColor(sf::Color::Black);
-                  textScore.setStyle(sf::Text::Bold);
-                  textScore.setPosition(dialogo.getPosition().x + 40, dialogo.getPosition().y + 200);
-
-
                   errorText.setFont(font);
                   errorText.setString(L" ");
                   errorText.setCharacterSize(24);
@@ -432,16 +421,14 @@ int main(int argc, char *argv[]) {
                     text.setPosition(dialogo.getPosition().x + 50, dialogo.getPosition().y + 100);
 
                     if (contadorScore == 0)
-                        text.setString(L"Aah não!\n Você não acertou nenhuma! " + to_wstring(contadorScore) + L"/" + to_wstring(tamanho) + L" pontos");
-                    else if (contadorScore > 0 && contadorScore < 3)
+                        text.setString(L"Aah não!\n Você não acertou nenhuma!");
+                    else if (contadorScore > 0 && contadorScore <= 2)
                         text.setString(L"Você pode fazer mais do que isso!\n Você acertou " + to_wstring(contadorScore) + L"/" + to_wstring(tamanho) + L" pontos");
-                    else if(contadorScore > 3 && contadorScore < 5)
-                        text.setString(L"Você foi muito bem, porém pode ser melhor!\n Você acertou " + to_wstring(contadorScore) + L"/" + to_wstring(tamanho) + L" pontos");
+                    else if(contadorScore >= 3 && contadorScore < 5)
+                        text.setString(L"  Você foi muito bem,\nporém pode ser melhor!\n Você acertou " + to_wstring(contadorScore) + L"/" + to_wstring(tamanho) + L" pontos");
                     else if(contadorScore == 5)
                         text.setString(L"Você gabaritou, parabéns!\n Você acertou " + to_wstring(contadorScore) + L"/" + to_wstring(tamanho) + L" pontos");
 
-                    //Apresentação final do score com texto a parte
-                    textScore.setString(L"Você acertou: " + to_wstring(contadorScore));
                   }
                 }
               }
@@ -509,7 +496,6 @@ int main(int argc, char *argv[]) {
         window.draw(girl);
         window.draw(dialogo);
         window.draw(text);
-        window.draw(textScore);
         window.draw(botao_sair);
         window.draw(botao_jogarNovamente);
         window.display();
