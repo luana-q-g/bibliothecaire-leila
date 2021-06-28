@@ -119,9 +119,11 @@ int main(int argc, char *argv[]) {
   sf::Texture bgTexture;
   sf::Texture girlTexture;
   sf::Texture dialogoTexture;
+  sf::Texture logoTexture;
   sf::Sprite background;
   sf::Sprite girl;
   sf::Sprite dialogo;
+  sf::Sprite logo;
 
   // Loading interface buttons
   Button botao_historia("historia", lista_historia);
@@ -167,6 +169,7 @@ int main(int argc, char *argv[]) {
     background.setScale(ScaleX, ScaleY); // Set scale.
     background.setTexture(bgTexture, true);
   }
+
 
   if (!girlTexture.loadFromFile("./interface/assets/imagens/bibliotecaria.png")) {
     cout << "Erro: não foi possível carregar a imagem da bela moça" << endl;
@@ -264,6 +267,14 @@ int main(int argc, char *argv[]) {
             errorText.setString(L" ");
 
             if(comecoDoJogo){
+
+              if (!logoTexture.loadFromFile("./interface/assets/imagens/logo.png")){
+                cout << "Não carregou a imagem\n" << endl;
+               } else {
+                    logo.setTexture(logoTexture);
+                    logo.setPosition((window.getSize().x / 2) - (logo.getGlobalBounds().width / 2), (window.getSize().y / 2) + (logo.getGlobalBounds().height / 2));
+                }
+              
               if(botao_iniciar.click_outros(sf::Mouse::getPosition(window))){
                 comecoDoJogo = false;
               }
@@ -479,6 +490,7 @@ int main(int argc, char *argv[]) {
 
       if (comecoDoJogo){
         window.clear();
+        window.draw(logo);
         window.draw(background);
         window.draw(botao_iniciar);
         window.display();
