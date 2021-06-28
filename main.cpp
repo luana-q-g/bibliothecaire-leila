@@ -111,7 +111,7 @@ int main(int argc, char *argv[]) {
       quimica_l31,     quimica_l32,     arte_l33,
       arte_l34,        arte_l35,        arte_l36}; // Pilha com os livros
 
-  int tamanho = 10;
+  int tamanho = 5;
   Pilha<Livro> *pilha = new Pilha<Livro>(tamanho, lista_fixa);
 
   sf::RenderWindow window(sf::VideoMode(626 * 2, 375 * 2),
@@ -217,7 +217,7 @@ int main(int argc, char *argv[]) {
   botao_informatica.setPosition(botao_matematica.getPosition().x + botao_matematica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
   botao_quimica.setPosition(botao_informatica.getPosition().x + botao_informatica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
   botao_arte.setPosition(botao_quimica.getPosition().x + botao_quimica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
-  botao_jogarNovamente.setPosition(window.getSize().x/2 - (girl.getGlobalBounds().width)*1.7, window.getSize().y - 140);
+  botao_jogarNovamente.setPosition(window.getSize().x/2 - (girl.getGlobalBounds().width)*1.5, window.getSize().y - 140);
   botao_sair.setPosition((window.getSize().x / 2) - (botao_sair.getGlobalBounds().width) + 200, window.getSize().y - 140);
   botao_iniciar.setPosition((window.getSize().x / 2) - (botao_iniciar.getGlobalBounds().width / 2), (logo.getPosition().y + (logo.getGlobalBounds().height * 0.3)));
 
@@ -374,7 +374,7 @@ int main(int argc, char *argv[]) {
                   girl.setPosition(window.getSize().x/2 - girl.getGlobalBounds().width/2, window.getSize().y - girl.getGlobalBounds().height);
                   dialogo.setPosition(girl.getPosition().x - girl.getGlobalBounds().width - 100,
                         (window.getSize().y - dialogo.getGlobalBounds().height -
-                         girl.getGlobalBounds().height) + 25);
+                         girl.getGlobalBounds().height) + 45);
 
                   //Texto do final
                   if (contadorScore <= 0 ){
