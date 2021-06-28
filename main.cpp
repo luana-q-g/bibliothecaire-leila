@@ -111,7 +111,7 @@ int main(int argc, char *argv[]) {
       quimica_l31,     quimica_l32,     arte_l33,
       arte_l34,        arte_l35,        arte_l36}; // Pilha com os livros
 
-  int tamanho = 5;
+  int tamanho = 10;
   Pilha<Livro> *pilha = new Pilha<Livro>(tamanho, lista_fixa);
 
   sf::RenderWindow window(sf::VideoMode(626 * 2, 375 * 2),
@@ -372,7 +372,7 @@ int main(int argc, char *argv[]) {
                   //dialogo.move(sf::Vector2f(50, 0));
 
                   girl.setPosition(window.getSize().x/2 - girl.getGlobalBounds().width/2, window.getSize().y - girl.getGlobalBounds().height);
-                  dialogo.setPosition(girl.getPosition().x - girl.getGlobalBounds().width - 100, 
+                  dialogo.setPosition(girl.getPosition().x - girl.getGlobalBounds().width - 100,
                         (window.getSize().y - dialogo.getGlobalBounds().height -
                          girl.getGlobalBounds().height) + 25);
 
