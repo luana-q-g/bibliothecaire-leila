@@ -137,7 +137,7 @@ int main(int argc, char *argv[]) {
   Button botao_arte("artes", lista_arte);
   Button botao_jogarNovamente("jogar_novamente", 268, 56);
   Button botao_sair("sair", 145, 56);
-  Button botao_iniciar("iniciar", 167, 56);
+  Button botao_iniciar("iniciar", 200, 65);
 
   bool comecoDoJogo = true;
   bool finalDoJogo = false; // Condição para entrar no final do jogo
@@ -154,20 +154,6 @@ int main(int argc, char *argv[]) {
   sf::Text text;
   sf::Text errorText;
   Livro livroAtual = pilha->remover();
-
-  /* if (!bgTexture.loadFromFile("./interface/assets/imagens/background.jpg")) { */
-  /*   cout << "Erro: não foi possível carregar a imagem de background" << endl; */
-  /* } else { */
-  /*   // resized background */
-  /*   sf::Vector2u TextureSize = bgTexture.getSize(); // Get size of texture. */
-  /*   sf::Vector2u WindowSize = window.getSize();     // Get size of window. */
-
-  /*   float ScaleX = (float)WindowSize.x / TextureSize.x; */
-  /*   float ScaleY = (float)WindowSize.y / TextureSize.y; // Calculate scale. */
-
-  /*   background.setScale(ScaleX, ScaleY); // Set scale. */
-  /*   background.setTexture(bgTexture, true); */
-  /* } */
 
   // Iniciando o background com a cor preta
   background.setColor(sf::Color::Black);
@@ -192,7 +178,6 @@ int main(int argc, char *argv[]) {
                 cout << "Não carregou a imagem\n" << endl;
   } else {
     logo.setTexture(logoTexture);
-    //logo.setPosition(-30,-100);
     logo.setPosition(((window.getSize().x) / 2) - (logo.getGlobalBounds().width / 2), ((window.getSize().y) / 2) - (logo.getGlobalBounds().height / 2));
   }
 
@@ -232,9 +217,9 @@ int main(int argc, char *argv[]) {
   botao_informatica.setPosition(botao_matematica.getPosition().x + botao_matematica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
   botao_quimica.setPosition(botao_informatica.getPosition().x + botao_informatica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
   botao_arte.setPosition(botao_quimica.getPosition().x + botao_quimica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
-  botao_jogarNovamente.setPosition((window.getSize().x / 2) - (botao_jogarNovamente.getGlobalBounds().width), window.getSize().y - 140);
+  botao_jogarNovamente.setPosition(window.getSize().x/2 - (girl.getGlobalBounds().width)*1.7, window.getSize().y - 140);
   botao_sair.setPosition((window.getSize().x / 2) - (botao_sair.getGlobalBounds().width) + 200, window.getSize().y - 140);
-  botao_iniciar.setPosition((window.getSize().x / 2) - (botao_iniciar.getGlobalBounds().width / 2), (logo.getPosition().y + (logo.getGlobalBounds().height * 1)));
+  botao_iniciar.setPosition((window.getSize().x / 2) - (botao_iniciar.getGlobalBounds().width / 2), (logo.getPosition().y + (logo.getGlobalBounds().height * 0.3)));
 
   // Posicionando menina e dialogo
   girl.setPosition(0, window.getSize().y - girl.getGlobalBounds().height);
@@ -387,7 +372,9 @@ int main(int argc, char *argv[]) {
                   //dialogo.move(sf::Vector2f(50, 0));
 
                   girl.setPosition(window.getSize().x/2 - girl.getGlobalBounds().width/2, window.getSize().y - girl.getGlobalBounds().height);
-                  dialogo.setPosition(girl.getPosition().x - girl.getGlobalBounds().width - 100, 0);
+                  dialogo.setPosition(girl.getPosition().x - girl.getGlobalBounds().width - 100, 
+                        (window.getSize().y - dialogo.getGlobalBounds().height -
+                         girl.getGlobalBounds().height) + 25);
 
                   //Texto do final
                   if (contadorScore <= 0 ){
