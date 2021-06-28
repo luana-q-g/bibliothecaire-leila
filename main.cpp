@@ -88,7 +88,7 @@ int main(int argc, char *argv[]) {
   Livro informatica_l26(L"Treinamento em Linguagem C++: módulo 1", L"Victorine Viviane Mizrahi", L"Informática", 1996, L"Pearson");
   Livro informatica_l27(L"Manual Completo do Linux: guia do administrador", L"Evi Nemeth", L"Informática", 2004, L"Pearson");
   Livro informatica_l28(L"Compiladores: princípios, técnicas e ferramentas", L"Alfred V. Alho", L"Informática", 2007, L"Pearson");
-  Livro quimica_l29(L"Química Orgânica", L"Bianca Sandrino", L"Química", 2020, L"Intersaberes");
+  Livro quimica_l29(L"Química Orgânica", L"Bianca Sandrino", L"Química", 2020, L"Intersaberes");
   Livro quimica_l30(L"Química Quântica: Origens e Aplicações", L"Liziane Barbara Bugalski", L"Química", 2019, L"Intersaberes");
   Livro quimica_l31(L"Manual de Ar Comprimido e Gases", L"John P. Rollins", L"Química", 2003, L"Pearson");
   Livro quimica_l32(L"Estudos de eletroquímica: reações químicas e energia", L"Ana Luiza Lorenzen", L"Química", 2017, L"Intersaberes");
@@ -430,7 +430,15 @@ int main(int argc, char *argv[]) {
                     }
 
                     text.setPosition(dialogo.getPosition().x + 50, dialogo.getPosition().y + 100);
-                    text.setString(L"Parabéns, Mané! Você conseguiu!\n Você alcançou " + to_wstring(contadorScore) + L"/" + to_wstring(tamanho) + L" pontos");
+
+                    if (contadorScore == 0)
+                        text.setString(L"Aah não!\n Você não acertou nenhuma! " + to_wstring(contadorScore) + L"/" + to_wstring(tamanho) + L" pontos");
+                    else if (contadorScore > 0 && contadorScore < 3)
+                        text.setString(L"Você pode fazer mais do que isso!\n Você acertou " + to_wstring(contadorScore) + L"/" + to_wstring(tamanho) + L" pontos");
+                    else if(contadorScore > 3 && contadorScore < 5)
+                        text.setString(L"Você foi muito bem, porém pode ser melhor!\n Você acertou " + to_wstring(contadorScore) + L"/" + to_wstring(tamanho) + L" pontos");
+                    else if(contadorScore == 5)
+                        text.setString(L"Você gabaritou, parabéns!\n Você acertou " + to_wstring(contadorScore) + L"/" + to_wstring(tamanho) + L" pontos");
 
                     //Apresentação final do score com texto a parte
                     textScore.setString(L"Você acertou: " + to_wstring(contadorScore));
