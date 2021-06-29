@@ -1,4 +1,4 @@
-# Bibliotech
+# Bibliotecária Leila
 Bibliotecária Leila é um jogo de desktop simples cujo objetivo é ajudar a bibliotecária a organizar seus livros de acordo com diferentes categorias.
 
 ## Instalação
