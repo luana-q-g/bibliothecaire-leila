@@ -9,6 +9,12 @@ Data de Atualização: 14/06/2021
 
 Objetivos: Trabalho de AED1
 
+IDEIAS IMPLEMENTAÇÃO:
+- Banco de dados para livros
+- Tetris de classificação
+- Jogar contra IA que classifica
+- Redes de multiplayer
+
 */
 
 // Bibliotecas
