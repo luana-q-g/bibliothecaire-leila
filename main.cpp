@@ -1,55 +1,60 @@
-/*
-
-Autor(es):
-  Luís Augusto Simas do Nascimento - 790828
-  Pedro Klesse - 790746
-  Luana de Queiroz Garcia - 740953
-Data de Criação: 14/06/2021
-Data de Atualização: 14/06/2021
-
-Objetivos: Trabalho de AED1
-
-IDEIAS IMPLEMENTAÇÃO:
-- Banco de dados para livros
-- Tetris de classificação
-- Jogar contra IA que classifica
-- Redes de multiplayer
-
-*/
-
-// Bibliotecas
-#include <SFML/Graphics/Color.hpp>
-#include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/Graphics/Text.hpp>
-#include <SFML/Graphics/Texture.hpp>
-#include <SFML/System/Sleep.hpp>
-#include <SFML/System/String.hpp>
-#include <SFML/System/Time.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Window/Mouse.hpp>
-#include <SFML/Window/VideoMode.hpp>
+#include <SFML/Graphics.hpp>
 #include <iostream>
-#include <locale.h>
-#include <stdlib.h>
+#include <vector>
 #include <string>
-#include <time.h>
-
-#include "listacadastral/lista.cpp"
+#include <ctime>
 #include "listacadastral/lista.h"
 #include "livro/livro.h"
-#include "pilha/pilha.cpp"
-#include "pilha/pilha.h"
-
+#include "livro/pilha.h"
 #include "button/button.h"
+#include "livro/tipoLivro.cpp"
+#include "baselist/baselist.h"
+#include <SFML/System/Vector2.hpp>
+#include "cestas/tipoCesta.cpp"
+#include "cestas/cesta.h"
+#include "Jogo/jogo.h"
 
-using namespace std;
 
-// Função principal
-int main(int argc, char *argv[]) {
-  setlocale(LC_ALL, "Portuguese");
 
-  // Lista pra cada categoria
+
+// Prototipagem das funções
+void executarJogoAntigo(sf::RenderWindow& window, bool& modoLivrosCaindo);
+void executarLivrosCaindo(sf::RenderWindow& window);
+
+int main(int argc, char* argv[]) {
+    setlocale(LC_ALL, "C.utf8");
+
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Bibliotecária Leila - Dois Modos");
+    window.setFramerateLimit(60);
+
+    // Variável de controle para alternar entre os dois modos
+    bool modoLivrosCaindo = false;
+
+    // Loop principal
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+
+        executarLivrosCaindo(window);
+        // Alternar entre os dois modos de jogo
+        //if (!modoLivrosCaindo) {
+        //    executarJogoAntigo(window, modoLivrosCaindo);
+        //} else {
+            
+          //  modoLivrosCaindo = false;
+        //}
+    }
+
+    return 0;
+}
+
+void executarJogoAntigo(sf::RenderWindow& window, bool& modoLivrosCaindo) {
+    static bool comecoDoJogo = true;
+    static bool finalDoJogo = false;
+     // Lista pra cada categoria
   Lista<Livro> lista_letras(L"Letras");
   Lista<Livro> lista_filosofia(L"Filosofia");
   Lista<Livro> lista_geografia(L"Geografia");
@@ -66,62 +71,25 @@ int main(int argc, char *argv[]) {
       lista_historia,    lista_matematica, lista_psicologia,
       lista_informatica, lista_quimica,    lista_arte};
 
-  Livro letras_l1(L"Libras: conhecimento além dos sinais", L"Maria Cristina da Cunha", L"Letras", 2011, L"Pearson");
-  Livro letras_l2(L"Comunicação e linguagem", L"Thelma de Carvalho Guimarães", L"Letras", 2012, L"Pearson");
-  Livro letras_l3(L"Teoria da Literatura I", L"Pedro Paulo da Silva", L"Letras", 2009, L"Pearson");
-  Livro letras_l4(L"Língua latina", L"Charlene Martins Miotti", L"Letras", 2010, L"Pearson");
-  Livro filosofia_l5(L"Introdução à Filosofia", L"João Mattar", L"Filosofia", 2010, L"Pearson");
-  Livro filosofia_l6(L"Ética", L"Maria Thereza Pompa Antunes", L"Filosofia", 2012, L"Pearson");
-  Livro filosofia_l7(L"Correntes modernas de filosofia", L"José Ferraz Neto", L"Filosofia", 2013, L"Pearson");
-  Livro filosofia_l8(L"Genealogia da Moral", L"Friedrich Nietzsche", L"Filosofia", 1887, L"Vozes");
-  Livro geografia_l9(L"Hidrologia", L"Diego Barreto de Oliveira", L"Geografia", 2015, L"Pearson");
-  Livro geografia_l10(L"Espaço Geográfico: ensino e representação", L"Rosangela Doin de Almeida", L"Geografia", 1989, L"Contexto");
-  Livro geografia_l11(L"Pensamento geográfico brasileiro", L"Ruy Moreira", L"Geografia", 2008, L"Contexto");
-  Livro geografia_l12(L"Globalização e espaço geográfico", L"Eustáquio de Sene", L"Geografia", 2004, L"Contexto");
-  Livro historia_l13(L"No Tempo das Especiarias: o império da pimenta e do açúcar", L"Fábio Pestana", L"História", 2006, L"Contexto");
-  Livro historia_l14(L"Dicionário de Datas da História do Brasil", L"Circe Bittencour", L"História", 2007, L"Contexto");
-  Livro historia_l15(L"História do Café", L"Ana Luiza Martins", L"História", 2008, L"Contexto");
-  Livro historia_l16(L"As Primeiras Civilizações", L"Jaime Pinsky", L"História", 2011, L"Contexto");
-  Livro matematica_l17(L"Geometria Analítica: Um Tratamento Vetorial", L"Ivan de Camargo", L"Matemática", 2005, L"Pearson");
-  Livro matematica_l18(L"Matemática financeira", L"André Wakamatsu", L"Matemática", 2018, L"Pearson");
-  Livro matematica_l19(L"Métodos numéricos em equações diferenciais", L"Marina Vargas", L"Matemática", 2021, L"Intersaberes");
-  Livro matematica_l20(L"Geometrias Não Euclidianas", L"Nelson Pereira", L"Matemática", 2020, L"Intersaberes");
-  Livro psicologia_l21(L"Teorias da Personalidade", L"Howard S. Friedman", L"Psicologia", 2003, L"Pearson");
-  Livro psicologia_l22(L"Introdução à Psicologia", L"Charles G. Morris", L"Psicologia", 2004, L"Pearson");
-  Livro psicologia_l23(L"A Psicanálise nas Tramas da Cidade", L"Bernardo Tanis", L"Psicologia", 2009, L"Pearson");
-  Livro psicologia_l24(L"Burnout: quando o trabalho ameaça o bem-estar do trabalhador", L"Ana Maria Benevides Pereira", L"Psicologia", 2014, L"Pearson");
-  Livro informatica_l25(L"Aprenda Programação Orientada a Objetos em 21 dias", L"Anthony Sintes", L"Informática", 2002, L"Pearson");
-  Livro informatica_l26(L"Treinamento em Linguagem C++: módulo 1", L"Victorine Viviane Mizrahi", L"Informática", 1996, L"Pearson");
-  Livro informatica_l27(L"Manual Completo do Linux: guia do administrador", L"Evi Nemeth", L"Informática", 2004, L"Pearson");
-  Livro informatica_l28(L"Compiladores: princípios, técnicas e ferramentas", L"Alfred V. Alho", L"Informática", 2007, L"Pearson");
-  Livro quimica_l29(L"Química Orgânica", L"Bianca Sandrino", L"Química", 2020, L"Intersaberes");
-  Livro quimica_l30(L"Química Quântica: Origens e Aplicações", L"Liziane Barbara Bugalski", L"Química", 2019, L"Intersaberes");
-  Livro quimica_l31(L"Manual de Ar Comprimido e Gases", L"John P. Rollins", L"Química", 2003, L"Pearson");
-  Livro quimica_l32(L"Estudos de eletroquímica: reações químicas e energia", L"Ana Luiza Lorenzen", L"Química", 2017, L"Intersaberes");
-  Livro arte_l33(L"Estética e história da arte", L"Humberta Gomes Machado Porto", L"Arte", 2016, L"Pearson");
-  Livro arte_l34(L"História do cinema mundial", L"Fernando Mascarello", L"Arte", 2014, L"Papirus");
-  Livro arte_l35(L"Beethoven: as muitas faces de um gênio", L"João Mauricio Galindo", L"Arte", 2019, L"Contexto");
-  Livro arte_l36(L"O cinema de Quentin Tarantino", L"Mauro Baptista", L"Arte", 2018, L"Papirus");
 
-  Livro lista_fixa[] = {
-      letras_l1,       letras_l2,       letras_l3,
-      letras_l4,       filosofia_l5,    filosofia_l6,
-      filosofia_l7,    filosofia_l8,    geografia_l9,
-      geografia_l10,   geografia_l11,   geografia_l12,
-      historia_l13,    historia_l14,    historia_l15,
-      historia_l16,    matematica_l17,  matematica_l18,
-      matematica_l19,  matematica_l20,  psicologia_l21,
-      psicologia_l22,  psicologia_l23,  psicologia_l24,
-      informatica_l25, informatica_l26, informatica_l27,
-      informatica_l28, quimica_l29,     quimica_l30,
-      quimica_l31,     quimica_l32,     arte_l33,
-      arte_l34,        arte_l35,        arte_l36}; // Pilha com os livros
+
+// Dimensões da tela
+  const float windowWidth = 800.0f;
+  const float windowHeight = 600.0f;
+
+  // Dimensões do livro
+  const float bookWidth = 50.0f;
+  const float bookHeight = 100.0f;
+
+  tipoLivro livrito;
+
+  std::vector<Livro> lista_fixa = livrito.getLivros();
 
   int tamanho = 5;
-  Pilha<Livro> *pilha = new Pilha<Livro>(tamanho, lista_fixa);
+  Pilha<Livro> pilha = Pilha<Livro>(tamanho, lista_fixa);
 
-  sf::RenderWindow window(sf::VideoMode(626 * 2, 375 * 2),
-                          "Bibliotecária Leila");
+  window.create(sf::VideoMode(626 * 2, 375 * 2), "Bibliotecária Leila");
+
   sf::Texture bgTexture;
   sf::Texture girlTexture;
   sf::Texture dialogoTexture;
@@ -145,8 +113,7 @@ int main(int argc, char *argv[]) {
   Button botao_sair("sair", 145, 56);
   Button botao_iniciar("iniciar", 200, 65);
 
-  bool comecoDoJogo = true;
-  bool finalDoJogo = false; // Condição para entrar no final do jogo
+
 
   int contadorScore = 0;
   int errouMais;
@@ -159,7 +126,7 @@ int main(int argc, char *argv[]) {
   sf::Font font;
   sf::Text text;
   sf::Text errorText;
-  Livro livroAtual = pilha->remover();
+  Livro livroAtual = pilha.remover();
 
   // Iniciando o background com a cor preta
   background.setColor(sf::Color::Black);
@@ -289,8 +256,7 @@ int main(int argc, char *argv[]) {
               finalDoJogo = false;
 
               // Resetando os elementos da pilha
-              delete pilha;
-              pilha = new Pilha<Livro>(tamanho, lista_fixa);
+              pilha =  Pilha<Livro>(tamanho, lista_fixa);
 
               // Resetando a pontuacao do jogador
               contadorScore = 0;
@@ -298,7 +264,7 @@ int main(int argc, char *argv[]) {
               // Reposicionando tudo na tela. Que deus tenha piedade da minha alma
               // pelo que vou fazer a seguir.
 
-              livroAtual = pilha->remover();
+              livroAtual = pilha.remover();
 
               if (!girlTexture.loadFromFile("./interface/assets/imagens/bibliotecaria.png")) {
                 cout << "Erro: não foi possível carregar a imagem da bela moça" << endl;
@@ -338,7 +304,8 @@ int main(int argc, char *argv[]) {
             }
             //FIM
             else if(botao_sair.click_outros(sf::Mouse::getPosition(window))){
-              window.close();
+              modoLivrosCaindo = true;
+              return;
             }
           }
           else if((botao_historia.click(sf::Mouse::getPosition(window), livroAtual) == 1)
@@ -354,8 +321,8 @@ int main(int argc, char *argv[]) {
             errouMais = 0;
             contadorScore++;
 
-            if(!pilha->empty()){
-              livroAtual = pilha->remover();
+            if(!pilha.empty()){
+              livroAtual = pilha.remover();
               text.setString(
                 L"Hmmm, temos aqui o livro\n" +
                 livroAtual.getNome() +
@@ -486,7 +453,90 @@ int main(int argc, char *argv[]) {
       window.draw(botao_arte);
       window.display();
     }
-  }
+  
+}
+}
 
-  return 0;
+void executarLivrosCaindo(sf::RenderWindow& window) 
+{
+    sf::Sprite background;
+
+    // Configuração do tempo
+    sf::Clock clock;
+    float fallSpeed = 0.5f; // Velocidade de queda (pixels por segundo)
+
+    // Criar um livro para cair
+   tipoLivro livrito;
+   Livro livroCair = livrito.getLivroAleatorio();
+   Jogo jogo;
+   tipoCesta cestita;
+
+   std::vector<Cesta> todasCestas = cestita.getCesta();
+
+
+   std::vector<Cesta> cestaJogo = cestita.escolherCestasJogo(todasCestas);
+
+
+
+
+   cestita.printCestaJogo(cestita.getCesta());
+   std::wcout << L"Posicao: " << livroCair.getShape().getPosition().y << std::endl;
+    // Configurar velocidade de queda no objeto Livro
+    livroCair.setVelocidadeQueda(fallSpeed);
+
+
+
+
+    bool bookLanded = false;
+    while (window.isOpen()) {
+      sf::Event event;
+        while (window.pollEvent(event)) {
+          if (event.type == sf::Event::Closed)
+            window.close();
+        }
+          if (sf::Keyboard::isKeyPressed(sf::Keyboard::C)) {
+            cestaJogo = cestita.escolherCestasJogo(todasCestas);
+    }
+
+
+      // Atualizar o tempo
+      float deltaTime = clock.restart().asSeconds();
+
+      if (!bookLanded) {
+          // Usar a função mover e cair do Livro
+          livroCair.mover(window);
+          livroCair.cair();
+          std::wcout << L"Posicao: " << livroCair.getShape().getPosition().y + livroCair.getShape().getSize().y << std::endl;
+
+
+          jogo.verificarLivroNaCesta(livroCair,cestaJogo);
+
+          // Verificar se o livro tocou o chão
+          if (livroCair.getShape().getPosition().y + livroCair.getShape().getSize().y >= window.getSize().y) 
+          {
+
+              bookLanded = true; // Parar o movimento
+              livroCair.getShape().setPosition(
+                  livroCair.getShape().getPosition().x, 
+                  window.getSize().y - livroCair.getShape().getSize().y);// Ajustar no chão
+          }
+      }
+    
+
+      // Renderizar o livro
+      window.clear(sf::Color::White);
+      window.draw(livroCair.getShape());
+      for (const auto& cesta : cestaJogo) {
+        window.draw(cesta.getShape());
+        }
+       window.display();
+
+      
+      // Finalizar o jogo (simples)
+      if (bookLanded) {
+          sf::sleep(sf::seconds(2)); // Pausa de 2 segundos antes de sair
+          break; // Sai da função e retorna
+      }
+    }
+    
 }

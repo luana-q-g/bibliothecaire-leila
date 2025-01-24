@@ -1,87 +1,118 @@
-/*
-
-Autor(es): Luís Augusto Simas do Nascimento
-Data de Criação: 14/06/2021
-Data de Atualização: 14/06/2021
-
-Objetivos: Implementar os métodos da classe livro
-
-*/
+#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/Image.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RenderStates.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <algorithm>
+#include <iomanip>
+#include <iostream>
+#include <string>
+#include <SFML/Main.hpp>
+#include "livro.h"
 
 #ifndef LIVRO_CPP
-#define LIVRO_PP
-
-// Arquivo de cabeçalho
-#include "livro.h"
+#define LIVRO_CPP
 
 using namespace std;
 
-Livro::Livro(wstring _nome, wstring _autor, wstring _categoria,
-             int _ano_lancamento, wstring _editora)
-    : shape(sf::Vector2f(200.f, 400.f)) {
-  nome = _nome;
-  autor = _autor;
-  categoria = _categoria;
-  ano_lancamento = _ano_lancamento;
-  editora = _editora;
+// Construtor
+// Construtor com parâmetros
+Livro::Livro(std::wstring _nome, std::wstring _autor, std::wstring _categoria,
+             int _anoLancamento, std::wstring _editora, sf::Vector2f _posicao,
+             const std::wstring& caminhoImagem, sf::Color _cor)
+    : nome(_nome), autor(_autor), categoria(_categoria), ano_lancamento(_anoLancamento),
+      editora(_editora), posicao(_posicao), shape(sf::Vector2f(50, 100)), 
+      cor(_cor), texturaCaminho(caminhoImagem) {
+    shape.setPosition(posicao);
+    shape.setFillColor(cor);
 
-  // Carregando a textura do livro
-  sf::Texture texture;
-
-  // if (!texture.loadFromImage(_imagem)) {
-  //   cout << "Erro ao carregar imagem do livro" << endl;
-  // } else {
-  //   cout << "Textura carregada com sucesso!"<< endl;
-  //   shape.setTexture(&texture);
-  // }
-
-  // shape.setFillColor(sf::Color::Red);
+    // Carregando a textura, se o caminho for válido
+    if (!caminhoImagem.empty()) {
+        if (!texturaLivro.loadFromFile("/home/davy/ProjetoPOO/bibliothecaire-leila/livro.png")) {
+            std::wcerr << L"Erro ao carregar a textura do arquivo: " << caminhoImagem << std::endl;
+        } else {
+            shape.setTexture(&texturaLivro); // Aplica a textura ao retângulo
+        }
+    }
 }
 
-wstring Livro::getNome() const { return nome; }
-
-wstring Livro::getAutor() const { return autor; }
-
-wstring Livro::getCategoria() const { return categoria; }
-
+// Getters
+std::wstring Livro::getNome() const { return nome; }
+std::wstring Livro::getAutor() const { return autor; }
+std::wstring Livro::getCategoria() const { return categoria; }
 int Livro::getAnoLancamento() const { return ano_lancamento; }
-
-wstring Livro::getEditora() const { return editora; }
-
+std::wstring Livro::getEditora() const { return editora; }
 sf::RectangleShape Livro::getShape() const { return shape; }
+std::wstring Livro::getTexturaCaminho() const {return texturaCaminho; }
 
-void Livro::setNome(wstring _nome) { nome = _nome; }
+// Setters
+void Livro::setNome(std::wstring _nome) { nome = _nome; }
+void Livro::setAutor(std::wstring _autor) { autor = _autor; }
+void Livro::setCategoria(std::wstring _categoria) { categoria = _categoria; }
+void Livro::setAnoLancamento(int _ano_lancamento) { ano_lancamento = _ano_lancamento; }
+void Livro::setEditora(std::wstring _editora) { editora = _editora; }
 
-void Livro::setAutor(wstring _autor) { autor = _autor; }
+// Métodos de movimento
+void Livro::mover(sf::RenderWindow& window) {
+    // Verificar se tecla esquerda está pressionada
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+        if (posicao.x > 0) { // Limite esquerdo da janela
+            posicao.x -= velocidadeQueda + 1.0f; // Move para a esquerda
+            shape.setPosition(posicao);
+        }
+    }
 
-void Livro::setCategoria(wstring _categoria) { categoria = _categoria; }
-
-void Livro::setAnoLancamento(int _ano_lancamento) {
-  ano_lancamento = _ano_lancamento;
+    // Verificar se tecla direita está pressionada
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+        if (posicao.x + shape.getSize().x < window.getSize().x) { // Limite direito da janela
+            posicao.x += velocidadeQueda + 1.0f; // Move para a direita
+            shape.setPosition(posicao);
+        }
+    }
 }
 
-void Livro::setEditora(wstring _editora) { editora = _editora; }
 
-// Operator overloading
-bool Livro::operator>(const Livro &livro) {
-  return (nome > livro.nome) && (ano_lancamento > livro.ano_lancamento);
+void Livro::cair() {
+    posicao.y += velocidadeQueda;
+    shape.setPosition(posicao);
 }
 
-bool Livro::operator<(const Livro &livro) {
-  return (nome < livro.nome) && (ano_lancamento < livro.ano_lancamento);
+void Livro::setTextura(const sf::Texture& textura) {
+    shape.setTexture(&textura);
 }
 
-bool Livro::operator==(const Livro &livro) {
-  return (ano_lancamento == livro.ano_lancamento) && (autor == livro.autor) &&
-         (categoria == livro.categoria) && (editora == livro.editora);
+void Livro::setVelocidadeQueda(float velocidade) {
+    velocidadeQueda = velocidade;
 }
 
-ostream &operator<<(ostream &output, const Livro &l1) {
-  output << "Nome: " << l1.nome << ", Autor: " << l1.autor << endl
-         << "Ano de lançamento: " << l1.ano_lancamento
-         << ", Editora: " << l1.editora << endl;
-
-  return output;
+void Livro::setTexturaCaminho(const std::wstring& novoCaminho) {
+    texturaCaminho = novoCaminho;
 }
+
+// Sobrecarga de operadores
+bool Livro::operator>(const Livro& livro) const {
+    return (nome > livro.nome) && (ano_lancamento > livro.ano_lancamento);
+}
+
+bool Livro::operator<(const Livro& livro) const {
+    return (nome < livro.nome) && (ano_lancamento < livro.ano_lancamento);
+}
+
+bool Livro::operator==(const Livro& livro) const {
+    return (ano_lancamento == livro.ano_lancamento) && (autor == livro.autor) &&
+           (categoria == livro.categoria) && (editora == livro.editora);
+}
+
+std::wostream& operator<<(std::wostream& output, const Livro& l1) {
+    output << "Nome: " << l1.getNome() << ", Autor: " << l1.getAutor() << "\n"
+           << "Ano de lançamento: " << l1.getAnoLancamento()
+           << ", Editora: " << l1.getEditora() << std::endl;
+    return output;
+}
+
+// Define a posição do livro
+
 #endif
 

@@ -30,36 +30,79 @@ using namespace std;
 
 class Livro {
 private:
-  wstring nome;
-  wstring autor;
-  wstring categoria;
-  int ano_lancamento;
-  wstring editora;
-  sf::RectangleShape shape;
+    std::wstring nome;
+    std::wstring autor;
+    std::wstring categoria;
+    int ano_lancamento;
+    std::wstring editora; 
+
+    sf::RectangleShape shape; // Representação gráfica do livro
+    sf::Vector2f posicao;   
+    std::wstring texturaCaminho; 
+    sf::Texture texturaLivro;      // Textura gráfica do livro
+           // Caminho para a textura
+    float velocidadeQueda; 
+    sf::Color cor;   // Velocidade de queda
 
 public:
-  Livro(wstring _nome = L"", wstring _autor = L"", wstring _categoria = L"",
-        int _ano_lancamento = 0, wstring _editora = L"");
+    Livro()
+        : nome(L""), autor(L""), categoria(L""), ano_lancamento(0), editora(L""), 
+        posicao(sf::Vector2f(0, 0)), shape(sf::Vector2f(50, 100)), cor(sf::Color::White) {
+    }
+      
+    // Construtor com argumentos
+    Livro(std::wstring _nome, std::wstring _autor, std::wstring _categoria,
+      int _anoLancamento, std::wstring _editora, sf::Vector2f _posicao,const std::wstring& caminhoImagem, sf::Color _cor);
 
-  wstring getNome() const;
-  wstring getAutor() const;
-  wstring getCategoria() const;
-  int getAnoLancamento() const;
-  wstring getEditora() const;
-  sf::RectangleShape getShape() const;
 
-  void setNome(wstring _nome = L"");
-  void setAutor(wstring _autor = L"");
-  void setCategoria(wstring _categoria = L"");
-  void setAnoLancamento(int _ano_lancamento = 0);
-  void setEditora(wstring _editora = L"");
 
-  // Operator overloading
-  bool operator>(const Livro &livro);
-  bool operator<(const Livro &livro);
-  bool operator==(const Livro &livro);
 
-  friend ostream &operator<<(ostream &output, const Livro &);
+    // Getters
+    std::wstring getNome() const;
+    std::wstring getAutor() const;
+    std::wstring getCategoria() const;
+    int getAnoLancamento() const;
+    std::wstring getEditora() const;
+    sf::RectangleShape getShape() const;
+    std::wstring getTexturaCaminho() const;
+    sf::Texture textura; // Adiciona o membro de textura
+
+
+
+
+
+
+    // Setters
+    void setNome(std::wstring _nome);
+    void setAutor(std::wstring _autor);
+    void setCategoria(std::wstring _categoria);
+    void setAnoLancamento(int _ano_lancamento);
+    void setEditora(std::wstring _editora);
+    void setTexturaCaminho(const std::wstring& novoCaminho);
+
+    
+
+    void setCor(sf::Color _cor) {
+        cor = _cor;
+        shape.setFillColor(cor);
+    }
+
+    // Métodos de movimento
+    void mover(sf::RenderWindow& window);
+    void cair();
+
+    // Métodos auxiliares
+    void setTextura(const sf::Texture& textura);
+    void setVelocidadeQueda(float velocidade);
+
+
+    // Sobrecarga de operadores
+    bool operator>(const Livro& livro) const;
+    bool operator<(const Livro& livro) const;
+    bool operator==(const Livro& livro) const;
+
+    // Sobrecarga de operador de saída
+    friend std::ostream& operator<<(std::ostream& output, const Livro& l1);
 };
 
 #endif
