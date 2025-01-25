@@ -34,6 +34,7 @@ private:
 
 public:
   Lista(wstring categoria = L"");
+  wstring getCategoria();
   bool inserir(elementType &element, int posicao);
   bool remover(elementType &element);
   void imprimir();

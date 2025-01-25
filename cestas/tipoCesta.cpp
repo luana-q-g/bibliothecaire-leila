@@ -33,7 +33,7 @@ private:
 public:
     tipoCesta() {
 
-        if (!textura.loadFromFile("/home/davy/ProjetoPOO/bibliothecaire-leila/cesta.png"));
+        if (!textura.loadFromFile("./interface/assets/imagens/cesta.png"));
         int basey = 400;
 
         cestas.emplace_back(L"Letras",sf::Vector2f(20,basey), textura, obterCorPorCategoria(L"Letras"));

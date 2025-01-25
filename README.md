@@ -8,6 +8,8 @@ Por enquanto não há uma distribuição de pacotes do jogo, a única forma de i
 ```bash
 $ git clone https://github.com/luissimas/bibliotecaria-leila.git
 ```
+sudo apt-get install libpqxx-dev
+
 
 2. Entre na pasta do jogo
 ```bash

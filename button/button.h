@@ -27,11 +27,11 @@ private:
   string nome;
   sf::Texture textureClicked;
   sf::Texture textureIdle;
-  Lista<Livro> lista;
+  Lista<Livro> * lista;
 
 public:
   Button();
-  Button(string tipo, Lista<Livro> _lista);
+  Button(string tipo, Lista<Livro> * _lista);
   Button(string tipo, int = 112, int = 56);
   int click(const sf::Vector2i point, Livro livro);
   bool click_outros(const sf::Vector2i point);
