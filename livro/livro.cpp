@@ -5,11 +5,11 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Main.hpp>
 #include <algorithm>
 #include <iomanip>
 #include <iostream>
 #include <string>
-#include <SFML/Main.hpp>
 #include "livro.h"
 
 #ifndef LIVRO_CPP
@@ -17,8 +17,15 @@
 
 using namespace std;
 
-// Construtor
 // Construtor com parâmetros
+
+Livro::Livro()
+    : nome(L""), autor(L""), categoria(L""), ano_lancamento(0), editora(L""),
+      posicao(sf::Vector2f(390, 0)), shape(sf::Vector2f(50, 100)), cor(sf::Color::White) {
+    shape.setPosition(posicao);
+    shape.setFillColor(cor);
+}
+
 Livro::Livro(std::wstring _nome, std::wstring _autor, std::wstring _categoria,
              int _anoLancamento, std::wstring _editora, sf::Vector2f _posicao,
              const std::wstring& caminhoImagem, sf::Color _cor)
@@ -28,9 +35,9 @@ Livro::Livro(std::wstring _nome, std::wstring _autor, std::wstring _categoria,
     shape.setPosition(posicao);
     shape.setFillColor(cor);
 
-    // Carregando a textura, se o caminho for válido
+    // Carregar textura, se fornecida
     if (!caminhoImagem.empty()) {
-        if (!texturaLivro.loadFromFile("./interface/assets/imagens/livro.png")) {
+        if (!texturaLivro.loadFromFile(std::string(caminhoImagem.begin(), caminhoImagem.end()))) {
             std::wcerr << L"Erro ao carregar a textura do arquivo: " << caminhoImagem << std::endl;
         } else {
             shape.setTexture(&texturaLivro); // Aplica a textura ao retângulo
@@ -45,7 +52,7 @@ std::wstring Livro::getCategoria() const { return categoria; }
 int Livro::getAnoLancamento() const { return ano_lancamento; }
 std::wstring Livro::getEditora() const { return editora; }
 sf::RectangleShape Livro::getShape() const { return shape; }
-sf::Texture Livro::getTextura() const {return texturaLivro; }
+sf::Texture Livro::getTextura() const { return texturaLivro; }
 
 // Setters
 void Livro::setNome(std::wstring _nome) { nome = _nome; }
@@ -56,47 +63,39 @@ void Livro::setEditora(std::wstring _editora) { editora = _editora; }
 
 // Métodos de movimento
 void Livro::mover(sf::RenderWindow& window) {
-    // Verificar se tecla esquerda está pressionada
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-        if (posicao.x > 0) { // Limite esquerdo da janela
+        if (posicao.x > 0) { // Limite esquerdo
             posicao.x -= velocidadeQueda + 1.0f; // Move para a esquerda
             shape.setPosition(posicao);
         }
-    }
-
-    // Verificar se tecla direita está pressionada
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        if (posicao.x + shape.getSize().x < window.getSize().x) { // Limite direito da janela
+    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+        if (posicao.x + shape.getSize().x < window.getSize().x) { // Limite direito
             posicao.x += velocidadeQueda + 1.0f; // Move para a direita
             shape.setPosition(posicao);
         }
-    }
-
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-    {
-        posicao.y = 490.0f;
+    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+        posicao.y = 490.0f; // Alinha o eixo Y
         shape.setPosition(posicao);
-
     }
-    
-
-
 }
-
 
 void Livro::cair() {
     posicao.y += velocidadeQueda;
     shape.setPosition(posicao);
 }
 
-void Livro::setTextura(string caminhoImagem) {
-    // Carregando a textura, se o caminho for válido
-    if (!caminhoImagem.empty()) {
-        if (!texturaLivro.loadFromFile(caminhoImagem)) {
-            cout << "Erro ao carregar a textura do arquivo: " << caminhoImagem << std::endl;
-        } else {
-            shape.setTexture(&texturaLivro); // Aplica a textura ao retângulo
-        }
+void Livro::setTextura(const std::string& caminhoTextura) {
+    if (!texture) {
+        // Inicializa o ponteiro compartilhado para a textura
+        texture = std::make_shared<sf::Texture>();
+    }
+
+    // Tenta carregar a textura
+    if (!texture->loadFromFile(caminhoTextura)) {
+        std::cerr << "Erro ao carregar a textura: " << caminhoTextura << std::endl;
+    } else {
+        // Aplica a textura ao retângulo
+        shape.setTexture(texture.get(), true); // Ajusta automaticamente a textura ao tamanho do shape
     }
 }
 
@@ -119,13 +118,10 @@ bool Livro::operator==(const Livro& livro) const {
 }
 
 std::wostream& operator<<(std::wostream& output, const Livro& l1) {
-    output << "Nome: " << l1.getNome() << ", Autor: " << l1.getAutor() << "\n"
-           << "Ano de lançamento: " << l1.getAnoLancamento()
-           << ", Editora: " << l1.getEditora() << std::endl;
+    output << L"Nome: " << l1.getNome() << L", Autor: " << l1.getAutor() << L"\n"
+           << L"Ano de lançamento: " << l1.getAnoLancamento()
+           << L", Editora: " << l1.getEditora() << std::endl;
     return output;
 }
 
-// Define a posição do livro
-
 #endif
-
