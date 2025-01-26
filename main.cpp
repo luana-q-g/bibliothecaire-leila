@@ -547,10 +547,10 @@ void executarLivrosCaindo(sf::RenderWindow& window, DatabaseConnection db) {
         window.close();
     }
 
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::C)) {
-        cestaJogo = cestita.escolherCestasJogo(todasCestas);
-      }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::C)) {
+      cestaJogo = cestita.escolherCestasJogo(todasCestas);
     }
+    
 
     setBackground("./interface/assets/imagens/background.jpg", background, bgTexture, window);
 
@@ -592,3 +592,4 @@ void executarLivrosCaindo(sf::RenderWindow& window, DatabaseConnection db) {
       bookLanded = false; // Reseta o estado
     }
   }
+}
