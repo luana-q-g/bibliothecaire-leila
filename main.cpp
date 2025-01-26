@@ -545,6 +545,7 @@ void executarLivrosCaindo(sf::RenderWindow& window, DatabaseConnection db) {
     while (window.pollEvent(event)) {
       if (event.type == sf::Event::Closed)
         window.close();
+    }
 
       setBackground("./interface/assets/imagens/background.jpg", background, bgTexture, window);
 
@@ -593,4 +594,3 @@ void executarLivrosCaindo(sf::RenderWindow& window, DatabaseConnection db) {
       }
     }
   }
-}
