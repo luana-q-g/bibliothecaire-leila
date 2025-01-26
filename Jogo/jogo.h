@@ -16,9 +16,10 @@ class Jogo{
         int pontuacao;
     public:
         Jogo() : pontuacao(0) {}
-        void verificarLivroNaCesta(const Livro& livro, const std::vector<Cesta>& cestas);
-        int getPontuacao() const;
+        void verificarLivroNaCesta(const Livro& livro, std::vector<Cesta>& cestas,Jogo& jogo1, float& queda , int& pontosconsec);
+        int getPontuacao();
         void setPontuacao(int novaPontuacao);
+
 };
 
 

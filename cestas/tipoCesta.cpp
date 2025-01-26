@@ -20,6 +20,7 @@
 using namespace std;
 using namespace sf;
 
+
 class tipoCesta {
 private:
     std::vector<Cesta> cestas;
@@ -30,7 +31,7 @@ public:
     tipoCesta(DatabaseConnection db) {
 
         if (!textura.loadFromFile("./interface/assets/imagens/cesta.png"));
-        int basey = 400;
+        int basey = 540;
 
         result res = db.showQuery("SELECT nome, cor FROM Categoria;");
 
@@ -70,7 +71,7 @@ std::vector<Cesta> escolherCestasJogo(const std::vector<Cesta>& cestas){
 
 
     for (int i=0; i<7; i++){
-        int indice = rand() % cestas.size();
+        int indice = rand() % (cestas.size());
 
         const Cesta& cestaOriginal = cestas[indice]; 
         Cesta novaCesta = cestaOriginal;
@@ -79,7 +80,7 @@ std::vector<Cesta> escolherCestasJogo(const std::vector<Cesta>& cestas){
 
         // Adiciona a nova cesta ao vetor de cestas escolhidas
         cestaEscolhidas.push_back(novaCesta);
-    }   
+    }  
     
     return cestaEscolhidas;
 }

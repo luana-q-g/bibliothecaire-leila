@@ -25,7 +25,8 @@ public:
     Cesta(std::wstring categoria, sf::Vector2f _posicao, sf::Texture& _textura, sf::Color _cor);
 
     // Getters
-    sf::RectangleShape getShape() const;
+    sf::RectangleShape getShape();
+    const sf::RectangleShape& getShape() const; // Para objetos const
     std::wstring getCategoria() const;
     sf::Vector2f getPosition() const;
     // Setters
@@ -33,8 +34,6 @@ public:
     void setCategoria(std::wstring novaCategoria);
     void setTextura(sf::Texture& novaTextura);
     void setPosition(const sf::Vector2f& novaPosicao);
-
-
 };
 
 #endif // CESTA_H

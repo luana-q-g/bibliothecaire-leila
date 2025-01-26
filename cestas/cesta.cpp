@@ -11,10 +11,13 @@ Cesta::Cesta(std::wstring categoria, sf::Vector2f posicao, sf::Texture& textura,
 
 
 // Método para obter o shape
-sf::RectangleShape Cesta::getShape() const {
+sf::RectangleShape Cesta::getShape(){
     return shape;
 }
 
+const sf::RectangleShape& Cesta::getShape() const {
+    return shape;
+}
 // Método para obter a categoria
 std::wstring Cesta::getCategoria() const {
     return categoria;
@@ -37,13 +40,10 @@ void Cesta::setTextura(sf::Texture& novaTextura) {
     shape.setTexture(textura);
 }
 
+// Implementação de setPosition
 void Cesta::setPosition(const sf::Vector2f& novaPosicao) {
-    posicao = novaPosicao; // Atualiza a posição interna
-    shape.setPosition(posicao); // Atualiza a posição gráfica (SFML)
-}
-
-sf::Vector2f Cesta::getPosition() const {
-    return shape.getPosition(); // Retorna a posição gráfica (SFML)
+    posicao = novaPosicao;         // Atualiza a posição interna
+    shape.setPosition(posicao);    // Atualiza a posição do shape gráfico
 }
 
 
