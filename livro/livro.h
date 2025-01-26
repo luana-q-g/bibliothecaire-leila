@@ -69,7 +69,7 @@ public:
     void cair();
 
     // Métodos auxiliares
-    void setTextura(const sf::Texture& textura);
+    void setTextura(string caminho);
     void setVelocidadeQueda(float velocidade);
 
 

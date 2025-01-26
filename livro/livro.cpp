@@ -89,9 +89,15 @@ void Livro::cair() {
     shape.setPosition(posicao);
 }
 
-void Livro::setTextura(const sf::Texture& textura) {
-    texturaLivro = textura;
-    shape.setTexture(&textura);
+void Livro::setTextura(string caminhoImagem) {
+    // Carregando a textura, se o caminho for válido
+    if (!caminhoImagem.empty()) {
+        if (!texturaLivro.loadFromFile(caminhoImagem)) {
+            cout << "Erro ao carregar a textura do arquivo: " << caminhoImagem << std::endl;
+        } else {
+            shape.setTexture(&texturaLivro); // Aplica a textura ao retângulo
+        }
+    }
 }
 
 void Livro::setVelocidadeQueda(float velocidade) {

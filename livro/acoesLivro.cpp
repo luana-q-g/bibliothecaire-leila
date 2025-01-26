@@ -154,17 +154,8 @@ Livro getLivroAleatorio(DatabaseConnection db) {
         string cor = row[5].as<string>();
         l.setCor(getColorFromString(cor));
 
-        sf::Texture texturaLivro;
-        // Carrega a textura para o livro no índice
-        if (!texturaLivro.loadFromFile(caminhoTextura)) {
-            wcerr << L"Erro ao carregar a textura do livro de id " << random_number << endl;
-
-            // Retorna um objeto padrão em caso de erro
-            return Livro();
-        }
-
         // Configura a textura do shape usando um método público
-        l.setTextura(texturaLivro);
+        l.setTextura(caminhoTextura);
 
     }
 
