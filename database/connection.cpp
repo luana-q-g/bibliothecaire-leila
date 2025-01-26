@@ -91,15 +91,15 @@ result DatabaseConnection::showQuery(string strSQL){
 void DatabaseConnection::populateCategories(){
     string sql;
 
-    sql = "INSERT INTO categoria values('Litterature', 'Blue');" \
-    "INSERT INTO categoria values('Philosophie', 'Green');" \
-    "INSERT INTO categoria values('Geographie', 'Yellow');" \
-    "INSERT INTO categoria values('Histoire', 'Red');" \
-    "INSERT INTO categoria values('Mathematiques', 'Cyan');" \
+    sql = "INSERT INTO categoria values('Litterature', 'Orange');" \
+    "INSERT INTO categoria values('Philosophie', 'Purple');" \
+    "INSERT INTO categoria values('Geographie', 'Red');" \
+    "INSERT INTO categoria values('Histoire', 'Cyan');" \
+    "INSERT INTO categoria values('Mathematiques', 'Yellow');" \
     "INSERT INTO categoria values('Psychologie', 'Magenta');" \
     "INSERT INTO categoria values('Informatique', 'Black');" \
-    "INSERT INTO categoria values('Chimie', 'Orange');" \
-    "INSERT INTO categoria values('Art', 'Purple');";
+    "INSERT INTO categoria values('Chimie', 'Blue');" \
+    "INSERT INTO categoria values('Art', 'Green');";
 
     query(sql);
 }

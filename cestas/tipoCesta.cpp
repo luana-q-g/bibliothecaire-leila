@@ -1,13 +1,24 @@
-#include <vector>
-#include <ctime>
 #include <stdexcept>
-#include "cesta.h"
 #include <locale> // Necessário para configurar o locale
 #include <iostream>
+#include <vector>
+#include <locale>
+#include <codecvt>
+#include <string>
+#include <random>
+#include <unordered_set>
+#include <ctime>
+#include <pqxx/pqxx>
+#include "cesta.h"
+#include "acoesLivro.h"
+
+#include "database/connection.h"
 
 #ifndef TIPOCESTA_H
 #define TIPOCESTA_H
 
+using namespace std;
+using namespace sf;
 
 class tipoCesta {
 private:
@@ -15,45 +26,26 @@ private:
 
     sf::Texture textura;
 
-
-    // Retorna uma cor baseada na categoria
-    sf::Color obterCorPorCategoria(const std::wstring& categoria) {
-        if (categoria == L"Letras") return sf::Color::Blue;
-        if (categoria == L"Filosofia") return sf::Color::Green;
-        if (categoria == L"Geografia") return sf::Color::Yellow;
-        if (categoria == L"História") return sf::Color::Red;
-        if (categoria == L"Matemática") return sf::Color::Cyan;
-        if (categoria == L"Psicologia") return sf::Color::Magenta;
-        if (categoria == L"Informática") return sf::Color::Black;
-        if (categoria == L"Química") return sf::Color(255, 140, 0); // Laranja
-        if (categoria == L"Arte") return sf::Color(128, 0, 128);    // Roxo
-        return sf::Color::Black; // Cor padrão
-    }
-
 public:
-    tipoCesta() {
+    tipoCesta(DatabaseConnection db) {
 
         if (!textura.loadFromFile("./interface/assets/imagens/cesta.png"));
         int basey = 400;
 
-        cestas.emplace_back(L"Letras",sf::Vector2f(20,basey), textura, obterCorPorCategoria(L"Letras"));
-        
-        cestas.emplace_back(L"Filosofia",sf::Vector2f(130,basey), textura, obterCorPorCategoria(L"Filosofia"));
+        result res = db.showQuery("SELECT nome, cor FROM Categoria;");
 
-        cestas.emplace_back(L"Geografia",sf::Vector2f(240,basey), textura, obterCorPorCategoria(L"Geografia"));
-
-        cestas.emplace_back(L"História",sf::Vector2f(350,basey), textura, obterCorPorCategoria(L"História"));
-
-        cestas.emplace_back(L"Matemática",sf::Vector2f(460,basey), textura, obterCorPorCategoria(L"Matemática"));
-
-        cestas.emplace_back(L"Psicologia",sf::Vector2f(570,basey), textura, obterCorPorCategoria(L"Psicologia"));
-
-        cestas.emplace_back(L"Informática",sf::Vector2f(680,basey), textura, obterCorPorCategoria(L"Informática"));
-
-        cestas.emplace_back(L"Quimica",sf::Vector2f(790,basey), textura, obterCorPorCategoria(L"Quimica"));
-
-
-}
+        vector<int> posicoes = {20, 130, 240, 350, 460, 570, 680, 790, 810};
+        int i = 0;
+        for (const auto& row : res) {
+            cout << posicoes[i] << endl;
+            wstring categ = converteString(row[0]);
+            string cor = row[1].as<string>();
+            Color cor_code = getColorFromString(cor);
+            cout << cor << endl;
+            cestas.emplace_back(categ, sf::Vector2f(posicoes[i],basey), textura, cor_code);
+            i++;
+        }
+    }
 
 std::vector<Cesta> getCesta() const {
         return cestas; // Retorna todos os livros
