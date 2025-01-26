@@ -103,7 +103,7 @@ Livro getLivroAleatorio() {
         // Retorna um objeto padrão em caso de erro
         return Livro();
     }
-
+   
     // Configura a textura do shape usando um método público
     livros[indice].setTextura(livros[indice].textura);
 

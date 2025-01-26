@@ -9,6 +9,7 @@
 #define TIPOCESTA_H
 
 
+
 class tipoCesta {
 private:
     std::vector<Cesta> cestas;
@@ -25,16 +26,15 @@ private:
         if (categoria == L"Matemática") return sf::Color::Cyan;
         if (categoria == L"Psicologia") return sf::Color::Magenta;
         if (categoria == L"Informática") return sf::Color::Black;
-        if (categoria == L"Química") return sf::Color(255, 140, 0); // Laranja
+        if (categoria == L"Química") return sf::Color::White; // Laranja
         if (categoria == L"Arte") return sf::Color(128, 0, 128);    // Roxo
-        return sf::Color::Black; // Cor padrão
     }
 
 public:
     tipoCesta() {
 
         if (!textura.loadFromFile("/home/davy/ProjetoPOO/bibliothecaire-leila/cesta.png"));
-        int basey = 400;
+        int basey = 540;
 
         cestas.emplace_back(L"Letras",sf::Vector2f(20,basey), textura, obterCorPorCategoria(L"Letras"));
         
@@ -51,6 +51,9 @@ public:
         cestas.emplace_back(L"Informática",sf::Vector2f(680,basey), textura, obterCorPorCategoria(L"Informática"));
 
         cestas.emplace_back(L"Quimica",sf::Vector2f(790,basey), textura, obterCorPorCategoria(L"Quimica"));
+
+        cestas.emplace_back(L"Arte",sf::Vector2f(900,basey), textura, obterCorPorCategoria(L"Arte"));
+
 
 
 }
@@ -78,7 +81,7 @@ std::vector<Cesta> escolherCestasJogo(const std::vector<Cesta>& cestas){
 
 
     for (int i=0; i<7; i++){
-        int indice = rand() % cestas.size();
+        int indice = rand() % (cestas.size());
 
         const Cesta& cestaOriginal = cestas[indice]; 
         Cesta novaCesta = cestaOriginal;
@@ -87,7 +90,7 @@ std::vector<Cesta> escolherCestasJogo(const std::vector<Cesta>& cestas){
 
         // Adiciona a nova cesta ao vetor de cestas escolhidas
         cestaEscolhidas.push_back(novaCesta);
-    }   
+    }  
     
     return cestaEscolhidas;
 }

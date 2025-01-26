@@ -65,12 +65,22 @@ void Livro::mover(sf::RenderWindow& window) {
     }
 
     // Verificar se tecla direita está pressionada
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
         if (posicao.x + shape.getSize().x < window.getSize().x) { // Limite direito da janela
             posicao.x += velocidadeQueda + 1.0f; // Move para a direita
             shape.setPosition(posicao);
         }
     }
+
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+    {
+        posicao.y = 490.0f;
+        shape.setPosition(posicao);
+
+    }
+    
+
+
 }
 
 
