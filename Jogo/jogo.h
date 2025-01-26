@@ -6,7 +6,6 @@
 #include "livro/livro.h"
 #include "livro/pilha.h"
 #include "button/button.h"
-#include "livro/tipoLivro.cpp"
 #include "baselist/baselist.h"
 #include <SFML/System/Vector2.hpp>
 #include "cestas/tipoCesta.cpp"

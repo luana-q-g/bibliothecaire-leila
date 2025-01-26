@@ -30,7 +30,7 @@ Livro::Livro(std::wstring _nome, std::wstring _autor, std::wstring _categoria,
 
     // Carregando a textura, se o caminho for válido
     if (!caminhoImagem.empty()) {
-        if (!texturaLivro.loadFromFile("/home/davy/ProjetoPOO/bibliothecaire-leila/livro.png")) {
+        if (!texturaLivro.loadFromFile("./interface/assets/imagens/livro.png")) {
             std::wcerr << L"Erro ao carregar a textura do arquivo: " << caminhoImagem << std::endl;
         } else {
             shape.setTexture(&texturaLivro); // Aplica a textura ao retângulo

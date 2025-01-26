@@ -20,6 +20,11 @@ template <class elementType>
 Lista<elementType>::Lista(wstring _categoria) : categoria(_categoria) {}
 
 template <class elementType>
+wstring Lista<elementType>::getCategoria(){
+  return categoria;
+}
+
+template <class elementType>
 bool Lista<elementType>::podeInserir(elementType &element, Node<elementType> *nodeRef)
 {
   /*std::for_each(data.begin(), data.end(), [](char & c) {
