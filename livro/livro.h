@@ -27,8 +27,7 @@ private:
     wstring editora; 
 
     sf::RectangleShape shape; // Representação gráfica do livro
-    sf::Vector2f posicao;   
-    wstring texturaCaminho; 
+    sf::Vector2f posicao;
     sf::Texture texturaLivro;      // Textura gráfica do livro
            // Caminho para a textura
     float velocidadeQueda; 
@@ -51,8 +50,7 @@ public:
     int getAnoLancamento() const;
     wstring getEditora() const;
     sf::RectangleShape getShape() const;
-    wstring getTexturaCaminho() const;
-    sf::Texture textura; // Adiciona o membro de textura
+    sf::Texture getTextura() const; // Adiciona o membro de textura
 
     // Setters
     void setNome(wstring _nome);
@@ -60,7 +58,6 @@ public:
     void setCategoria(wstring _categoria);
     void setAnoLancamento(int _ano_lancamento);
     void setEditora(wstring _editora);
-    void setTexturaCaminho(const wstring& novoCaminho);
     
     void setCor(sf::Color _cor) {
         cor = _cor;

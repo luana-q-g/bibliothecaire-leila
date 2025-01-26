@@ -24,7 +24,7 @@ Livro::Livro(std::wstring _nome, std::wstring _autor, std::wstring _categoria,
              const std::wstring& caminhoImagem, sf::Color _cor)
     : nome(_nome), autor(_autor), categoria(_categoria), ano_lancamento(_anoLancamento),
       editora(_editora), posicao(_posicao), shape(sf::Vector2f(50, 100)), 
-      cor(_cor), texturaCaminho(caminhoImagem) {
+      cor(_cor) {
     shape.setPosition(posicao);
     shape.setFillColor(cor);
 
@@ -45,7 +45,7 @@ std::wstring Livro::getCategoria() const { return categoria; }
 int Livro::getAnoLancamento() const { return ano_lancamento; }
 std::wstring Livro::getEditora() const { return editora; }
 sf::RectangleShape Livro::getShape() const { return shape; }
-std::wstring Livro::getTexturaCaminho() const {return texturaCaminho; }
+sf::Texture Livro::getTextura() const {return texturaLivro; }
 
 // Setters
 void Livro::setNome(std::wstring _nome) { nome = _nome; }
@@ -90,15 +90,12 @@ void Livro::cair() {
 }
 
 void Livro::setTextura(const sf::Texture& textura) {
+    texturaLivro = textura;
     shape.setTexture(&textura);
 }
 
 void Livro::setVelocidadeQueda(float velocidade) {
     velocidadeQueda = velocidade;
-}
-
-void Livro::setTexturaCaminho(const std::wstring& novoCaminho) {
-    texturaCaminho = novoCaminho;
 }
 
 // Sobrecarga de operadores

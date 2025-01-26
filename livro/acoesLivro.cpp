@@ -118,7 +118,6 @@ Pilha<Livro> geraPilhaLivros(DatabaseConnection db, int tamanho){
     l.setAnoLancamento(row[3].as<int>());
     l.setEditora(converteString(row[4]));
     string cor = row[5].as<string>();
-    l.setTexturaCaminho(caminhoTextura);
     l.setCor(getColorFromString(cor));
 
     // Adicionar livro na pilha
@@ -143,7 +142,7 @@ Livro getLivroAleatorio(DatabaseConnection db) {
     res = db.showQuery("SELECT l.nome, l.autor, l.nome_categoria, l.ano_lancamento, l.editora, c.cor " \
     "FROM Livro l JOIN Categoria c ON l.nome_categoria = c.nome WHERE l.id = "+to_string(random_number)+";");
 
-    wstring caminhoTextura = L"./interface/assets/imagens/livro.png";
+    string caminhoTextura = "./interface/assets/imagens/livro.png";
 
     Livro l;
     for (const auto& row : res) {
@@ -153,11 +152,11 @@ Livro getLivroAleatorio(DatabaseConnection db) {
         l.setAnoLancamento(row[3].as<int>());
         l.setEditora(converteString(row[4]));
         string cor = row[5].as<string>();
-        l.setTexturaCaminho(caminhoTextura);
         l.setCor(getColorFromString(cor));
 
+        sf::Texture texturaLivro;
         // Carrega a textura para o livro no índice
-        if (!l.textura.loadFromFile("./interface/assets/imagens/livro.png")) {
+        if (!texturaLivro.loadFromFile(caminhoTextura)) {
             wcerr << L"Erro ao carregar a textura do livro de id " << random_number << endl;
 
             // Retorna um objeto padrão em caso de erro
@@ -165,7 +164,7 @@ Livro getLivroAleatorio(DatabaseConnection db) {
         }
 
         // Configura a textura do shape usando um método público
-        l.setTextura(l.textura);
+        l.setTextura(texturaLivro);
 
     }
 
