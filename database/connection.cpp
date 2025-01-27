@@ -78,12 +78,12 @@ result DatabaseConnection::showQuery(string strSQL){
 
     result res=nontrans.exec(strSQL);
 
-    for (const auto& row : res) {
-        for (const auto& field : row) {
-            cout << field.c_str() << "\t";  // Exibe os campos do registro
-        }
-        cout << endl;  // Nova linha após cada registro
-    }
+    // for (const auto& row : res) {
+    //     for (const auto& field : row) {
+    //         cout << field.c_str() << "\t";  // Exibe os campos do registro
+    //     }
+    //     cout << endl;  // Nova linha após cada registro
+    // }
 
     return res;
 }

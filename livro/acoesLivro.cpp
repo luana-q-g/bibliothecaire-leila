@@ -103,8 +103,6 @@ Pilha<Livro> geraPilhaLivros(DatabaseConnection db, int tamanho){
       id_livros = id_livros != "" ? id_livros + ", " + random_number : random_number;
   }
 
-  cout << id_livros << endl;
-
   res = db.showQuery("SELECT l.nome, l.autor, l.nome_categoria, l.ano_lancamento, l.editora, c.cor " \
   "FROM Livro l JOIN Categoria c ON l.nome_categoria = c.nome WHERE id in ("+id_livros+");");
 
