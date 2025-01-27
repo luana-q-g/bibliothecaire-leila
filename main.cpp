@@ -53,8 +53,8 @@ int main(int argc, char *argv[])
           window.close();
       }
 
-      // executarJogoAntigo(window, modoLivrosCaindo, db);
-      executarLivrosCaindo(window, db);
+      executarJogoAntigo(window, modoLivrosCaindo, db);
+      // executarLivrosCaindo(window, db);
       // // Alternar entre os dois modos de jogo
       // if (!modoLivrosCaindo) {
       //    executarJogoAntigo(window, modoLivrosCaindo, db);
@@ -143,7 +143,8 @@ void executarJogoAntigo(sf::RenderWindow &window, bool &modoLivrosCaindo, Databa
   Button botao_arte("artes", buscarListaPorCategoria(listas, L"Art"));
   Button botao_jogarNovamente("jogar_novamente", 268, 56);
   Button botao_sair("sair", 145, 56);
-  Button botao_iniciar("iniciar", 200, 65);
+  Button botao_jogo1("jogo1", 200, 65);
+  Button botao_jogo2("jogo2", 200, 65);
 
   int contadorScore = 0;
   int errouMais;
@@ -236,9 +237,11 @@ void executarJogoAntigo(sf::RenderWindow &window, bool &modoLivrosCaindo, Databa
   botao_sair.setPosition((window.getSize().x / 2) - (botao_sair.getGlobalBounds().width) + 200, window.getSize().y - 140);
   
   sf::FloatRect boundsBase = logo.getGlobalBounds();
-  sf::FloatRect boundsSprite = botao_iniciar.getGlobalBounds();
 
-  botao_iniciar.setPosition((window.getSize().x / 2) - (botao_iniciar.getGlobalBounds().width / 2),
+  botao_jogo1.setPosition((window.getSize().x / 3) - (botao_jogo1.getGlobalBounds().width / 2),
+      (boundsBase.top + boundsBase.height + window.getSize().y*0.1));
+    
+  botao_jogo2.setPosition((window.getSize().x * 2 / 3) - (botao_jogo2.getGlobalBounds().width / 2),
       (boundsBase.top + boundsBase.height + window.getSize().y*0.1));
 
   // Posicionando menina e dialogo
@@ -248,8 +251,7 @@ void executarJogoAntigo(sf::RenderWindow &window, bool &modoLivrosCaindo, Databa
                        girl.getGlobalBounds().height) +
                           50);
 
-  while (window.isOpen())
-  {
+  while (window.isOpen()){
     sf::Event event;
     Button buttonPressed;
 
@@ -278,13 +280,19 @@ void executarJogoAntigo(sf::RenderWindow &window, bool &modoLivrosCaindo, Databa
           {
             errorText.setString(L" ");
 
-            if (comecoDoJogo)
-            {
+            if (comecoDoJogo) {
 
-              if (botao_iniciar.click_outros(sf::Mouse::getPosition(window)))
-              {
+              if (botao_jogo1.click_outros(sf::Mouse::getPosition(window))) {
                 // Carregando a imagem do background
                 setBackground("./interface/assets/imagens/background.jpg", background, bgTexture, window);
+
+                comecoDoJogo = false;
+              }
+              if (botao_jogo2.click_outros(sf::Mouse::getPosition(window))) {
+                // Carregando a imagem do background
+                setBackground("./interface/assets/imagens/background.jpg", background, bgTexture, window);
+
+                executarLivrosCaindo(window, db);
 
                 comecoDoJogo = false;
               }
@@ -455,7 +463,8 @@ void executarJogoAntigo(sf::RenderWindow &window, bool &modoLivrosCaindo, Databa
           botao_arte.release();
           botao_sair.release();
           botao_jogarNovamente.release();
-          botao_iniciar.release();
+          botao_jogo1.release();
+          botao_jogo2.release();
           break;
         default:
           break;
@@ -466,7 +475,8 @@ void executarJogoAntigo(sf::RenderWindow &window, bool &modoLivrosCaindo, Databa
       window.clear();
       window.draw(background);
       window.draw(logo);
-      window.draw(botao_iniciar);
+      window.draw(botao_jogo1);
+      window.draw(botao_jogo2);
       // botao.desenhar(window);
       window.display();
     }
@@ -516,8 +526,6 @@ void executarLivrosCaindo(sf::RenderWindow& window, DatabaseConnection db) {
 
   std::vector<Cesta> todasCestas = cestita.getCesta();
   std::vector<Cesta> cestaJogo = cestita.escolherCestasJogo(todasCestas);
-
-  
 
   // Carregar a fonte
   sf::Font fonte;

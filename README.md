@@ -1,27 +1,47 @@
-# Bibliotecária Leila
-Bibliotecária Leila é um jogo de desktop simples cujo objetivo é ajudar a bibliotecária a organizar seus livros de acordo com diferentes categorias.
+# Bibliothécaire Leila
 
-## Instalação
-Por enquanto não há uma distribuição de pacotes do jogo, a única forma de instalar é através do código fonte.
+**Bibliothécaire Leila** est un jeu de bureau simple où le but est d’aider la bibliothécaire à organiser ses livres en différentes catégories. Il a été développé en C++ et utilise la bibliothèque SFML pour les graphiques et l’interaction utilisateur.
 
-1. Clone o repositório em sua máquina local
+Le jeu comprend une série de classes:
+Les classes Baselist.h, List.h et Stack constituent la base du fonctionnement des jeux.
+
+## Configuration requise
+
+Avant l’installation, assurez-vous que votre environnement répond aux exigences suivantes :
+
+- **Système d’exploitation :** Linux (testé sur Ubuntu 22.04 ou une version ultérieure).
+- **Compilateur :** g++ ou un autre compatible avec C++17.
+- **Bibliothèques :** SFML et libpqxx. Vous pouvez installer les dépendances avec la commande suivante :
+  ```bash
+  sudo apt-get install libsfml-dev libpqxx-dev
+
+## Installation
+Actuellement, aucune distribution de paquets n’est disponible. La seule façon d’installer le jeu est via le code source.
+
+1. Clonez le dépôt
+Téléchargez le code source directement depuis GitHub :
+
 ```bash
-$ git clone https://github.com/luissimas/bibliotecaria-leila.git
+$ git clone https://github.com/luana-q-g/bibliothecaire-leila.git
 ```
-sudo apt-get install libpqxx-dev
 
+2. Accédez au dossier du projet
+Allez dans le répertoire où le dépôt a été cloné :
 
-2. Entre na pasta do jogo
 ```bash
-$ cd bibliotecaria-leila
+$ cd bibliothecaire-leila
 ```
 
-3. Compile o jogo usando o comando `make`
+3. Compilez le jeu
+Utilisez la commande make pour compiler le jeu. Le fichier Makefile est déjà configuré pour générer l’exécutable :
+
 ```bash
 $ make
 ```
 
-4. Execute o arquivo
+4. Lancez le jeux
+Une fois compilé, vous pouvez lancer le jeu avec la commande suivante :
+
 ```bash
-$ ./bibliotecaria-leila
+$ ./bibliothecaire-leila
 ```
