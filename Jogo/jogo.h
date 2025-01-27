@@ -19,6 +19,7 @@ class Jogo{
         void verificarLivroNaCesta(const Livro& livro, std::vector<Cesta>& cestas,Jogo& jogo1, float& queda , int& pontosconsec);
         int getPontuacao();
         void setPontuacao(int novaPontuacao);
+        void desenharNomeLivro(sf::RenderWindow& window, Livro& livroAtual, sf::Font& fonte);
 
 };
 

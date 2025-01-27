@@ -43,9 +43,7 @@ void Jogo::verificarLivroNaCesta(const Livro& livro,  std::vector<Cesta>& cestas
                 jogo1.setPontuacao(jogo1.getPontuacao() + 1);
                 pontosconsec++;
                 std::wcout << L"SCORE" << std::endl;
-                std::wcout << L"Velocidade atual: " << queda << std::endl;
-
-
+                std::wcout << L"Velocidade atual: " << pontosconsec << std::endl;
 
                 if (pontosconsec == 2 && jogo1.getPontuacao() > 10){
                     x = jogo1.getPontuacao() / 10;
@@ -61,6 +59,8 @@ void Jogo::verificarLivroNaCesta(const Livro& livro,  std::vector<Cesta>& cestas
             else {
                 std::wcout << L"Livro caiu na cesta errada." << std::endl;
                 std::wcout << L"Velocidade atual: " << queda << std::endl;
+                pontosconsec = 0;
+
                 jogo1.setPontuacao(0);
                 queda = 0.5f;
                 break;
@@ -71,6 +71,25 @@ void Jogo::verificarLivroNaCesta(const Livro& livro,  std::vector<Cesta>& cestas
         }
 
     }  
+
 }
+
+void Jogo::desenharNomeLivro(sf::RenderWindow& window, Livro& livroAtual, sf::Font& fonte) {
+    sf::Text text;
+    text.setFont(fonte);
+    text.setString(
+        L"Book's Name: \n" +
+        livroAtual.getNome() +
+        L" " +  
+        livroAtual.getAutor() +
+        L" em " +
+        std::to_wstring(livroAtual.getAnoLancamento()));
+    text.setCharacterSize(20);
+    text.setFillColor(livroAtual.getCor());
+    text.setStyle(sf::Text::Bold);
+    text.setPosition(0,200);
+    window.draw(text);
+}
+
 
 

@@ -53,6 +53,7 @@ int Livro::getAnoLancamento() const { return ano_lancamento; }
 std::wstring Livro::getEditora() const { return editora; }
 sf::RectangleShape Livro::getShape() const { return shape; }
 sf::Texture Livro::getTextura() const { return texturaLivro; }
+sf::Color Livro::getCor() const {return cor;}
 
 // Setters
 void Livro::setNome(std::wstring _nome) { nome = _nome; }
@@ -74,7 +75,7 @@ void Livro::mover(sf::RenderWindow& window) {
             shape.setPosition(posicao);
         }
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-        posicao.y = 490.0f; // Alinha o eixo Y
+        posicao.y = 480; // Alinha o eixo Y
         shape.setPosition(posicao);
     }
 }
@@ -82,6 +83,7 @@ void Livro::mover(sf::RenderWindow& window) {
 void Livro::cair() {
     posicao.y += velocidadeQueda;
     shape.setPosition(posicao);
+
 }
 
 void Livro::setTextura(const std::string& caminhoTextura) {
