@@ -66,16 +66,16 @@ void Livro::setEditora(std::wstring _editora) { editora = _editora; }
 void Livro::mover(sf::RenderWindow& window) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
         if (posicao.x > 0) { // Limite esquerdo
-            posicao.x -= velocidadeQueda + 1.0f; // Move para a esquerda
+            posicao.x -= 1.5 * velocidadeQueda; // Move para a esquerda
             shape.setPosition(posicao);
         }
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
         if (posicao.x + shape.getSize().x < window.getSize().x) { // Limite direito
-            posicao.x += velocidadeQueda + 1.0f; // Move para a direita
+            posicao.x += 1.5 * velocidadeQueda; // Move para a direita
             shape.setPosition(posicao);
         }
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-        posicao.y = 480; // Alinha o eixo Y
+        posicao.y = window.getSize().y - window.getSize().y/3; // Alinha o eixo Y
         shape.setPosition(posicao);
     }
 }

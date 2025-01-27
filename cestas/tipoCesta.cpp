@@ -62,12 +62,12 @@ void printCestaJogo(const std::vector<Cesta>& cestas) {
     }
 }
 
-std::vector<Cesta> escolherCestasJogo(const std::vector<Cesta>& cestas){
+std::vector<Cesta> escolherCestasJogo(sf::RenderWindow &window, const std::vector<Cesta>& cestas){
     std::vector<Cesta> cestaEscolhidas;
     srand(static_cast<unsigned>(time(nullptr))); 
     float xInicial = 50.0f;
-    float yInicial = 540.0f;
-    float incrementoX = 110.0f;
+    float yInicial = window.getSize().y - 60;
+    float incrementoX = window.getSize().x / 7;
 
 
     for (int i=0; i<7; i++){

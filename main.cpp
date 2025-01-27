@@ -9,6 +9,7 @@
 #include <ctime>
 #include <pqxx/pqxx>
 #include <chrono>
+#include <thread>
 
 #include "listacadastral/lista.h"
 #include "livro/livro.h"
@@ -29,7 +30,7 @@ using namespace sf;
 
 // Prototipagem das funções
 void executarJogoAntigo(sf::RenderWindow &window, bool &modoLivrosCaindo, DatabaseConnection db);
-void executarLivrosCaindo(sf::RenderWindow &window, DatabaseConnection db);
+int executarLivrosCaindo(sf::RenderWindow &window, DatabaseConnection db);
 
 int main(int argc, char *argv[])
 {
@@ -141,7 +142,6 @@ void executarJogoAntigo(sf::RenderWindow &window, bool &modoLivrosCaindo, Databa
   Button botao_informatica("informatica", buscarListaPorCategoria(listas, L"Informatique"));
   Button botao_quimica("quimica", buscarListaPorCategoria(listas, L"Chimie"));
   Button botao_arte("artes", buscarListaPorCategoria(listas, L"Art"));
-  Button botao_jogarNovamente("jogar_novamente", 268, 56);
   Button botao_sair("sair", 145, 56);
   Button botao_jogo1("jogo1", 200, 65);
   Button botao_jogo2("jogo2", 200, 65);
@@ -197,11 +197,11 @@ void executarJogoAntigo(sf::RenderWindow &window, bool &modoLivrosCaindo, Databa
   {
     text.setFont(font);
     text.setString(
-        L"Hmmm, temos aqui o livro\n" +
+        L"Hmmm, on a ici le livre\n" +
         livroAtual.getNome() +
-        L"\n escrito por " +
+        L"\n écrit par " +
         livroAtual.getAutor() +
-        L" em " +
+        L" en " +
         to_wstring(livroAtual.getAnoLancamento()));
 
     text.setCharacterSize(24);
@@ -233,8 +233,15 @@ void executarJogoAntigo(sf::RenderWindow &window, bool &modoLivrosCaindo, Databa
   botao_informatica.setPosition(botao_matematica.getPosition().x + botao_matematica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
   botao_quimica.setPosition(botao_informatica.getPosition().x + botao_informatica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
   botao_arte.setPosition(botao_quimica.getPosition().x + botao_quimica.getGlobalBounds().width + 50, botao_historia.getPosition().y + 65);
-  botao_jogarNovamente.setPosition(window.getSize().x / 2 - (girl.getGlobalBounds().width) * 1.5, window.getSize().y - 140);
   botao_sair.setPosition((window.getSize().x / 2) - (botao_sair.getGlobalBounds().width) + 200, window.getSize().y - 140);
+
+  // botao_jogo1.setPosition(girl.getPosition().x - 2*botao_jogo1.getGlobalBounds().width ,
+  //   (boundsBase.top + boundsBase.height + window.getSize().y*0.1));
+                  
+  // botao_jogo2.setPosition((window.getSize().x *3 / 4) - (botao_jogo2.getGlobalBounds().width / 2),
+  //     (boundsBase.top + boundsBase.height + window.getSize().y*0.1));
+
+  botao_sair.setPosition(window.getSize().x - botao_sair.getGlobalBounds().width - 10.0f, 10.0f);
   
   sf::FloatRect boundsBase = logo.getGlobalBounds();
 
@@ -243,6 +250,8 @@ void executarJogoAntigo(sf::RenderWindow &window, bool &modoLivrosCaindo, Databa
     
   botao_jogo2.setPosition((window.getSize().x * 2 / 3) - (botao_jogo2.getGlobalBounds().width / 2),
       (boundsBase.top + boundsBase.height + window.getSize().y*0.1));
+
+  
 
   // Posicionando menina e dialogo
   girl.setPosition(0, window.getSize().y - girl.getGlobalBounds().height);
@@ -292,30 +301,39 @@ void executarJogoAntigo(sf::RenderWindow &window, bool &modoLivrosCaindo, Databa
                 // Carregando a imagem do background
                 setBackground("./interface/assets/imagens/background.jpg", background, bgTexture, window);
 
-                executarLivrosCaindo(window, db);
+                int pontuacao = executarLivrosCaindo(window, db);
 
                 comecoDoJogo = false;
+                finalDoJogo = true;
+
+                // Mudar lado da bibliotecária
+                // dialogo.move(sf::Vector2f(50, 0));
+
+                girl.setPosition(window.getSize().x / 2 - girl.getGlobalBounds().width / 2, window.getSize().y - girl.getGlobalBounds().height);
+                dialogo.setPosition(girl.getPosition().x - girl.getGlobalBounds().width - 100,
+                                    (window.getSize().y - dialogo.getGlobalBounds().height -
+                                    girl.getGlobalBounds().height) +
+                                        45);
+
+                // Texto do final
+                if (pontuacao <= 0){
+                  pontuacao = 0;
+                }
+                int basePontuacao = 10;
+                
+                text.setPosition(dialogo.getPosition().x + 50, dialogo.getPosition().y + 100);                
+
+                if (pontuacao == 0)
+                  text.setString(L"Oh non!\n Vous n'avez rien obtenu de bon!");
+                else if (pontuacao > 0 && pontuacao <= basePontuacao / 2)
+                  text.setString(L"Vous pouvez faire plus que cela ! \n Vous avez marqué des " + to_wstring(pontuacao) + L" points");
+                else if (pontuacao >= ((basePontuacao / 2) + 1) && pontuacao < basePontuacao)
+                  text.setString(L"  Vous vous êtes bien débrouillé,\n mais vous pouvez faire mieux.!\n Vous avez marqué des " + to_wstring(pontuacao) + L" points");
+                else if (pontuacao >= basePontuacao)
+                  text.setString(L"Vous vous êtes très bien débrouillé !\n Félicitations!\n Vous avez marqué des " + to_wstring(pontuacao) + L" points");
               }
             }
-            else if (finalDoJogo)
-            {
-              // JOGAR NOVAMENTE
-              if (botao_jogarNovamente.click_outros(sf::Mouse::getPosition(window)))
-              {
-                comecoDoJogo = false;
-                finalDoJogo = false;
-
-                // Resetando os elementos da pilha
-                pilha = geraPilhaLivros(db, tamanho);
-
-                // Resetando a pontuacao do jogador
-                contadorScore = 0;
-
-                // Reposicionando tudo na tela. Que deus tenha piedade da minha alma
-                // pelo que vou fazer a seguir.
-
-                livroAtual = pilha.remover();
-
+            else if (finalDoJogo) {
                 if (!girlTexture.loadFromFile("./interface/assets/imagens/bibliotecaria.png"))
                 {
                   cout << "Erro: não foi possível carregar a imagem da bela moça" << endl;
@@ -343,27 +361,91 @@ void executarJogoAntigo(sf::RenderWindow &window, bool &modoLivrosCaindo, Databa
                 text.setPosition(dialogo.getPosition().x + 40, dialogo.getPosition().y + 100);
                 errorText.setPosition(dialogo.getPosition().x + 180, dialogo.getPosition().y + 200);
 
-                // Atualizando a mensagem de dialogo para o proximo livro
-                text.setString(
-                    L"Hmmm, temos aqui o livro\n" +
-                    livroAtual.getNome() +
-                    L"\n escrito por " +
-                    livroAtual.getAutor() +
-                    L" em " +
-                    to_wstring(livroAtual.getAnoLancamento()));
-
                 // Reposicionando a menina e dialogo
                 girl.setPosition(0, window.getSize().y - girl.getGlobalBounds().height);
                 dialogo.setPosition(girl.getGlobalBounds().width - 150,
-                                    (window.getSize().y - dialogo.getGlobalBounds().height -
-                                    girl.getGlobalBounds().height) +
-                                        50);
+                  (window.getSize().y - dialogo.getGlobalBounds().height -
+                  girl.getGlobalBounds().height) +
+                      50);
+
+              // JOGAR NOVAMENTE
+              if (botao_jogo1.click_outros(sf::Mouse::getPosition(window))) {
+                comecoDoJogo = false;
+                finalDoJogo = false;
+
+                // Resetando os elementos da pilha
+                pilha = geraPilhaLivros(db, tamanho);
+
+                // Resetando a pontuacao do jogador
+                contadorScore = 0;
+
+                // Reposicionando tudo na tela. Que deus tenha piedade da minha alma
+                // pelo que vou fazer a seguir.
+
+                livroAtual = pilha.remover();
+
+                
+                // Atualizando a mensagem de dialogo para o proximo livro
+                text.setString(
+                  L"Hmmm, on a ici le livre\n" +
+                  livroAtual.getNome() +
+                  L"\n écrit par " +
+                  livroAtual.getAutor() +
+                  L" en " +
+                  to_wstring(livroAtual.getAnoLancamento()));
+
+                
+              }
+              else if (botao_jogo2.click_outros(sf::Mouse::getPosition(window))){
+                int pontuacao = executarLivrosCaindo(window, db);
+
+                if (!girlTexture.loadFromFile("./interface/assets/imagens/bibliotecaria-fim.png"))
+                {
+                  cout << "Erro: não foi possível carregar as imagens do fim" << endl;
+                }
+                else
+                {
+                  if (!dialogoTexture.loadFromFile("./interface/assets/imagens/dialogo-fim.png"))
+                  {
+                    cout << "Erro: não foi possível carregar as imagens do fim" << endl;
+                  }
+                  else
+                  {
+                    finalDoJogo = true;
+
+                    // Mudar lado da bibliotecária
+                    // dialogo.move(sf::Vector2f(50, 0));
+
+                    girl.setPosition(window.getSize().x / 2 - girl.getGlobalBounds().width / 2, window.getSize().y - girl.getGlobalBounds().height);
+                    dialogo.setPosition(girl.getPosition().x - girl.getGlobalBounds().width - 100,
+                                        (window.getSize().y - dialogo.getGlobalBounds().height -
+                                        girl.getGlobalBounds().height) +
+                                            45);
+
+                    // Texto do final
+                    if (pontuacao <= 0){
+                      pontuacao = 0;
+                    }
+
+                    text.setPosition(dialogo.getPosition().x + 50, dialogo.getPosition().y + 100);
+
+                    if (pontuacao == 0)
+                      text.setString(L"Oh non!\n Vous n'avez rien obtenu de bon!");
+                    else if (pontuacao > 0 && pontuacao <= tamanho / 2)
+                      text.setString(L"Vous pouvez faire plus que cela ! \n Vous avez marqué des " + to_wstring(pontuacao) + L" points");
+                    else if (pontuacao >= ((tamanho / 2) + 1) && pontuacao < tamanho)
+                      text.setString(L"  Vous vous êtes bien débrouillé,\n mais vous pouvez faire mieux.!\n Vous avez marqué des " + to_wstring(pontuacao) + L" points");
+                    else if (pontuacao == tamanho)
+                      text.setString(L"Vous vous êtes très bien débrouillé !\n Félicitations!\n Vous avez marqué des " + to_wstring(pontuacao) + L" points");
+                  }
+                }
+                break;
               }
               // FIM
               else if (botao_sair.click_outros(sf::Mouse::getPosition(window)))
               {
-                modoLivrosCaindo = true;
-                return;
+                window.close();
+                break;
               }
             }
             else if ((botao_historia.click(sf::Mouse::getPosition(window), livroAtual) == 1) || (botao_psicologia.click(sf::Mouse::getPosition(window), livroAtual) == 1) || (botao_letras.click(sf::Mouse::getPosition(window), livroAtual) == 1) || (botao_filosofia.click(sf::Mouse::getPosition(window), livroAtual) == 1) || (botao_geografia.click(sf::Mouse::getPosition(window), livroAtual) == 1) || (botao_matematica.click(sf::Mouse::getPosition(window), livroAtual) == 1) || (botao_informatica.click(sf::Mouse::getPosition(window), livroAtual) == 1) || (botao_quimica.click(sf::Mouse::getPosition(window), livroAtual) == 1) || (botao_arte.click(sf::Mouse::getPosition(window), livroAtual) == 1))
@@ -376,12 +458,12 @@ void executarJogoAntigo(sf::RenderWindow &window, bool &modoLivrosCaindo, Databa
               {
                 livroAtual = pilha.remover();
                 text.setString(
-                    L"Hmmm, temos aqui o livro\n" +
-                    livroAtual.getNome() +
-                    L"\n escrito por " +
-                    livroAtual.getAutor() +
-                    L" em " +
-                    to_wstring(livroAtual.getAnoLancamento()));
+                  L"Hmmm, on a ici le livre\n" +
+                  livroAtual.getNome() +
+                  L"\n écrit par " +
+                  livroAtual.getAutor() +
+                  L" en " +
+                  to_wstring(livroAtual.getAnoLancamento()));
               }
               else
               { // SE O JOGO ACABAR
@@ -417,13 +499,13 @@ void executarJogoAntigo(sf::RenderWindow &window, bool &modoLivrosCaindo, Databa
                     text.setPosition(dialogo.getPosition().x + 50, dialogo.getPosition().y + 100);
 
                     if (contadorScore == 0)
-                      text.setString(L"Aah não!\n Você não acertou nenhuma!");
+                      text.setString(L"Oh non!\n Vous n'avez rien obtenu de bon!");
                     else if (contadorScore > 0 && contadorScore <= tamanho / 2)
-                      text.setString(L"Você pode fazer mais do que isso!\n Você acertou " + to_wstring(contadorScore) + L"/" + to_wstring(tamanho) + L" pontos");
+                      text.setString(L"Vous pouvez faire plus que cela ! \n Vous avez marqué des " + to_wstring(contadorScore) + L"/" + to_wstring(tamanho) + L" points");
                     else if (contadorScore >= ((tamanho / 2) + 1) && contadorScore < tamanho)
-                      text.setString(L"  Você foi muito bem,\nporém pode ser melhor!\n Você acertou " + to_wstring(contadorScore) + L"/" + to_wstring(tamanho) + L" pontos");
+                      text.setString(L"  Vous vous êtes bien débrouillé,\n mais vous pouvez faire mieux.!\n Vous avez marqué des " + to_wstring(contadorScore) + L"/" + to_wstring(tamanho) + L" points");
                     else if (contadorScore == tamanho)
-                      text.setString(L"Você gabaritou, parabéns!\n Você acertou " + to_wstring(contadorScore) + L"/" + to_wstring(tamanho) + L" pontos");
+                      text.setString(L"Vous vous êtes très bien débrouillé !\n Félicitations!\n Vous avez marqué des " + to_wstring(contadorScore) + L"/" + to_wstring(tamanho) + L" points");
                   }
                 }
               }
@@ -440,12 +522,12 @@ void executarJogoAntigo(sf::RenderWindow &window, bool &modoLivrosCaindo, Databa
 
               // Mostrando novamente as informações do livro
               text.setString(
-                  L"Hmmm, temos aqui o livro\n" +
-                  livroAtual.getNome() +
-                  L"\n escrito por " +
-                  livroAtual.getAutor() +
-                  L" em " +
-                  to_wstring(livroAtual.getAnoLancamento()));
+                L"Hmmm, on a ici le livre\n" +
+                livroAtual.getNome() +
+                L"\n écrit par " +
+                livroAtual.getAutor() +
+                L" en " +
+                to_wstring(livroAtual.getAnoLancamento()));
 
               timer = 0;
             }
@@ -462,7 +544,6 @@ void executarJogoAntigo(sf::RenderWindow &window, bool &modoLivrosCaindo, Databa
           botao_quimica.release();
           botao_arte.release();
           botao_sair.release();
-          botao_jogarNovamente.release();
           botao_jogo1.release();
           botao_jogo2.release();
           break;
@@ -487,7 +568,8 @@ void executarJogoAntigo(sf::RenderWindow &window, bool &modoLivrosCaindo, Databa
       window.draw(dialogo);
       window.draw(text);
       window.draw(botao_sair);
-      window.draw(botao_jogarNovamente);
+      window.draw(botao_jogo1);
+      window.draw(botao_jogo2);
       window.display();
     }
     else
@@ -512,7 +594,7 @@ void executarJogoAntigo(sf::RenderWindow &window, bool &modoLivrosCaindo, Databa
   }
 }
 
-void executarLivrosCaindo(sf::RenderWindow& window, DatabaseConnection db) {
+int executarLivrosCaindo(sf::RenderWindow& window, DatabaseConnection db) {
   sf::Sprite background;
   sf::Texture bgTexture;
   sf::Clock clock;
@@ -522,11 +604,11 @@ void executarLivrosCaindo(sf::RenderWindow& window, DatabaseConnection db) {
   Cesta c;
 
   Livro livroCair = getLivroAleatorio(db);
-  float fallSpeed = 0.5f; // Velocidade de queda (pixels por segundo)
+  float fallSpeed = 0.2f; // Velocidade de queda (pixels por segundo)
   livroCair.setVelocidadeQueda(fallSpeed);
 
   std::vector<Cesta> todasCestas = cestita.getCesta();
-  std::vector<Cesta> cestaJogo = cestita.escolherCestasJogo(todasCestas);
+  std::vector<Cesta> cestaJogo = cestita.escolherCestasJogo(window, todasCestas);
 
   // Carregar a fonte
   sf::Font fonte;
@@ -578,7 +660,7 @@ void executarLivrosCaindo(sf::RenderWindow& window, DatabaseConnection db) {
     
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::C)) {
-      cestaJogo = cestita.escolherCestasJogo(todasCestas);
+      cestaJogo = cestita.escolherCestasJogo(window, todasCestas);
     }
     
 
@@ -589,6 +671,8 @@ void executarLivrosCaindo(sf::RenderWindow& window, DatabaseConnection db) {
     // Atualizar o tempo
     float deltaTime = clock.restart().asSeconds();
 
+    int game_continue = 1;
+
     if (!bookLanded)  {
       // Usar a função mover e cair do Livro
       livroCair.mover(window);
@@ -596,16 +680,18 @@ void executarLivrosCaindo(sf::RenderWindow& window, DatabaseConnection db) {
       //std::wcout << L"Posicao: " << livroCair.getShape().getPosition().y + livroCair.getShape().getSize().y << std::endl;
       // Verificar se o livro tocou o chão
       if (livroCair.getShape().getPosition().y + livroCair.getShape().getSize().y >= (cestaJogo[0].getShape().getPosition().y + cestaJogo[0].getShape().getSize().y)){
-          jogo.verificarLivroNaCesta(livroCair, cestaJogo, jogo, fallSpeed, pontos);
+          game_continue = jogo.verificarLivroNaCesta(livroCair, cestaJogo, jogo, fallSpeed, pontos);
           bookLanded = true; // Parar o movimento
           livroCair.getShape().setPosition(livroCair.getShape().getPosition().x, window.getSize().y - livroCair.getShape().getSize().y);// Ajustar no chão
           showBookInfo = true;
           infoClock.restart();
           livroCair = getLivroAleatorio(db); // Novo livro
-          fallSpeed +=0.2f;
+          fallSpeed +=0.05f;
           livroCair.setVelocidadeQueda(fallSpeed);
 
-
+          if (!game_continue){
+            return jogo.getPontuacao();
+          }
       }
 
     }

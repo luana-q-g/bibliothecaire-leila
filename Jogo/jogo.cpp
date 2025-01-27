@@ -22,7 +22,7 @@ void Jogo::setPontuacao(int novaPontuacao) {
     pontuacao = novaPontuacao;
 }
 
-void Jogo::verificarLivroNaCesta(const Livro& livro,  std::vector<Cesta>& cestas, Jogo& jogo1, float& queda,int& pontosconsec) {
+int Jogo::verificarLivroNaCesta(const Livro& livro,  std::vector<Cesta>& cestas, Jogo& jogo1, float& queda,int& pontosconsec) {
     int x;
     for (Cesta& cesta : cestas) {
     
@@ -43,7 +43,7 @@ void Jogo::verificarLivroNaCesta(const Livro& livro,  std::vector<Cesta>& cestas
                 jogo1.setPontuacao(jogo1.getPontuacao() + 1);
                 pontosconsec++;
                 std::wcout << L"SCORE" << std::endl;
-                std::wcout << L"Velocidade atual: " << pontosconsec << std::endl;
+                std::wcout << L"Velocidade atual: " << queda << std::endl;
 
                 if (pontosconsec == 2 && jogo1.getPontuacao() > 10){
                     x = jogo1.getPontuacao() / 10;
@@ -61,16 +61,15 @@ void Jogo::verificarLivroNaCesta(const Livro& livro,  std::vector<Cesta>& cestas
                 std::wcout << L"Velocidade atual: " << queda << std::endl;
                 pontosconsec = 0;
 
-                jogo1.setPontuacao(0);
-                queda = 0.5f;
-                break;
-                exit;
+                return 0;
 
             }
          // Sai do loop, pois o livro só pode interagir com uma cesta
         }
 
     }  
+
+    return 1;
 
 }
 

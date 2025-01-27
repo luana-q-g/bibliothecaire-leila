@@ -51,7 +51,7 @@ void DatabaseConnection::createTables(){
 
     sql_livro = "CREATE TABLE IF NOT EXISTS Livro("  \
     "id serial primary key not null," \
-    "nome varchar(60) not null," \
+    "nome varchar(100) not null," \
     "autor varchar(50)," \
     "editora varchar(20)," \
     "ano_lancamento int," \
@@ -107,58 +107,58 @@ void DatabaseConnection::populateCategories(){
 void DatabaseConnection::populateLivros(){
     string sql;
 
-    sql = "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Libras: conhecimento além dos sinais', 'Maria Cristina da Cunha', 'Litterature', 2011, 'Pearson');" \
-    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Comunicação e linguagem', 'Thelma de Carvalho Guimarães', 'Litterature', 2012, 'Pearson');" \
-    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Teoria da Literatura I', 'Pedro Paulo da Silva', 'Litterature', 2009, 'Pearson');" \
-    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Língua latina', 'Charlene Martins Miotti', 'Litterature', 2010, 'Pearson');";
+    sql = "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Libras: connaissance au-delà des signes', 'Maria Cristina da Cunha', 'Litterature', 2011, 'Pearson');" \
+    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Communication et langage', 'Thelma de Carvalho Guimarães', 'Litterature', 2012, 'Pearson');" \
+    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Théorie de la littérature I', 'Pedro Paulo da Silva', 'Litterature', 2009, 'Pearson');" \
+    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Langue latine', 'Charlene Martins Miotti', 'Litterature', 2010, 'Pearson');";
 
-    // Filosofia
-    sql = sql+"INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Introdução à Filosofia', 'João Mattar', 'Philosophie', 2010, 'Pearson');" \
-    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Ética', 'Maria Thereza Pompa Antunes', 'Philosophie', 2012, 'Pearson');" \
-    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Correntes modernas de filosofia', 'José Ferraz Neto', 'Philosophie', 2013, 'Pearson');" \
-    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Genealogia da Mora', 'Friedrich Nietzsche', 'Philosophie', 1887, 'Vozes');";
+    // Philosophie
+    sql = sql+"INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Introduction à la philosophie', 'João Mattar', 'Philosophie', 2010, 'Pearson');" \
+    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Éthique', 'Maria Thereza Pompa Antunes', 'Philosophie', 2012, 'Pearson');" \
+    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Courants modernes de philosophie', 'José Ferraz Neto', 'Philosophie', 2013, 'Pearson');" \
+    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Généalogie de la morale', 'Friedrich Nietzsche', 'Philosophie', 1887, 'Vozes');";
 
-    // Geografia
-    sql = sql+"INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Hidrologia', 'Diego Barreto de Oliveira', 'Geographie', 2015, 'Pearson');" \
-    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Espaço Geográfico: ensino e representação', 'Rosangela Doin de Almeida', 'Geographie', 1989, 'Contexto');" \
-    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Pensamento geográfico brasileiro', 'Ruy Moreira', 'Geographie', 2008, 'Contexto');" \
-    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Globalização e espaço geográfico', 'Eustáquio de Sene', 'Geographie', 2004, 'Contexto');";
+    // Géographie
+    sql = sql+"INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Hydrologie', 'Diego Barreto de Oliveira', 'Geographie', 2015, 'Pearson');" \
+    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Espace géographique: enseignement et représentation', 'Rosangela Doin de Almeida', 'Geographie', 1989, 'Contexto');" \
+    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Pensée géographique brésilienne', 'Ruy Moreira', 'Geographie', 2008, 'Contexto');" \
+    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Mondialisation et espace géographique', 'Eustáquio de Sene', 'Geographie', 2004, 'Contexto');";
 
-    // História
-    sql = sql+"INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('No Tempo das Especiarias: o império da pimenta e do açúcar', 'Fábio Pestana', 'Histoire', 2006, 'Contexto');" \
-    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Dicionário de Datas da História do Brasi', 'Circe Bittencour', 'Histoire', 2007, 'Contexto');" \
-    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('História do Café', 'Ana Luiza Martins', 'Histoire', 2008, 'Contexto');" \
-    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('As Primeiras Civilizações', 'Jaime Pinsky', 'Histoire', 2011, 'Contexto');";
+    // Histoire
+    sql = sql+"INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('À l époque des épices: l empire du poivre et du sucre', 'Fábio Pestana', 'Histoire', 2006, 'Contexto');" \
+    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Dictionnaire des dates de l histoire du Brésil', 'Circe Bittencour', 'Histoire', 2007, 'Contexto');" \
+    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Histoire du café', 'Ana Luiza Martins', 'Histoire', 2008, 'Contexto');" \
+    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Les premières civilisations', 'Jaime Pinsky', 'Histoire', 2011, 'Contexto');";
 
-    // Matemática
-    sql = sql+"INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Geometria Analítica: Um Tratamento Vetoria', 'Ivan de Camargo', 'Mathematiques', 2005, 'Pearson');" \
-    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Matemática financeira', 'André Wakamatsu', 'Mathematiques', 2018, 'Pearson');" \
-    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Métodos numéricos em equações diferenciais', 'Marina Vargas', 'Mathematiques', 2021, 'Intersaberes');" \
-    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Geometrias Não Euclidianas', 'Nelson Pereira', 'Mathematiques', 2020, 'Intersaberes');";
+    // Mathématiques
+    sql = sql+"INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Géométrie analytique: un traitement vectoriel', 'Ivan de Camargo', 'Mathematiques', 2005, 'Pearson');" \
+    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Mathématiques financières', 'André Wakamatsu', 'Mathematiques', 2018, 'Pearson');" \
+    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Méthodes numériques en équations différentielles', 'Marina Vargas', 'Mathematiques', 2021, 'Intersaberes');" \
+    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Géométries non euclidiennes', 'Nelson Pereira', 'Mathematiques', 2020, 'Intersaberes');";
 
-    // Psicologia
-    sql = sql+"INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Teorias da Personalidade', 'Howard S. Friedman', 'Psychologie', 2003, 'Pearson');" \
-    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Introdução à Psicologia', 'Charles G. Morris', 'Psychologie', 2004, 'Pearson');" \
-    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('A Psicanálise nas Tramas da Cidade', 'Bernardo Tanis', 'Psychologie', 2009, 'Pearson');" \
-    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Burnout: quando o trabalho ameaça o bem-estar do trabalhador', 'Ana Maria Benevides Pereira', 'Psychologie', 2014, 'Pearson');";
+    // Psychologie
+    sql = sql+"INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Théories de la personnalité', 'Howard S. Friedman', 'Psychologie', 2003, 'Pearson');" \
+    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Introduction à la psychologie', 'Charles G. Morris', 'Psychologie', 2004, 'Pearson');" \
+    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('La psychanalyse dans les trames de la ville', 'Bernardo Tanis', 'Psychologie', 2009, 'Pearson');" \
+    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Burnout: quand le travail menace le bien-être des travailleurs', 'Ana Maria Benevides Pereira', 'Psychologie', 2014, 'Pearson');";
 
-    // Informática
-    sql = sql+"INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Aprenda Programação Orientada a Objetos em 21 dias', 'Anthony Sintes', 'Informatique', 2002, 'Pearson');" \
-    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Treinamento em Linguagem C++: módulo 1', 'Victorine Viviane Mizrahi', 'Informatique', 1996, 'Pearson');" \
-    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Manual Completo do Linux: guia do administrador', 'Evi Nemeth', 'Informatique', 2004, 'Pearson');" \
-    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Compiladores: princípios, técnicas e ferramentas', 'Alfred V. Alho', 'Informatique', 2007, 'Pearson');";
+    // Informatique
+    sql = sql+"INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Apprenez la programmation orientée objet en 21 jours', 'Anthony Sintes', 'Informatique', 2002, 'Pearson');" \
+    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Formation en langage C++: module 1', 'Victorine Viviane Mizrahi', 'Informatique', 1996, 'Pearson');" \
+    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Manuel complet de Linux: guide de l administrateur', 'Evi Nemeth', 'Informatique', 2004, 'Pearson');" \
+    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Compilateurs: principes, techniques et outils', 'Alfred V. Alho', 'Informatique', 2007, 'Pearson');";
 
-    // Química
-    sql = sql+"INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Química Orgânica', 'Bianca Sandrino', 'Chimie', 2020, 'Intersaberes');" \
-    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Química Quântica: Origens e Aplicações', 'Liziane Barbara Bugalski', 'Chimie', 2019, 'Intersaberes');" \
-    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Manual de Ar Comprimido e Gases', 'John P. Rollins', 'Chimie', 2003, 'Pearson');" \
-    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Estudos de eletroquímica: reações químicas e energia', 'Ana Luiza Lorenzen', 'Chimie', 2017, 'Intersaberes');";
+    // Chimie
+    sql = sql+"INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Chimie organique', 'Bianca Sandrino', 'Chimie', 2020, 'Intersaberes');" \
+    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Chimie quantique: origines et applications', 'Liziane Barbara Bugalski', 'Chimie', 2019, 'Intersaberes');" \
+    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Manuel de l air comprimé et des gaz', 'John P. Rollins', 'Chimie', 2003, 'Pearson');" \
+    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Études d électrochimie: réactions chimiques et énergie', 'Ana Luiza Lorenzen', 'Chimie', 2017, 'Intersaberes');";
 
-    // Arte
-    sql = sql+"INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Estética e história da arte', 'Humberta Gomes Machado Porto', 'Art', 2016, 'Pearson');" \
-    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('História do cinema mundia', 'Fernando Mascarello', 'Art', 2014, 'Papirus');" \
-    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Beethoven: as muitas faces de um gênio', 'João Mauricio Galindo', 'Art', 2019, 'Contexto');" \
-    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('O cinema de Quentin Tarantino', 'Mauro Baptista', 'Art', 2018, 'Papirus');";
+    // Art
+    sql = sql+"INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Esthétique et histoire de l art', 'Humberta Gomes Machado Porto', 'Art', 2016, 'Pearson');" \
+    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Histoire du cinéma mondial', 'Fernando Mascarello', 'Art', 2014, 'Papirus');" \
+    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Beethoven: les nombreuses facettes d un génie', 'João Mauricio Galindo', 'Art', 2019, 'Contexto');" \
+    "INSERT INTO Livro (nome, autor, nome_categoria, ano_lancamento, editora) values('Le cinéma de Quentin Tarantino', 'Mauro Baptista', 'Art', 2018, 'Papirus');";
 
     query(sql);
 }
