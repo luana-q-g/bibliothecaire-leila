@@ -508,7 +508,7 @@ void executarLivrosCaindo(sf::RenderWindow& window, DatabaseConnection db) {
   sf::Clock clock;
   Jogo jogo;
   tipoCesta cestita(db);
-  int pontos;
+  int pontos = 0;
 
   Livro livroCair = getLivroAleatorio(db);
   float fallSpeed = 0.5f; // Velocidade de queda (pixels por segundo)
@@ -545,12 +545,12 @@ void executarLivrosCaindo(sf::RenderWindow& window, DatabaseConnection db) {
     while (window.pollEvent(event)) {
       if (event.type == sf::Event::Closed)
         window.close();
-
-      if (sf::Keyboard::isKeyPressed(sf::Keyboard::C)) {
-        cestaJogo = cestita.escolherCestasJogo(todasCestas);
-        cestita.printCestaJogo(cestaJogo);
-      }
     }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::C)) {
+      cestaJogo = cestita.escolherCestasJogo(todasCestas);
+    }
+    
 
     setBackground("./interface/assets/imagens/background.jpg", background, bgTexture, window);
 

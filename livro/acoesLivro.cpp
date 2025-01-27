@@ -106,7 +106,7 @@ Pilha<Livro> geraPilhaLivros(DatabaseConnection db, int tamanho){
   res = db.showQuery("SELECT l.nome, l.autor, l.nome_categoria, l.ano_lancamento, l.editora, c.cor " \
   "FROM Livro l JOIN Categoria c ON l.nome_categoria = c.nome WHERE id in ("+id_livros+");");
 
-  wstring caminhoTextura = L"./interface/assets/imagens/livro.png";
+
 
   for (const auto& row : res) {
     Livro l;
@@ -127,34 +127,47 @@ Pilha<Livro> geraPilhaLivros(DatabaseConnection db, int tamanho){
 
 // Retorna um livro aleatório
 Livro getLivroAleatorio(DatabaseConnection db) {
+    // Caminho para a textura do livro
+    std::string caminhoTextura = "./interface/assets/imagens/livro.png";
+
+    // Consulta para obter o número total de livros no banco de dados
     result res = db.showQuery("SELECT COUNT(*) FROM Livro;");
     int num_livros = res[0][0].as<int>();
 
-    // configure random numbers
-    random_device rd;
-    mt19937 gen(rd());
-    uniform_int_distribution<> distr(1, num_livros);
+    if (num_livros == 0) {
+        throw std::runtime_error("Nenhum livro disponível no banco de dados.");
+    }
+
+    // Configuração de números aleatórios
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> distr(1, num_livros);
 
     int random_number = distr(gen);
 
-    res = db.showQuery("SELECT l.nome, l.autor, l.nome_categoria, l.ano_lancamento, l.editora, c.cor " \
-    "FROM Livro l JOIN Categoria c ON l.nome_categoria = c.nome WHERE l.id = "+to_string(random_number)+";");
+    // Consulta para obter os detalhes do livro aleatório
+    res = db.showQuery(
+        "SELECT l.nome, l.autor, l.nome_categoria, l.ano_lancamento, l.editora, c.cor "
+        "FROM Livro l JOIN Categoria c ON l.nome_categoria = c.nome WHERE l.id = " +
+        std::to_string(random_number) + ";");
 
-    string caminhoTextura = "./interface/assets/imagens/livro.png";
-
+    // Criação do objeto Livro
     Livro l;
+    if (res.empty()) {
+        throw std::runtime_error("Livro não encontrado no banco de dados.");
+    }
+
     for (const auto& row : res) {
-        l.setNome(converteString(row[0]));
-        l.setAutor(converteString(row[1]));
-        l.setCategoria(converteString(row[2]));
-        l.setAnoLancamento(row[3].as<int>());
-        l.setEditora(converteString(row[4]));
-        string cor = row[5].as<string>();
-        l.setCor(getColorFromString(cor));
+        l.setNome(converteString(row[0]));           // Configura o nome
+        l.setAutor(converteString(row[1]));         // Configura o autor
+        l.setCategoria(converteString(row[2]));     // Configura a categoria
+        l.setAnoLancamento(row[3].as<int>());       // Configura o ano de lançamento
+        l.setEditora(converteString(row[4]));       // Configura a editora
+        std::string cor = row[5].as<std::string>(); // Obtém a cor como string
+        l.setCor(getColorFromString(cor));          // Configura a cor do livro
 
-        // Configura a textura do shape usando um método público
+        // Configura a textura do livro
         l.setTextura(caminhoTextura);
-
     }
 
     // Retorna o livro selecionado

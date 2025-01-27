@@ -23,7 +23,9 @@ void Jogo::setPontuacao(int novaPontuacao) {
 }
 
 void Jogo::verificarLivroNaCesta(const Livro& livro,  std::vector<Cesta>& cestas, Jogo& jogo1, float& queda,int& pontosconsec) {
+    int x;
     for (Cesta& cesta : cestas) {
+    
         // Verifica colisão com a cesta
         sf::Vector2f livroCenter = livro.getShape().getPosition() + (livro.getShape().getSize() / 2.0f);
         sf::Vector2f cestaCenter = cesta.getShape().getPosition() + (cesta.getShape().getSize() / 2.0f);
@@ -43,31 +45,32 @@ void Jogo::verificarLivroNaCesta(const Livro& livro,  std::vector<Cesta>& cestas
                 std::wcout << L"SCORE" << std::endl;
                 std::wcout << L"Velocidade atual: " << queda << std::endl;
 
-                if (jogo1.getPontuacao() >= 5 && pontosconsec == 2){
-                    queda -= 0.4f;
+
+
+                if (pontosconsec == 2 && jogo1.getPontuacao() > 10){
+                    x = jogo1.getPontuacao() / 10;
+                    queda = queda - (0.4f * x);
+                    if (queda <= 0){
+                        queda = 0.5f;
+                    }
                     std::wcout << L"Velocidade reduzida! Velocidade atual: " << queda << std::endl;
                     pontosconsec = 0;
 
-                }
-                else if (jogo1.getPontuacao() >= 20 && pontosconsec == 2){
-                    queda -= 1.0f;
-                    if (queda == 0.0f)
-                    {
-                        queda = 0.5f;
-                    }
-                    std::wcout << L"Velocidade reduzida 20! Velocidade atual: " << queda << std::endl;
-                    pontosconsec = 0;
                 }
             } 
             else {
                 std::wcout << L"Livro caiu na cesta errada." << std::endl;
                 std::wcout << L"Velocidade atual: " << queda << std::endl;
-                pontosconsec = 0;
+                jogo1.setPontuacao(0);
+                queda = 0.5f;
+                break;
+                exit;
 
             }
          // Sai do loop, pois o livro só pode interagir com uma cesta
         }
-    }   
+
+    }  
 }
 
 
