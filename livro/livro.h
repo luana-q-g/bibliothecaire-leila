@@ -35,6 +35,7 @@ public:
     std::wstring getEditora() const;
     sf::RectangleShape getShape() const;
     sf::Texture getTextura() const;
+    sf::Color getCor() const;
 
     // Setters
     void setNome(std::wstring _nome);

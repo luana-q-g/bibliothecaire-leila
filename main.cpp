@@ -519,6 +519,7 @@ void executarLivrosCaindo(sf::RenderWindow& window, DatabaseConnection db) {
   Jogo jogo;
   tipoCesta cestita(db);
   int pontos = 0;
+  Cesta c;
 
   Livro livroCair = getLivroAleatorio(db);
   float fallSpeed = 0.5f; // Velocidade de queda (pixels por segundo)
@@ -547,13 +548,34 @@ void executarLivrosCaindo(sf::RenderWindow& window, DatabaseConnection db) {
   background.setColor(sf::Color::Black);
 
   bool bookLanded = false;
+  bool showBookInfo = true;
+  sf::Clock infoClock;
+
   while (window.isOpen()) {
     sf::Event event;
 
+  
     while (window.pollEvent(event)) {
       if (event.type == sf::Event::Closed)
         window.close();
     }
+
+      if (showBookInfo) {
+            // Exibir a tela preta com o nome do livro
+        window.clear(sf::Color(210, 180, 140)); 
+        jogo.desenharNomeLivro(window, livroCair, fonte);
+        window.display();
+
+        // Exibir por 3 segundos antes de continuar
+        if (infoClock.getElapsedTime().asSeconds() >= 3.f) {
+            showBookInfo = false;
+            infoClock.restart();
+            livroCair.setVelocidadeQueda(fallSpeed); // Configura a velocidade novamente
+            bookLanded = false;
+        }
+        continue;
+    }
+    
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::C)) {
       cestaJogo = cestita.escolherCestasJogo(todasCestas);
@@ -573,32 +595,29 @@ void executarLivrosCaindo(sf::RenderWindow& window, DatabaseConnection db) {
       livroCair.cair();
       //std::wcout << L"Posicao: " << livroCair.getShape().getPosition().y + livroCair.getShape().getSize().y << std::endl;
       // Verificar se o livro tocou o chão
-      if (livroCair.getShape().getPosition().y + livroCair.getShape().getSize().y >= window.getSize().y) {
+      if (livroCair.getShape().getPosition().y + livroCair.getShape().getSize().y >= (cestaJogo[0].getShape().getPosition().y + cestaJogo[0].getShape().getSize().y)){
           jogo.verificarLivroNaCesta(livroCair, cestaJogo, jogo, fallSpeed, pontos);
           bookLanded = true; // Parar o movimento
-          livroCair.getShape().setPosition(
-              livroCair.getShape().getPosition().x, 
-              window.getSize().y - livroCair.getShape().getSize().y);// Ajustar no chão
+          livroCair.getShape().setPosition(livroCair.getShape().getPosition().x, window.getSize().y - livroCair.getShape().getSize().y);// Ajustar no chão
+          showBookInfo = true;
+          infoClock.restart();
+          livroCair = getLivroAleatorio(db); // Novo livro
+          fallSpeed +=0.2f;
+          livroCair.setVelocidadeQueda(fallSpeed);
+
+
       }
+
     }
 
-    window.clear();
-    // Renderizar o livro
-    window.draw(background);
-    window.draw(textoPontuacao);
-    window.draw(livroCair.getShape());
-    for (auto& cesta : cestaJogo) {
-      window.draw(cesta.getShape());
-    }
-    window.display();
+  // Renderizar o livro e elementos do jogo
+    if (!showBookInfo) {
+      window.draw(background);
+      window.draw(textoPontuacao);
+      window.draw(livroCair.getShape());
+      c.desenharCestasComCategorias(window, cestaJogo, fonte);
+      window.display();
 
-    // Finalizar o jogo (simples)
-    if (bookLanded) {
-      sf::sleep(sf::seconds(1)); // Pausa de 2 segundos antes de sair
-      fallSpeed += 0.2;
-      livroCair = getLivroAleatorio(db); // Novo livro
-      livroCair.setVelocidadeQueda(fallSpeed); // Configura a velocidade novamente
-      bookLanded = false; // Reseta o estado
     }
   }
 }

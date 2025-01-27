@@ -34,6 +34,7 @@ public:
     void setCategoria(std::wstring novaCategoria);
     void setTextura(sf::Texture& novaTextura);
     void setPosition(const sf::Vector2f& novaPosicao);
+    void desenharCestasComCategorias(sf::RenderWindow& window, const std::vector<Cesta>& cestas, sf::Font& fonte);
 };
 
 #endif // CESTA_H
