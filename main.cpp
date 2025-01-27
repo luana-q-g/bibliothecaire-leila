@@ -574,6 +574,7 @@ void executarLivrosCaindo(sf::RenderWindow& window, DatabaseConnection db) {
       }
     }
 
+    window.clear();
     // Renderizar o livro
     window.draw(background);
     window.draw(textoPontuacao);
